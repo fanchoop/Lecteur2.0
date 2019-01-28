@@ -1,0 +1,30 @@
+doctype html
+html(lang='fr')
+    head
+        meta(charset='UTF-8')
+        title Page d'administration
+        link(rel='stylesheet', type='text/css', href='/stylesheets/pageAdmin.css')
+    body
+        .page-admin
+            header
+                img(src='/images/_icons/logoWIP.png', alt='Logo WIP')
+                span.title Administration
+                span.version Version :
+                    span.num 0.1.2
+            .body
+                nav
+                    ul
+                        li
+                            a(href='/admin')
+                                .tab Tableau de bord
+                        li
+                            a(href='/admin/list')
+                                .tab Liste des musiques
+                        li
+                            a(href='/admin/add')
+                                .tab Ajouter une musique
+
+                section.section
+                    .content
+                        block content
+
