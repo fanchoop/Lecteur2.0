@@ -17,5 +17,10 @@
 			return DAO::queryBdd('INSERT INTO Photo (photoId, nomFichier, description, catId) VALUES (NULL,?,?,?)',[$nomFichier,$description,$catId]);
 		}
 	}
+
+// IMPORTANT : lors de l'instance de la classe :
+// $cat = new exemple(DEBUG);
+// const DEBUG = true; // production : false; dev : true
+// 
 ?>
 
