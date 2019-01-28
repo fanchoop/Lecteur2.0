@@ -4,8 +4,8 @@
 
 var express = require('express');
 var router = express.Router();
-var Playlist = require('../bin/db-connection').database.Playlist;
-var Music = require('../bin/db-connection').database.Musique;
+var Playlist = require('../../bin/db-connection').database.Playlist;
+var Music = require('../../bin/db-connection').database.Musique;
 
 
 // ========== GET ==========

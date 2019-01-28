@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-var Music = require('../bin/db-connection').database.Musique;
+var Music = require('../../bin/db-connection').database.Musique;
 
 /* GET music listing. */
 router.get('/', function (req, res) {

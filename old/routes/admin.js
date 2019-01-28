@@ -6,7 +6,7 @@ var mm = require('music-metadata');
 var express = require('express');
 var router = express.Router();
 var shell = require('shelljs');
-var Music = require('../bin/db-connection').database.Musique;
+var Music = require('../../bin/db-connection').database.Musique;
 
 var pathMP3 = 'public/musics/';
 var pathCover = 'public/images/';
