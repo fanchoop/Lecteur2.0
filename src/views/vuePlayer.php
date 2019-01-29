@@ -8,8 +8,8 @@
     <meta name="author" content="Work in Progress">
     <title>Fasma</title>
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" media="screen and (min-width: 600px)" href="../../public/stylesheets/player.css">
-    <link rel="stylesheet" media="screen and (max-width: 600px)" href="../../public/stylesheets/player_mobile.css">
+    <link rel="stylesheet" media="screen and (min-width: 600px)" href="public/stylesheets/player.css">
+    <link rel="stylesheet" media="screen and (max-width: 600px)" href="public/stylesheets/player_mobile.css">
 	<style>body{margin:0}</style>
   </head>
   <body>
