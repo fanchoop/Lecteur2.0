@@ -1,5 +1,5 @@
 <?php
-require('../models/Music.php');
+require('src/models/Music.php');
 if (isset($_GET['action'])){
 
     if (isset($_GET['id'])) {
