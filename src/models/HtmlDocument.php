@@ -28,7 +28,7 @@ class HtmlDocument
             throw new Exception("HtmlDocument déjà instancié");
         }
 
-        $this->mainFilePath = $fileName;
+        $this->mainFilePath = ucfirst($fileName);
         $this->mainFilePath = $this->getPath();
         $this->headers = [];
         $this->mainContent = null;
