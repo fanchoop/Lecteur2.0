@@ -1,4 +1,5 @@
 <?php
+require('../models/Music.php');
 if (isset($_GET['action'])){
 
     if (isset($_GET['id'])) {
@@ -24,7 +25,7 @@ if (isset($_GET['action'])){
     }
 
 }elseif(isset($_GET['id'])) {
-    header('Location: admin');
+    
 }
 
 include "src/views/administration.php";
