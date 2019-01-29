@@ -11,10 +11,37 @@ use src\models\HtmlDocument;
  */
 final class HtmlDocumentTest extends TestCase
 {
+    private static $html;
+
     /**
-     * @cover ::getPath
+     * @beforeClass
      */
-    public function testGetPathWithCompletPath(){
-        $this->assertTrue(true);
+    public function instanceHtml()
+    {
+        self::$html = new HtmlDocument("test/php/ctrlTest.php");
+    }
+
+    /**
+     * @cover ::__construct
+     * @doesNotPerformAssertions
+     */
+    public function testConstruct(){
+        self::$html->render();
+    }
+
+    /**
+     * @cover ::__construct
+     * @expectedException Exception
+     */
+    public function testSingleton(){
+        self::$html = new HtmlDocument("test/php/ctrlTest.php");
+    }
+
+    /**
+     * @cover ::getCurrentInstance
+     */
+    public function testGetCurrentInstance(){
+
+        $this->assertEquals(self::$html, HtmlDocument::getCurrentInstance());
     }
 }

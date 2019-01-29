@@ -2,6 +2,8 @@
 
 namespace src\models;
 
+use PHPUnit\Runner\Exception;
+
 /**
  * Class HtmlDocument
  * Cette class génére un code HTML.
@@ -20,7 +22,7 @@ class HtmlDocument
     {
         //Singleton
         if( isset(self::$currentInstance) ){
-            throw new \http\Exception\BadMethodCallException("HtmlDocument déjà instancié");
+            throw new Exception("HtmlDocument déjà instancié");
         }
 
         $this->mainFilePath = $fileName;
@@ -69,11 +71,11 @@ class HtmlDocument
     private function getPath() : string
     {
         $posCtrl = strpos($this->mainFilePath, "ctrl");
-        if(!$posCtrl){
-            return $this->mainFilePath;
+        if($posCtrl === false){
+            return "src/controllers/ctrl".$this->mainFilePath.".php";
         }
         else{
-            return "src/controllers/ctrl".$this->mainFilePath.".php";
+            return $this->mainFilePath;
         }
 
     }

@@ -10,9 +10,9 @@
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="tests/_reports/logs/clover.xml"/>
-        <log type="junit" target="tests/_reports/logs/junit-logfile.xml"/>
-        <log type="coverage-html" target="tests/_reports/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
-        <log type="testdox-text" target="tests/_reports/testdox/executed.txt"/>
+        <log type="coverage-clover" target="test/_reports/logs/clover.xml"/>
+        <log type="junit" target="test/_reports/logs/junit-logfile.xml"/>
+        <log type="coverage-html" target="test/_reports/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+        <log type="testdox-text" target="test/_reports/testdox/executed.txt"/>
     </logging>
 </phpunit>
