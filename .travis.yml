@@ -1,0 +1,38 @@
+dist: trusty
+sudo: true
+language: php
+
+git:
+  depth: 1000
+
+php:
+  - 7.2
+
+branches:
+  only:
+    master
+
+install:
+  - php composer.phar install --dev --no-interaction
+  - sudo add-apt-repository ppa:chris-needham/ppa -y
+  - sudo apt-get update -y
+  - sudo apt-get install audiowaveform -y
+  - sudo apt-get install mediainfo -y
+
+addons:
+  sonarcloud:
+    organization: "fanchoop-github"
+    token:
+      secure: "66880320fa3e2497d0c5e9eea13f7c5766f159f2"
+      
+
+jdk:
+  - oraclejdk8
+
+script:
+  - ./vendor/bin/phpunit
+  - cd ./tests/javascript/
+  - npm install
+  - npm test
+  - cd ../../
+  - sonar-scanner
