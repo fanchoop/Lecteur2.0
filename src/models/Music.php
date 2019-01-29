@@ -1,6 +1,5 @@
 <?php
 /**
-
     "/" Player
     "/embed" Code partagaeble
     "/findAll" Retourne toute les musiques
