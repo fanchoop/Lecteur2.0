@@ -1,34 +1,30 @@
 <?php
-        if (isset($_GET['page'])) {
-            if (isset($_GET['id'])) {
-                switch($_GET['page']){
-                    case $_GET['page'] == 'put':
-                        header('Location: admin-add.php?id='+ $_GET['id']);
-                        exit();
-                        break;
-                    default:
-                        header('Location: /views/administration.php');
-                        exit();    
-                }
-            }
-            else {
-                switch($_GET['page']) {
-                    case $_GET['page'] == 'add':
-                        header('Location: ../views/admin-add.php');
-                        exit();
-                        break;
-                    case $_GET['page'] == 'list':
-                        header('Location: ../views/admin-list.php');
-                        exit();
-                        break;
-                    default:
-                        header('Location: ../views/administration.php');
-                        exit();   
-                }
-            }
-            
-        }elseif(isset($_GET['id'])) {
-            header('Location: admin');
+if (isset($_GET['action'])){
+
+    if (isset($_GET['id'])) {
+        switch($_GET['action']){
+            case $_GET['action'] == 'put':
+                include_once "src/views/admin-update.php";
+                break;
+            default:
+                include_once "src/views/admininistration.php";
         }
-        include "../views/administration.php";
-    ?>
+    }
+    else {
+        switch($_GET['action']) {
+            case $_GET['action'] == 'add':
+                include_once "src/views/admin-add.php";
+                break;
+            case $_GET['action'] == 'list':
+                include_once "src/views/admin-list.php";
+                break;
+            default:
+                include_once "src/views/admininistration.php";
+        }
+    }
+
+}elseif(isset($_GET['id'])) {
+    header('Location: admin');
+}
+
+include "src/views/administration.php";

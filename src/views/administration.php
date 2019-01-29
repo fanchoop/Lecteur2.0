@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Page d'administration</title>
-  <link rel="stylesheet" type="text/css" href="../../public/stylesheets/pageAdmin.css">
+  <link rel="stylesheet" type="text/css" href="public/stylesheets/pageAdmin.css">
 </head>
     
     <body>
