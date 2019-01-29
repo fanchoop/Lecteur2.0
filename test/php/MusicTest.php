@@ -10,14 +10,14 @@ use src\models\Music;
  */
 final class MusicTest extends TestCase
 {
-    private $music;
+    private static $music;
 
     /**
      * @beforeClass
      */
     public static function setUpNeeds(){
 
-        $music = new Music("J'ai mal au mic","Oxmo Puccino");
+        self::$music = new Music("J'ai mal au mic","Oxmo Puccino");
 
     }
 
@@ -26,7 +26,7 @@ final class MusicTest extends TestCase
      */
     public function testGetId(){
 
-        $this->assertSame(0, $music->getId());
+        $this->assertSame(0, self::$music->getId());
         
     }
 
@@ -35,8 +35,8 @@ final class MusicTest extends TestCase
      */
     public function testSetId(){
 
-        $music->setId(42);
-        $this->assertSame(42, $music->getId());
+        self::$music->setId(42);
+        $this->assertSame(42, self::$music->getId());
 
     }
 
@@ -45,7 +45,7 @@ final class MusicTest extends TestCase
      */
     public function testGetTitle(){
 
-        $this->assertSame("J'ai mal au mic", $music->getTitle());
+        $this->assertSame("J'ai mal au mic", self::$music->getTitle());
     }
 
     /**
@@ -53,8 +53,8 @@ final class MusicTest extends TestCase
      */
     public function testSetTitle(){
 
-        $music->setTitle("Autre titre");
-        $this->assertSame("Autre titre", $music->getTitle());
+        self::$music->setTitle("Autre titre");
+        $this->assertSame("Autre titre", self::$music->getTitle());
 
     }
 
@@ -63,7 +63,7 @@ final class MusicTest extends TestCase
      */
     public function testGetArtist(){
 
-        $this->assertSame("Oxmo Puccino", $music->getArtist());
+        $this->assertSame("Oxmo Puccino", self::$music->getArtist());
     }
 
     /**
@@ -71,8 +71,8 @@ final class MusicTest extends TestCase
      */
     public function testSetArtist(){
 
-        $music->setArtist("Autre artiste");
-        $this->assertSame("Autre artiste", $music->getArtist());
+        self::$music->setArtist("Autre artiste");
+        $this->assertSame("Autre artiste", self::$music->getArtist());
 
     }
     

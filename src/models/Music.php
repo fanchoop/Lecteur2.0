@@ -17,6 +17,8 @@
     "/maj/removeViews/:id" Supprime une vue dans bdd
     "/remove/:id" Supprime une musique suivant l'id
 */
+namespace src\models;
+
 class Music {
 
     private $_id;
