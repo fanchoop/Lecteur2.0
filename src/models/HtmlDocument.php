@@ -1,5 +1,7 @@
 <?php
 
+namespace src\models;
+
 /**
  * Class HtmlDocument
  * Cette class génére un code HTML.
@@ -22,7 +24,7 @@ class HtmlDocument
         }
 
         $this->mainFilePath = $fileName;
-        $this->templateName = "default";
+        $this->mainFilePath = $this->getPath();
         $this->headers = [];
         $this->mainContent = null;
         $this->bodyContent = null;
@@ -33,7 +35,7 @@ class HtmlDocument
     public function parseMain()
     {
         ob_start();
-        include ("src/controllers/ctrl".$this->mainFilePath.".php");
+        include ($this->mainFilePath);
         $this->mainContent = ob_get_contents();
         ob_end_clean();
     }
@@ -62,5 +64,17 @@ class HtmlDocument
     public static function getCurrentInstance() : HtmlDocument
     {
         return self::$currentInstance;
+    }
+
+    private function getPath() : string
+    {
+        $posCtrl = strpos($this->mainFilePath, "ctrl");
+        if(!$posCtrl){
+            return $this->mainFilePath;
+        }
+        else{
+            return "src/controllers/ctrl".$this->mainFilePath.".php";
+        }
+
     }
 }
