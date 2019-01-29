@@ -27,5 +27,6 @@ if (isset($_GET['action'])){
 }elseif(isset($_GET['id'])) {
     
 }
-
-include "src/views/administration.php";
+else {
+    include "src/views/administration.php";
+}
