@@ -20,14 +20,14 @@
 <?php
     class Music {
 
-        private $_id : int;
-        private $_title : string;
-        private $_artist : string;
-        private $_album : string;
-        private $_genre : array;
-        private $_annee : int;
-        private $_like : int;
-        private $_view : int;
+        private $_id;
+        private $_title;
+        private $_artist;
+        private $_album;
+        private $_genre;
+        private $_annee;
+        private $_like;
+        private $_view;
 
         public function __construct($title,$artist){
 
