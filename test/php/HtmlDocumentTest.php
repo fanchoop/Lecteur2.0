@@ -16,7 +16,7 @@ final class HtmlDocumentTest extends TestCase
     /**
      * @beforeClass
      */
-    public function instanceHtml()
+    public static function setUpSomeHtml()
     {
         self::$html = new HtmlDocument("test/php/ctrlTest.php");
     }
@@ -26,7 +26,9 @@ final class HtmlDocumentTest extends TestCase
      * @doesNotPerformAssertions
      */
     public function testConstruct(){
+        ob_start();
         self::$html->render();
+        ob_end_clean();
     }
 
     /**
@@ -41,7 +43,14 @@ final class HtmlDocumentTest extends TestCase
      * @cover ::getCurrentInstance
      */
     public function testGetCurrentInstance(){
-
         $this->assertEquals(self::$html, HtmlDocument::getCurrentInstance());
+    }
+
+    /**
+     * @cover ::parseMain
+     */
+    public function testParseMain(){
+        $parse = self::$html->parseMain();
+        $this->assertSame("<html>...</html>", $parse);
     }
 }

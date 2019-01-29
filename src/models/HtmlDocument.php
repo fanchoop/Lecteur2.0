@@ -40,12 +40,12 @@ class HtmlDocument
         include ($this->mainFilePath);
         $this->mainContent = ob_get_contents();
         ob_end_clean();
+        return $this->mainContent;
     }
 
     public function render()
     {
-        $this->parseMain();
-        echo $this->mainContent;
+        echo $this->parseMain();
     }
 
     public function addHeader(string $html, int $position)

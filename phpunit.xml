@@ -4,6 +4,12 @@
     </testsuite>
 
     <filter>
+        <blacklist>
+            <directory suffix=".php"></directory>
+            <exclude>
+                <directory suffix=".php"></directory>
+            </exclude>
+        </blacklist>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src/models/</directory>
         </whitelist>
