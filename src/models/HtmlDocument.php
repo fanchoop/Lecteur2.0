@@ -28,7 +28,7 @@ class HtmlDocument
             throw new Exception("HtmlDocument déjà instancié");
         }
 
-        $this->mainFilePath = ucfirst($fileName);
+        $this->mainFilePath = $fileName;
         $this->mainFilePath = $this->getPath();
         $this->headers = [];
         $this->mainContent = null;
@@ -82,7 +82,7 @@ class HtmlDocument
     {
         $posCtrl = strpos($this->mainFilePath, "ctrl");
         if($posCtrl === false){
-            return "src/controllers/ctrl".$this->mainFilePath.".php";
+            return "src/controllers/ctrl".ucfirst($this->mainFilePath).".php";
         }
         else{
             return $this->mainFilePath;
