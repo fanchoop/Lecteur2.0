@@ -1,6 +1,7 @@
 <phpunit bootstrap="test/php/phpunit.php">
     <testsuite name="unit">
         <directory>test/php/</directory>
+        <exclude>test/php/ctrlTest.php</exclude>
     </testsuite>
 
     <filter>

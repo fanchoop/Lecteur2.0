@@ -102,14 +102,12 @@ class Music {
     //genre
 
     public function getGenre() : array {
-
         return $this->_genre;
-
     }
 
     public function setGenre($newGenre){
 
-        $this->_genre = array_push($this->_genre, $newGenre);
+        $this->_genre[] = $newGenre;
 
     }
 

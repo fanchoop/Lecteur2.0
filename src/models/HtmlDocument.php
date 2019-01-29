@@ -18,6 +18,9 @@ class HtmlDocument
     const FIRST = 0;
     const LAST = 1;
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(string $fileName)
     {
         //Singleton
@@ -50,15 +53,19 @@ class HtmlDocument
 
     public function addHeader(string $html, int $position)
     {
-        if($position === self::FIRST){
+        if($position === self::LAST){
             array_push($this->headers, $html);
         }
-        elseif ($position === self::LAST){
+        elseif ($position === self::FIRST){
             array_unshift($this->headers, $html);
         }
     }
 
-    public function getMainContent() : string
+    public function getHeader() : array {
+        return $this->headers;
+    }
+
+    public function getMainContent()
     {
         return $this->mainContent;
     }
@@ -68,11 +75,14 @@ class HtmlDocument
         return self::$currentInstance;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function getPath() : string
     {
         $posCtrl = strpos($this->mainFilePath, "ctrl");
         if($posCtrl === false){
-            return "src/controllers/ctrl".$this->mainFilePath.".php";
+            return "src/controllers/ctrl".ucfirst($this->mainFilePath).".php";
         }
         else{
             return $this->mainFilePath;

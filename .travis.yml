@@ -10,6 +10,9 @@ branches:
   only:
     master
 
+install:
+  - php composer.phar install --dev --no-interaction
+
 addons:
   sonarcloud:
     organization: "fanchoop-github"
@@ -21,4 +24,5 @@ jdk:
   - oraclejdk8
 
 script:
+  - ./vendor/bin/phpunit
   - sonar-scanner
