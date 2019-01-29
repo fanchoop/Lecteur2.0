@@ -15,9 +15,9 @@ final class MusicTest extends TestCase
     /**
      * @beforeClass
      */
-    protected function setUpNeeds(){
+    public static function setUpNeeds(){
 
-    $music = new Music("J'ai mal au mic","Oxmo Puccino");
+        $music = new Music("J'ai mal au mic","Oxmo Puccino");
 
     }
 
@@ -27,6 +27,7 @@ final class MusicTest extends TestCase
     public function testGetId(){
 
         $this->assertSame(0, $music->getId());
+        
     }
 
     /**
