@@ -91,7 +91,7 @@ final class MusicTest extends TestCase
 
         self::$music->setGenre("newGenre");
         $genreTest = array("newGenre");
-        $this->assertEquals($genreTest, self::$music->getGenre());
+        $this->assertEquals(join("",$genreTest),join("",self::$music->getGenre()));
 
     }
 
