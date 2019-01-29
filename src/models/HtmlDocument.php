@@ -30,26 +30,33 @@ class HtmlDocument
         self::$currentInstance = $this;
     }
 
-    public function parseMain(){
+    public function parseMain()
+    {
         ob_start();
         include ("src/controllers/ctrl".$this->mainFilePath.".php");
         $this->mainContent = ob_get_contents();
         ob_end_clean();
     }
 
-    public function render(){
+    public function render()
+    {
         $this->parseMain();
         echo $this->mainContent;
     }
 
-    public function addHeader(string $html, string $position)
+    public function addHeader(string $html, int $position)
     {
-
+        if($position === self::FIRST){
+            array_push($this->headers, $html);
+        }
+        elseif ($position === self::LAST){
+            array_unshift($this->headers, $html);
+        }
     }
 
     public function getMainContent() : string
     {
-        return "";
+        return $this->mainContent;
     }
 
     public static function getCurrentInstance() : HtmlDocument
