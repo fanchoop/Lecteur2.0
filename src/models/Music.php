@@ -36,7 +36,7 @@ class Music {
         $this->_title = $title;
         $this->_artist = $artist;
         $this->_album = "";
-        $this->_genre = [];
+        $this->_genre = array();
         $this->_annee = 0;
         $this->_like = 0;
         $this->_view = 0;
