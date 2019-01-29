@@ -80,7 +80,6 @@ final class MusicTest extends TestCase
      * @cover ::getGenre
      */
     public function testGetGenre(){
-
         $this->assertSame([], self::$music->getGenre());
     }
 
@@ -90,9 +89,9 @@ final class MusicTest extends TestCase
     public function testSetGenre(){
 
         self::$music->setGenre("newGenre");
-        $genreTest = array("newGenre");
-        $this->assertEquals(join("",$genreTest),join("",self::$music->getGenre()));
-
+        $genreTest = ["newGenre"];
+        //$this->assertEquals(join("",$genreTest),join("",self::$music->getGenre()));
+        $this->assertEquals( self::$music->getGenre(), $genreTest );
     }
 
     /**

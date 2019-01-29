@@ -36,7 +36,7 @@ class Music {
         $this->_title = $title;
         $this->_artist = $artist;
         $this->_album = "";
-        $this->_genre = array();
+        $this->_genre = [];
         $this->_annee = 0;
         $this->_like = 0;
         $this->_view = 0;
@@ -102,14 +102,12 @@ class Music {
     //genre
 
     public function getGenre() : array {
-
         return $this->_genre;
-
     }
 
     public function setGenre($newGenre){
 
-        $this->_genre = array_push($this->_genre, $newGenre);
+        $this->_genre[] = $newGenre;
 
     }
 
