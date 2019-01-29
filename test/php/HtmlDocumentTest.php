@@ -12,9 +12,10 @@ use src\models\HtmlDocument;
 final class HtmlDocumentTest extends TestCase
 {
     /**
-     * @cover ::getPath
+     * @cover ::__construct
      */
-    public function testGetPathWithCompletPath(){
-        $this->assertTrue(true);
+    public function testConstruct(){
+        $html = new HtmlDocument("test/php/ctrlTest.php");
     }
+
 }
