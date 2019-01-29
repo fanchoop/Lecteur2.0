@@ -111,14 +111,7 @@ function createWaveForm(player, dotsList, percentilePlayed) {
 
     /** Number of bar */
 
-    var numberOfBarToRemove = 0;
-
-    while ((nbBars - numberOfBarToRemove) * barWidth > primaryWaveWidth) {
-        numberOfBarToRemove++;
-    }
-
-    data = getAvgDotList(data, numberOfBarToRemove);
-    nbBars -= numberOfBarToRemove;
+    data = getResponsiveWaveForm(data, primaryWaveWidth, barWidth);
 
     //Position which represent the current position of the music
     var barPlayedPosition = Math.ceil(nbBars * percentilePlayed);
@@ -219,80 +212,81 @@ function createWaveForm(player, dotsList, percentilePlayed) {
         }
     }
 
-    /**
-     * Do a recursive deep course, which does an average and remove a number of point given
-     * @param dotList - array of int, which represent the waveform
-     * @param numberOfDotsRemove - Number of dot wanted to be removed
-     * @returns a new array of int with the average value and the good number of dots
-     */
-    function getAvgDotList(dotList, numberOfDotsRemove) {
-        //Do a clone of the dotList given, to not edit it
-        var res = JSON.parse(JSON.stringify(dotList));
+    function getResponsiveWaveForm (oTab, waveformWidth, barSize) {
+        // oTab; the tab stored in the database
+        // waveformWidth; the width of the waveform
+        // barSize; Width of a bar increasde by 1 to cover the stroke
+        //the tab that contains the value displayed on the screen
+        var finalTab = [];
+        //number of value in the tab stored in the database
+        var oNbBar = oTab.length;
+        //the number of bar that are going to be displayed
+        var nbBar = parseInt(waveformWidth / barSize);
+        nbBars = nbBar;
+        //the number of value required to math the number of one new value
+        var nbValuePerBar = oNbBar / nbBar;
+        //Do a round on the value at 4 number after the point
+        nbValuePerBar = parseFloat(nbValuePerBar.toFixed(8));
 
-        /**
-         * The recursive part of the function, will does the deep course and edit the dots
-         * @param dotList - array of dot given earlier
-         * @param numberOfDotsRemove - number of dots given earlier
-         * @param begin - start of the section which be used
-         * @param end - end od the section which be used
-         */
-        function transformAvgDotList(dotList, numberOfDotsRemove, begin, end) {
-
-            begin = begin || 0;
-            end = end || dotList.length - 1;
-
-            //Part which do the work
-            if (numberOfDotsRemove === 1) {
-                //If the section of work is even
-                if (end - begin % 2 === 0) {
-                    //If one the working value is null don't use it and take the other value instead
-                    var val1 = (dotList[end - 1] == null) ? dotList[end] : dotList[end - 1];
-                    var val2 = (dotList[end] == null) ? dotList[end - 1] : dotList[end];
-                    //Do the average between the 2 values
-                    var avgValue = (val1 + val2) / 2;
-                    //Instead of removing the value, put a null, this will not edit the dotList in action and prevent some bugs
-                    dotList[end] = null;
-                    //Use to prevent the value to be null in other recursive call
-                    dotList[end - 1] = avgValue;
-                } else {
-                    //If one the working value is null don't use it and take the other value instead
-                    var val1 = (dotList[begin + 1] == null) ? dotList[begin] : dotList[begin + 1];
-                    var val2 = (dotList[begin] == null) ? dotList[begin + 1] : dotList[begin];
-                    //Do the average between the 2 values
-                    var avgValue = (val1 + val2) / 2;
-                    //Instead of removing the value, put a null, this will not edit the dotList in action and prevent some bugs
-                    dotList[begin] = null;
-                    //Use to prevent the value to be null in other recursive call
-                    dotList[begin + 1] = avgValue;
-                }
-            }
-            //Call part
-            else if (numberOfDotsRemove >= 2) {
-                /* If the number of value to remove is even, split the array in 2 equals parts and they will
-                 * remove the number of dots to remove / 2
-                 */
-                /* Otherwise also split the array in 2 equals part
-                 * give to the first call the first half and half-1 dots to remove
-                 * give to the second call the first half and half dots to remove
-                 */
-                if (numberOfDotsRemove % 2 === 0) {
-                    //Math.floor and Math.ceil is used to do a great division of the array
-                    transformAvgDotList(dotList, numberOfDotsRemove / 2, begin, Math.floor(begin / 2) + Math.floor(end / 2));
-                    transformAvgDotList(dotList, numberOfDotsRemove / 2, Math.floor(begin / 2) + Math.ceil(end / 2), end);
-                } else {
-                    transformAvgDotList(dotList, Math.floor(numberOfDotsRemove / 2), begin, Math.floor(begin / 2) + Math.floor(end / 2));
-                    transformAvgDotList(dotList, Math.ceil(numberOfDotsRemove / 2), Math.floor(begin / 2) + Math.ceil(end / 2), end);
-                }
-            }
+        //Check if the round don't make the application go over the length of the original Tab and if does
+        // reduce the value by 0.0001
+        while (nbValuePerBar * nbBar > 400) {
+            nbValuePerBar = nbValuePerBar - 0.00000001;
+            nbValuePerBar = parseFloat(nbValuePerBar).toFixed(8);
         }
 
-        transformAvgDotList(res, numberOfDotsRemove);
+        var intPartVPB = parseInt(nbValuePerBar);
+        var restVPB = nbValuePerBar - intPartVPB;
+        restVPB = parseFloat(restVPB).toFixed(8);
+        var restBisVPB = 0;
+        var oTabCursor = 0;
+        var iValue = 0;
 
-        //Remove all null value
-        while (res.indexOf(null) !== -1) {
-            res.splice(res.indexOf(null), 1);
+        //Lighter treatment when the case doesn't need to treat with rests to remain precise
+        if (nbValuePerBar >= 1) {
+            if (restVPB == 0) {
+                for (var i = 0; i < nbBar; i++) {
+                    iValue = 0;
+                    for (var y = 0; y < nbValuePerBar; y++) {
+                        iValue += oTab[oTabCursor];
+                        oTabCursor++;
+                    }
+                    finalTab[i] = iValue / nbValuePerBar;
+                }
+            //Heavier process processing using the rests
+            } else {
+                for (var i = 0; i < nbBar; i++) {
+                    iValue = 0;
+                    if (restBisVPB >= 0) {
+                        iValue += oTab[oTabCursor] * parseFloat(restBisVPB).toFixed(8);
+                        intPartVPB = parseInt(nbValuePerBar - parseFloat(restBisVPB).toFixed(8));
+                        restVPB = (nbValuePerBar - parseFloat(restBisVPB).toFixed(8)) - intPartVPB;
+                        restVPB = parseFloat(restVPB).toFixed(8);
+                        oTabCursor++;
+                    }
+                    for (var y = 0; y < intPartVPB; y++) {
+                        iValue += oTab[oTabCursor];
+                        //Block the incrementation of the cursor when it's the last value (Usefull only if it ends on a round number)
+                        if (oTabCursor < 399) {
+                            oTabCursor++;
+                        }
+                    }
+                    iValue += oTab[oTabCursor] * parseFloat(restVPB).toFixed(8);
+                    restBisVPB = 1 - (parseFloat(restVPB).toFixed(8));
+
+                    iValue = iValue / nbValuePerBar;
+                    finalTab[i] = parseFloat(iValue.toFixed(8));
+                }
+            }
+            //When the number of bar required to fill the page if superior to the number of data stored in the database
+        } else {
+            finalTab = oTab; //The curve is displayed is made with the same data as the one stored in base
         }
-
-        return res;
+        console.log("FinalTab : ");
+        console.log(finalTab);
+        console.log("Nombre de valeur par barre : ");
+        console.log(nbValuePerBar);
+        console.log("cursor : " + oTabCursor);
+        return finalTab;
     }
 }
