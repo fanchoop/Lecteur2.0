@@ -14,7 +14,7 @@ addons:
   sonarcloud:
     organization: "fanchoop-github"
     token:
-      secure: ••••••••••••••••
+      secure: "db29f878472591c66d69eae3f1fc82d1f0124568"
       
 
 jdk:
