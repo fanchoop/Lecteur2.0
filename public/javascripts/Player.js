@@ -132,21 +132,21 @@ function Player(domElement) {
         if (this.sound == null) {
             barPosition = 0;
         } else {
-			console.log("yo");
+			// console.log("yo");
             barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
-			console.log(( this.playlist.getCurrentMusic().duration * 1000 ));
+			// console.log(( this.playlist.getCurrentMusic().duration * 1000 ));
         }
         if (barPosition <= pos) {
             for (let position = barPosition + 1; position <= pos; position++) {
                 waveformUp.childNodes[position].classList.add("hover-front");
                 waveformDown.childNodes[position].classList.add("hover-front");
-                console.log("hover after !");
+                // console.log("hover after !");
             }
         } else {
             for (let position = pos; position <= barPosition; position++) {
                 waveformUp.childNodes[position].classList.add("hover-back");
                 waveformDown.childNodes[position].classList.add("hover-back");
-                console.log("hover before !");
+                // console.log("hover before !");
             }
         }
 
@@ -240,14 +240,14 @@ function Player(domElement) {
             }.bind(this));
             barsList[index].addEventListener("mouseover", function (evt) {
                 if (evt.target.attributes.hasOwnProperty("data_position")) {
-                    console.log("Hover in !");
-                    console.log(Number(evt.target.attributes.data_position.value));
+                    // console.log("Hover in !");
+                    // console.log(Number(evt.target.attributes.data_position.value));
                     this.colorWaveToHoverPos(Number(evt.target.attributes.data_position.value));
                     this.drawHoverTime(Number(evt.target.attributes.data_position.value))
                 }
             }.bind(this));
             barsList[index].addEventListener("mouseout", function () {
-                console.log("Hover out !");
+                // console.log("Hover out !");
                 this.clearColorHoverWave();
                 this.clearHoverTime();
             }.bind(this));
