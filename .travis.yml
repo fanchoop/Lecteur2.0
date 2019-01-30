@@ -1,11 +1,6 @@
 # Le language par défaut du projet.
 language: php
 
-# Profondeur de 1000 signie que Travis va aller chercher les 1000 derniers commits pour les transmettre
-# à SonarCloud.
-#git:
-#  depth: 1000
-
 # On indique les différentes versions de PHP à tester.
 # Dans notre projet on cherche à tester la version 7.2
 php:
