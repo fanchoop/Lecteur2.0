@@ -46,7 +46,7 @@ function createWaveForm(player, dotsList, percentilePlayed) {
     if (player.domElement.querySelector('defs.svg-cssRules') == null) {
 
         var defBlock = document.createElementNS(svgns, "defs");
-        PlayerUtils.addClass(defBlock, "svg-cssRules");
+        defBlock.classList.add("svg-cssRules");
 
         /** Top part */
 
@@ -133,7 +133,7 @@ function createWaveForm(player, dotsList, percentilePlayed) {
     primarySVG.setAttribute("width", primaryWaveWidth);
     primarySVG.setAttribute("height", primaryWaveHeight);
 
-    PlayerUtils.addClass(primarySVG, "sprectrumContainer");
+    primarySVG.classList.add("sprectrumContainer");
 
     reflectSVG.setAttribute("xmlns", svgns);
 
@@ -142,7 +142,7 @@ function createWaveForm(player, dotsList, percentilePlayed) {
     reflectSVG.setAttribute("width", reflectWaveWidth);
     reflectSVG.setAttribute("height", reflectWaveHeight);
 
-    PlayerUtils.addClass(reflectSVG, "sprectrumContainer");
+    reflectSVG.classList.add("sprectrumContainer");
 
     for (var i = 0; i < nbBars; i++) {
         /** Create and add every bar of the primary waveform*/
@@ -187,8 +187,8 @@ function createWaveForm(player, dotsList, percentilePlayed) {
 
         //check if this position have been played or not, and add the "played-flash" class
         if (i <= barPlayedPosition) {
-            PlayerUtils.addClass(primaryRect, "played-flash");
-            PlayerUtils.addClass(reflectRect, "played-flash");
+            primaryRect.classList.add("played-flash");
+            reflectRect.classList.add("played-flash");
 
         }
 

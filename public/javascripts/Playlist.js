@@ -131,35 +131,35 @@ Playlist.prototype.generatePlaylistBlock = function (allMusic) {
             playlistBlock.innerHTML = "";
         } else {
             playlistBlock = document.createElement("div");
-            PlayerUtils.addClass(playlistBlock, "playlist");
+            playlistBlock.classList.add("playlist");
         }
 
         let tracklist = document.createElement("ol");
-        PlayerUtils.addClass(tracklist, "tracklist");
+        tracklist.classList.add("tracklist");
 
         //Check if the playlist contains 5 music and if it allow, drawn all musics data
         for (let index = 0; index < this.musicList.length && (index < 5 || allMusic); index++) {
             let musicBlock = document.createElement("li");
-            PlayerUtils.addClass(musicBlock, "element");
+            musicBlock.classList.add("element");
 
             let coverBlock = document.createElement("img");
-            PlayerUtils.addClass(coverBlock, "image");
+            coverBlock.classList.add("image");
             coverBlock.setAttribute("src", this.musicList[index].coverPath);
 
             let numberBlock = document.createElement("p");
-            PlayerUtils.addClass(numberBlock, "numero");
+            numberBlock.classList.add("numero");
             numberBlock.innerText = index + 1;
 
             let titleBlock = document.createElement("p");
-            PlayerUtils.addClass(titleBlock, "titre");
+            titleBlock.classList.add("titre");
             titleBlock.innerText = this.musicList[index].title;
 
             let artistBlock = document.createElement("p");
-            PlayerUtils.addClass(artistBlock, "artiste");
+            artistBlock.classList.add("artiste");
             artistBlock.innerText = this.musicList[index].artistName;
 
             let statsBlock = document.createElement("p");
-            PlayerUtils.addClass(statsBlock, "stats");
+            statsBlock.classList.add("stats");
             statsBlock.innerText = PlayerUtils.secondsToReadableTime(this.musicList[index].duration);
 
             musicBlock.appendChild(coverBlock);
@@ -180,7 +180,7 @@ Playlist.prototype.generatePlaylistBlock = function (allMusic) {
         //If more than 5 musics into the playlist add a button to show them all
         if (this.musicList.length > 5) {
             let moreBlock = document.createElement("a");
-            PlayerUtils.addClass(moreBlock, "more");
+            moreBlock.classList.add("more");
             moreBlock.setAttribute("href", "");
 
             if (allMusic) {
