@@ -1,28 +1,39 @@
+# Le language par défaut du projet.
 language: php
 
-git:
-  depth: 1000
+# Profondeur de 1000 signie que Travis va aller chercher les 1000 derniers commits pour les transmettre
+# à SonarCloud.
+#git:
+#  depth: 1000
 
+# On indique les différentes versions de PHP à tester.
+# Dans notre projet on cherche à tester la version 7.2
 php:
   - 7.2
 
+# On déclenche un build seulement d'un push sur la branche Master.
 branches:
   only:
     master
 
+# Avant de déclencher les scripts, on lui indique quoi installer si nécessaire.
 install:
   - php composer.phar install --dev --no-interaction
 
+# On précise ici qu'en complétement de Travis, on utilise SonarCloud.
 addons:
   sonarcloud:
     organization: "fanchoop-github"
     token:
       secure: "db29f878472591c66d69eae3f1fc82d1f0124568"
       
-
+# On précis un JDK.
 jdk:
   - oraclejdk8
 
+# Les commandes de script qui permettent de déclencher les différents tests.
+# Lors de la commande 'sonar-scanner', Travis va aller les informations de connexion
+# dans notre fichier de configuration 'sonar-projet.properties' qui se situe aussi à la racine du projet.
 script:
   - ./vendor/bin/phpunit
   - sonar-scanner
