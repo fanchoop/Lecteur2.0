@@ -1,5 +1,5 @@
 <?php
-include "src/models/db/Music.php";
+include_once "src/models/db/Music.php";
 use PHPUnit\Framework\TestCase;
 use src\models\db\Music;
 use src\models\db\Entity;

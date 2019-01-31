@@ -1,6 +1,7 @@
 <?php
 
-namespace src\db\models;
+namespace src\models\db;
+include_once "src/models/db/Entity.php";
 
 class User extends Entity {
 
