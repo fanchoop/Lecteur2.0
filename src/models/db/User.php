@@ -2,7 +2,7 @@
 
 namespace src\db\models;
 
-class Personne extends Entity {
+class User extends Entity {
 
     const TABLE_NAME = "pers_personnes";
     const PK_NAME = "id";
@@ -15,7 +15,7 @@ class Personne extends Entity {
     private $prenom;
     private $email;
 
-    publilc function __construc(string $date_inscription, string $login, string $md5_password, 
+    public function __construc(string $date_inscription, string $login, string $md5_password, 
                                 string $nom, string $prenom, string $email){
 
                                     if (preg_match('/'+'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/', $date_inscription)) {
