@@ -3,6 +3,8 @@
 namespace src\models\db;
 include_once "src/models/db/Entity.php";
 
+use PHPUnit\Runner\Exception;
+
 class User extends Entity {
 
     const TABLE_NAME = "pers_personnes";
@@ -16,11 +18,22 @@ class User extends Entity {
     private $prenom;
     private $email;
 
-    public function __construc(string $date_inscription, string $login, string $md5_password,string $nom, string $prenom, string $email){
-        
-        if (preg_match('/'+'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/', $date_inscription)) {
+    /**
+     * User constructor.
+     * @param string $date_inscription
+     * @param string $login
+     * @param string $md5_password
+     * @param string $nom
+     * @param string $prenom
+     * @param string $email
+     * @throws \Exception
+     */
+    public function __construct(string $date_inscription, string $login, string $md5_password,
+                                string $nom, string $prenom, string $email){
 
-        $this->date_inscription=$date_inscription;
+        if (preg_match('/'.'^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/', $date_inscription)) {
+
+            $this->date_inscription=$date_inscription;
 
         } else {
 
@@ -28,14 +41,14 @@ class User extends Entity {
 
         }
 
-        if(preg_match('/'+'^[a-f0-9]{32}$/i', $md5_password)) {
+        if(preg_match('/'.'^[a-f0-9]{32}$/i', $md5_password)) {
 
             $this->md5_password=$md5_password;
 
         } else {
 
             throw new Exception('Format Password incorrect.');
-            
+
         }
 
         if (preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {
@@ -45,9 +58,11 @@ class User extends Entity {
         } else {
 
             throw new Exception('Email incorrect.');
-        }   
-        
+
+        }
+
         $this->login=$login;
         $this->nom=$nom;
         $this->prenom=$prenom;
+    }
 }
