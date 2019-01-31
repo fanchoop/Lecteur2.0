@@ -1,6 +1,6 @@
 <?php
 namespace src\db\models;
-include "./DAO.php";
+include "src/models/db/DAO.php";
 
 class Entity{
 
