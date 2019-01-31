@@ -2,7 +2,6 @@
 include_once "src/models/db/Music.php";
 use PHPUnit\Framework\TestCase;
 use src\models\db\Music;
-use src\models\db\Entity;
 
 /**
  * Class MusicTest
@@ -14,27 +13,20 @@ final class MusicTest extends TestCase
     private $music;
 
     /**
-     * @beforeAll
-     * @uses Music
+     * @before
      */
     public function setupNeeds(){
         $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",
-            "pochette.jpg", "Oxmo Puccino", true, 3, 20, "03/02/2015");
+            "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 1);
     }
 
     /**
-     * @covers Entity::__call
+     * Test de la méthode convertJson
      */
-    public function testCall(){
-        //Test Get et Set attribut simple
-        $this->assertSame(null, $this->music->getId());
-        $this->music->setId(3);
-        $this->assertSame(3, $this->music->getId());
+    public function testConvertJson(){
+        $json = '{"id_Album":1,"id_style":1,"id_profil_artiste":1,"libelle":"J\'ai mal au mic","liste_point":[1,2,3,4,5],"chemin_mp3":"musique.mp3","chemin_pochette":"pochette.jpg","artiste_original":"Oxmo Puccino","composition":true,"taille":3,"duree":1200,"nb_ecoutes":3,"date_insertion":"03\/02\/2015","id":1}';
 
-        //Test Get et Set attribut nom complexe
-        $this->assertSame([1, 2, 3, 4, 5], $this->music->getListe_point());
-        $this->music->setListe_point([1, 2, 3, 4, 5, 6, 7]);
-        $this->assertSame( [1, 2, 3, 4, 5, 6, 7] , $this->music->getListe_point() );
+        $this->assertSame($json, $this->music->convertJson());
     }
 
 }
