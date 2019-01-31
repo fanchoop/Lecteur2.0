@@ -2,8 +2,7 @@
     <testsuite name="unit">
         <directory>test/php/</directory>
         <exclude>test/php/ctrlTest.php</exclude>
-        <exclude>test/php/db/MusicTest.php</exclude>
-        <exclude>test/php/db/ChildEntity.php</exclude>
+        <exclude>test/php/db/UserTest.php</exclude>
     </testsuite>
 
     <filter>
