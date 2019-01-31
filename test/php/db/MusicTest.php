@@ -6,7 +6,7 @@ use src\models\db\Entity;
 
 /**
  * Class MusicTest
- * Cette classe test la classe Music.
+ * Cette classe teste la classe Music.
  * @coversDefaultClass src\models\db\Music
  */
 final class MusicTest extends TestCase
