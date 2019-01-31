@@ -1,6 +1,5 @@
 <?php
-namespace src\db\models;
-include "src/models/db/DAO.php";
+namespace src\models\db;
 
 class Entity{
 
@@ -13,7 +12,7 @@ class Entity{
         $this->pkName = $pkName;
     }
 
-    /* Ajout des undescore devant les Majuscules */
+    /* Ajout des undescore devant les Majuscules
     protected static function underscore(string $s) : string {
         $pattern = '/[A-Z]/';
         $replace = '_$0';
@@ -24,7 +23,7 @@ class Entity{
 
         $values = strtolower($values);
         return $values;
-    }
+    }*/
 
     protected function hydrate($values){
         $this->values = $values;

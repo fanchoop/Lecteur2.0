@@ -1,180 +1,40 @@
 <?php
-include "src/models/Music.php";
+include "src/models/db/Music.php";
 use PHPUnit\Framework\TestCase;
-use src\models\Music;
+use src\models\db\Music;
+use src\models\db\Entity;
 
 /**
  * Class MusicTest
  * Cette classe test la classe Music.
- * @coversDefaultClass src\models\Music
+ * @coversDefaultClass src\models\db\Music
  */
 final class MusicTest extends TestCase
 {
-    private static $music;
+    private $music;
 
     /**
-     * @beforeClass
+     * @beforeAll
+     * @uses Music
      */
-    public static function setUpNeeds(){
-
-        self::$music = new Music("J'ai mal au mic","Oxmo Puccino");
-
+    public function setupNeeds(){
+        $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",
+            "pochette.jpg", "Oxmo Puccino", true, 3, 20, "03/02/2015");
     }
 
     /**
-     * @cover ::getId
+     * @covers Entity::__call
      */
-    public function testGetId(){
+    public function testCall(){
+        //Test Get et Set attribut simple
+        $this->assertSame(null, $this->music->getId());
+        $this->music->setId(3);
+        $this->assertSame(3, $this->music->getId());
 
-        $this->assertSame(0, self::$music->getId());
-        
+        //Test Get et Set attribut nom complexe
+        $this->assertSame([1, 2, 3, 4, 5], $this->music->getListe_point());
+        $this->music->setListe_point([1, 2, 3, 4, 5, 6, 7]);
+        $this->assertSame( [1, 2, 3, 4, 5, 6, 7] , $this->music->getListe_point() );
     }
 
-    /**
-     * @cover ::setId
-     */
-    public function testSetId(){
-
-        self::$music->setId(42);
-        $this->assertSame(42, self::$music->getId());
-
-    }
-
-    /**
-     * @cover ::getTitle
-     */
-    public function testGetTitle(){
-
-        $this->assertSame("J'ai mal au mic", self::$music->getTitle());
-    }
-
-    /**
-     * @cover ::setTitle
-     */
-    public function testSetTitle(){
-
-        self::$music->setTitle("Autre titre");
-        $this->assertSame("Autre titre", self::$music->getTitle());
-
-    }
-
-    /**
-     * @cover ::getArtist
-     */
-    public function testGetArtist(){
-
-        $this->assertSame("Oxmo Puccino", self::$music->getArtist());
-    }
-
-    /**
-     * @cover ::setArtist
-     */
-    public function testSetArtist(){
-
-        self::$music->setArtist("Autre artiste");
-        $this->assertSame("Autre artiste", self::$music->getArtist());
-
-    }
-
-    /**
-     * @cover ::getGenre
-     */
-    public function testGetGenre(){
-        $this->assertSame([], self::$music->getGenre());
-    }
-
-    /**
-     * @cover ::setGenre
-     */
-    public function testSetGenre(){
-
-        self::$music->setGenre("newGenre");
-        $genreTest = ["newGenre"];
-        //$this->assertEquals(join("",$genreTest),join("",self::$music->getGenre()));
-        $this->assertEquals( self::$music->getGenre(), $genreTest );
-    }
-
-    /**
-     * @cover ::getAnnee
-     */
-    public function testGetAnnee(){
-
-        $this->assertSame(0, self::$music->getAnnee());
-    }
-
-    /**
-     * @cover ::setAnnee
-     */
-    public function testSetAnnee(){
-
-        self::$music->setAnnee(1990);
-        $this->assertSame(1990, self::$music->getAnnee());
-
-    }
-
-    /**
-     * @cover ::getLike
-     */
-    public function testGetLike(){
-
-        $this->assertSame(0, self::$music->getLike());
-    }
-
-    /**
-     * @cover ::setLike
-     */
-    public function testSetLike(){
-
-        self::$music->setLike(42);
-        $this->assertSame(42, self::$music->getLike());
-
-    }
-
-    /**
-     * @cover ::addLike
-     */
-    public function testAddLike(){
-
-        self::$music->addLike();
-        $this->assertSame(43, self::$music->getLike());
-
-    }
-
-    /**
-     * @cover ::deleteLike
-     */
-    public function testDeleteLike(){
-
-        self::$music->deleteLike();
-        $this->assertSame(42, self::$music->getLike());
-
-    }
-
-    /**
-     * @cover ::getView
-     */
-    public function testGetView(){
-
-        $this->assertSame(0, self::$music->getView());
-    }
-
-    /**
-     * @cover ::setView
-     */
-    public function testSetView(){
-
-        self::$music->setView(42);
-        $this->assertSame(42, self::$music->getView());
-
-    }
-
-    /**
-     * @cover ::addView
-     */
-    public function testAddView(){
-
-        self::$music->addView();
-        $this->assertSame(43, self::$music->getView());
-
-    }
 }
