@@ -256,7 +256,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 
 .audioplayer .player .controls .volume .volume-on {
     content: '';
-    background-image: url("../images/_icons/volume_on.svg");
+    background-image: url("../images/_icons/volume1.svg");
     background-repeat: no-repeat;
     background-position: center;
     width: 25px;
@@ -266,7 +266,25 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 
 .audioplayer .player .controls .volume .volume-off {
     content: '';
-    background-image: url("../images/_icons/volume_off.svg");
+    background-image: url("../images/_icons/mute.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+}
+.audioplayer .player .controls .volume .volume-moyen2 {
+    content: '';
+    background-image: url("../images/_icons/volume2.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+}
+.audioplayer .player .controls .volume .volume-moyen3 {
+    content: '';
+    background-image: url("../images/_icons/volume3.svg");
     background-repeat: no-repeat;
     background-position: center;
     width: 25px;

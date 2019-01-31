@@ -2,9 +2,6 @@
 
 namespace src\db\models;
 
-use phpDocumentor\Reflection\Types\Array_;
-use phpDocumentor\Reflection\Types\Boolean;
-
 class Music extends Entity {
 
     const TABLE_NAME = "mp3_fichiers";
@@ -28,10 +25,10 @@ class Music extends Entity {
     private $date_insertion;
 
     public function construct(int $id_album ,int $id_style,int $id_profil_artiste, string $libelle, array $liste_point,
-                              string $chemin_mp3, string $chemin_pochette, string  $artiste_original, Boolean $composition,
+                              string $chemin_mp3, string $chemin_pochette, string  $artiste_original, bool $composition,
                               int $taille, int $duree, int $nb_ecoutes, string $dateInsertion, int $id = null){
 
-        $this->id_album = $id_Album;
+        $this->id_album = $id_album;
         $this->id_style = $id_style;
         $this->id_profil_artiste = $id_profil_artiste;
         $this->libelle = $libelle;

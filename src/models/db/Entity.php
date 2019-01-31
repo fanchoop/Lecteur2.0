@@ -1,6 +1,6 @@
 <?php
 namespace src\db\models;
-include "./DAO.php";
+include "src/models/db/DAO.php";
 
 class Entity{
 
@@ -30,7 +30,7 @@ class Entity{
         $this->values = $values;
     }
 
-    protected function __call(string $method, array $params){
+    public function __call(string $method, array $params){
 
         $function = substr($method,0 ,3);
         $columsName = self::underscore( substr($method, 3) );
