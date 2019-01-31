@@ -1,6 +1,7 @@
 <?php
 
-namespace src\db\models;
+namespace src\models\db;
+include_once "src/models/db/Entity.php";
 
 /**
  * Class Artist
@@ -10,8 +11,6 @@ class Artist extends Entity {
 
     CONST TABLENAME = 'profil_profils_artistes';
     CONST PKNAME = 'id';
-    private $id;
-    private $nom;
 
     /**
      * Constructeur de l'objet Artiste, qui prend en paramètre le nom de l'artiste.
@@ -20,17 +19,19 @@ class Artist extends Entity {
      * @param int|null $id
      */
     public function __construct(string $nom, int $id = null) {
-        parent::__construct(self::$tableName, self::$pkName);
+        parent::__construct(self::TABLENAME, self::PKNAME);
 
-        $this->id = $id;
-        $this->nom = nom;
+        $this->hydrate([
+            'id' => $id,
+            'nom' => $nom
+        ]);
     }
 
     /**
      * Récupère la totalité de la table contenant les artistes.
      * @return un tableau contenant tous les artistes.
      */
-    public static function findAll() {
+    public static function findAll() : array {
         $connexion = new DAO();
         $sql = "SELECT * FROM ".self::TABLENAME;
         $prepareStatement = $connexion::getInstance()->prepare($sql);
@@ -38,12 +39,7 @@ class Artist extends Entity {
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         while ($ligne) {
-            $artist = new Artist();
-
-            $artist->hydrate([
-                'id' => intVal($ligne['id']),
-                'nom' => $ligne['nom']
-            ]);
+            $artist = new Artist(intVal($ligne['id']), $ligne['nom']);
 
             $artists[] = $artist;
 
@@ -58,7 +54,7 @@ class Artist extends Entity {
      * @param $id_artist
      * @return un artiste
      */
-    public static function find($id_artist) {
+    public static function find($id_artist) : Artist{
         $connexion = new DAO();
 
         $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_artist";
@@ -69,14 +65,10 @@ class Artist extends Entity {
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
-        $artist = new Artist();
-
-        $artist->hydrate([
-            'id' => intVal($ligne['id']),
-            'nom' => $ligne['nom']
-        ]);
+        $artist = new Artist($ligne['id'], $ligne['nom']);
 
         $connexion::close();
+
         return $artist;
     }
 }

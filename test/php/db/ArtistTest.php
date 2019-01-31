@@ -2,7 +2,6 @@
 include "src/models/db/Artist.php";
 use PHPUnit\Framework\TestCase;
 use src\models\db\Artist;
-use src\models\db\Entity;
 
 /**
  * Class ArtistTest
@@ -14,7 +13,7 @@ final class ArtistTest extends TestCase
     private $artist;
 
     /**
-     * @beforeAll
+     * @before
      * @uses Artist
      */
     public function setupNeeds(){
@@ -22,13 +21,12 @@ final class ArtistTest extends TestCase
     }
 
     /**
-     * @covers Entity::__call
+     * Test getteurs et setteurs
+     * @covers \src\models\db\Entity::__call
      */
     public function testCall(){
-        //Test Get et Set attribut simple
-        $this->assertSame(null, $this->artist->getId());
-        $this->artist->setId(3);
-        $this->assertSame(3, $this->artist->getId());
+        $this->assertSame("IAM", $this->artist->getNom());
+        $this->artist->setNom("NTM");
+        $this->assertSame("NTM", $this->artist->getNom());
     }
-
 }

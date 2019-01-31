@@ -43,11 +43,4 @@ final class EntityTest extends TestCase
         //Test Get et Set attribut simple
         $this->assertFalse($this->music->unexistFonctionId());
     }
-
-    /**
-     * @covers \src\models\db\Entity::save
-     */
-    public function testSave(){
-
-    }
 }
