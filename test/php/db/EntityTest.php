@@ -14,7 +14,7 @@ final class EntityTest extends TestCase
     private $music;
 
     /**
-     * @beforeAll
+     * @before
      */
     public function setupNeeds(){
         $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",

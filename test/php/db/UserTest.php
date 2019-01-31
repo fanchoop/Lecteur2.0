@@ -1,23 +1,24 @@
 <?php
-include "src/models/User.php";
+include "src/models/db/User.php";
 use PHPUnit\Framework\TestCase;
-use src\models\User;
+use src\models\db\User;
 
 /**
  * Class UserTest
  * Cette classe teste la classe User.
- * @coversDefaultClass src\models\User
+ * @coversDefaultClass src\models\db\User
  */
 final class UserTest extends TestCase
 {
-    private $User;
+    private $user;
 
     /**
      * @before
      */
-    public static function setUpNeeds(){
+    public function setUpNeeds()
+    {
 
-        $this->User = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -25,7 +26,7 @@ final class UserTest extends TestCase
      */
     public function testFailingDate1()
     {
-        $this->User = new User('2019-54-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->user = new User('2019-54-30 10:39:4232548792132', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -33,7 +34,7 @@ final class UserTest extends TestCase
      */
     public function testFailingDate2()
     {
-        $this->User = new User('2019-01-30 54:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->user = new User('2019-01-3021657 54:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -41,21 +42,22 @@ final class UserTest extends TestCase
      */
     public function testFailingDate3()
     {
-        $this->User = new User('5419-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->user = new User('5419278-0132549-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
-        
-    /**
-     * @expectedException Exception
-     */
-    public function testFailingPass()
-    {
-        $this->User = new User('2019-01-30 10:39:42', 'toto', 'f71db7525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
-    }   
 
     /**
      * @expectedException Exception
      */
     public function testFailingPass()
     {
-        $this->User = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
-    }   
+        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71db7525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testFailingMail()
+    {
+        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
+    }
+}
