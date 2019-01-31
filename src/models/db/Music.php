@@ -9,6 +9,7 @@ class Music extends Entity {
 
     const TABLE_NAME = "mp3_fichiers";
     const PK_NAME = "id";
+
     private $id;
     private $id_album;
     private $id_style;
@@ -26,7 +27,7 @@ class Music extends Entity {
     private $nb_telechargements = 0;
     private $date_insertion;
 
-    public function construct(int $id_Album ,int $id_style,int $id_profil_artiste, string $libelle, array $liste_point,
+    public function construct(int $id_album ,int $id_style,int $id_profil_artiste, string $libelle, array $liste_point,
                               string $chemin_mp3, string $chemin_pochette, string  $artiste_original, Boolean $composition,
                               int $taille, int $duree, int $nb_ecoutes, string $dateInsertion, int $id = null){
 
