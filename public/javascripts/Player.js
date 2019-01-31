@@ -522,11 +522,46 @@ Player.prototype.setVolume = function (newVolume) {
             if (volume.classList.contains('volume-on')) {
                 volume.classList.remove("volume-on");
                 volume.classList.add("volume-off");
+            }if (volume.classList.contains('volume-moyen2')) {
+                    volume.classList.remove('volume-moyen2');
+                    volume.classList.add("volume-off");
+            }if (volume.classList.contains('volume-moyen3')) {
+                volume.classList.remove('volume-moyen3');
+                volume.classList.add("volume-off");
             }
-        } else {
+        }else if (newVolume>0 && newVolume<33){
             if (volume.classList.contains('volume-off')) {
-                volume.classList.remove('volume-off');
+                volume.classList.remove("volume-off");
                 volume.classList.add("volume-on");
+            }if (volume.classList.contains('volume-moyen2')) {
+                    volume.classList.remove('volume-moyen2');
+                    volume.classList.add("volume-on");
+            }if (volume.classList.contains('volume-moyen3')) {
+                volume.classList.remove('volume-moyen3');
+                volume.classList.add("volume-on");
+            }
+            
+        }else if(newVolume>33 && newVolume<66){
+            if (volume.classList.contains('volume-off')) {
+                volume.classList.remove("volume-off");
+                volume.classList.add("volume-moyen2");
+            }if (volume.classList.contains('volume-moyen3')) {
+                    volume.classList.remove('volume-moyen3');
+                    volume.classList.add("volume-moyen2");
+            }if (volume.classList.contains('volume-on')) {
+                volume.classList.remove('volume-on');
+                volume.classList.add("volume-moyen2");
+            }
+        }else if(newVolume>66){
+            if (volume.classList.contains('volume-on')) {
+                volume.classList.remove("volume-on");
+                volume.classList.add("volume-moyen3");
+            }if (volume.classList.contains('volume-off')) {
+                    volume.classList.remove('volume-off');
+                    volume.classList.add("volume-moyen3");
+            }if (volume.classList.contains('volume-moyen2')) {
+                volume.classList.remove('volume-moyen2');
+                volume.classList.add("volume-moyen3");
             }
         }
     }
@@ -544,14 +579,32 @@ Player.prototype.mute = function () {
         volume.classList.remove("volume-on");
         volume.classList.add("volume-off");
 
-        if (this.sound !== null)
+        if (this.sound !== null){
             this.sound.mute();
+        }
+    }
+    if (volume.classList.contains('volume-moyen2')) {
+        volume.classList.remove("volume-moyen2");
+        volume.classList.add("volume-off");
+
+        if (this.sound !== null){
+            this.sound.mute();
+        }
+    }
+    if (volume.classList.contains('volume-moyen3')) {
+        volume.classList.remove("volume-moyen3");
+        volume.classList.add("volume-off");
+
+        if (this.sound !== null){
+            this.sound.mute();
+        }
     } else {
         volume.classList.remove("volume-off");
-        volume.classList.add("volume-on");
+        volume.classList.add("volume-moyen2");
 
-        if (this.sound !== null)
+        if (this.sound !== null){
             this.sound.unmute();
+        }
     }
 };
 
