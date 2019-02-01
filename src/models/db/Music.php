@@ -3,6 +3,7 @@
 namespace src\models\db;
 
 use Exception;
+use PDO;
 
 include_once "src/models/db/Entity.php";
 include_once "src/models/db/DAO.php";
