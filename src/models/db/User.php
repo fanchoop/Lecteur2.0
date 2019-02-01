@@ -87,7 +87,7 @@ class User extends Entity {
         $prepareStatement = $connexion::getInstance()->prepare($sql);
         $prepareStatement->bindValue(":id_utilisateur",$id_utilisateur, PDO::PARAM_STR);
         $prepareStatement->execute();
-        
+
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
         $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
 
@@ -95,4 +95,12 @@ class User extends Entity {
 
         return $user;
     }
+
+    /*  A voir !!! 
+    
+    $today = date("Y-m-d H:i:s"); // 2001-03-10 17:16:18 (le format DATETIME de MySQL)
+
+    strtotime() - Transforme un texte anglais en timestamp
+
+    */
 }
