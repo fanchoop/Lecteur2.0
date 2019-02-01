@@ -1,6 +1,7 @@
 <?php
 
-namespace src\db\models;
+namespace src\models\db;
+use PDO;
 
 class DAO
 {
@@ -13,7 +14,7 @@ class DAO
     public function __construct(){
         if(self::$dao !== null) throw new Exception("Classe déjà instancié");
 
-        self::$dao = new PDO ("mysql:host=" . host . ";dbname=" . nameBdd.';charset=utf8', user, mdp);
+        self::$dao = new PDO ("mysql:host=" . self::host . ";dbname=" . self::nameBdd.';charset=utf8', self::user, self::mdp);
     }
 
     public static function getInstance(){

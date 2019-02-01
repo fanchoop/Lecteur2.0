@@ -1,7 +1,9 @@
 <?php
 
 namespace src\models\db;
+
 include_once "src/models/db/Entity.php";
+include_once "src/models/db/DAO.php";
 
 class Music extends Entity {
 
@@ -14,7 +16,7 @@ class Music extends Entity {
 
         parent::__construct(self::TABLE_NAME, self::PK_NAME);
         $this->hydrate(array(
-            'id_Album' => $id_album,
+            'id_album' => $id_album,
             'id_style' => $id_style,
             'id_profil_artiste' => $id_profil_artiste,
             'libelle' => $libelle,
@@ -44,17 +46,96 @@ class Music extends Entity {
     }
 
     /**
+     * Méthode de suppression d'un like.
+     */
+    public function deleteLike(){
+
+    }
+
+    /**
      * Méthode d'ajout d'une écoute.
      */
     public function addListen(){
         $this->setNb_ecoutes($this->getNb_ecoutes() + 1);
     }
 
-    public function deleteLike(){
-
-    }
-
+    /**
+     * Méthode de suppression d'une écoute.
+     */
     public function deleteListen(){
         $this->setNb_ecoutes($this->getNb_ecoutes() - 1);
+    }
+
+    /**
+     * Méthode findAll pour récupérer toutes les
+     * musiques de la bdd
+     * @return array Music[]
+     */
+    public function findAll() : array {
+        try{
+            $connexion = new DAO();
+            $sql = "SELECT * FROM ".self::TABLENAME;
+            $prepareStatement = $connexion::getInstance()->prepare($sql);
+            $prepareStatement->execute();
+            $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+            while ($ligne) {
+                $music = new Music(
+                    intval($ligne['id_album']), intval($ligne['id_style']), intval($ligne['id_profil_artiste']),
+                    strval($ligne['libelle']), $ligne['liste_point'], strval($ligne['chemin_mp3']),
+                    strval($ligne['chemin_pochette']), strval($ligne['artiste_original']), boolval($ligne['composition']),
+                    intval($ligne['taille']), intval($ligne['duree']), intval($ligne['nb_ecoutes']),
+                    strval($ligne['date_insertion']), intval($ligne['id'])
+                );
+
+                $musics[] = $music;
+
+                $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+            }
+            $connexion::close();
+        }
+        catch (Exception $exception){
+            throw new \Exception("Erreur de connexion à la bdd");
+            $musics = array();
+        }
+
+        return $musics;
+    }
+
+    /**
+     * Méthode find pour récuperer une musique selon
+     * sont ID.
+     * @param id
+     * @return Music
+     * @throws \Exception
+     */
+    public function find($id) : Music{
+        try{
+            $connexion = new DAO();
+
+            $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_Music";
+
+            $prepareStatement = $connexion::getInstance()->prepare($sql);
+            $prepareStatement->bindValue(":id_Music",$id_Music, PDO::PARAM_STR);
+
+            $prepareStatement->execute();
+            $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+            $music = new Music(
+                intval($ligne['id_album']), intval($ligne['id_style']), intval($ligne['id_profil_artiste']),
+                strval($ligne['libelle']), $ligne['liste_point'], strval($ligne['chemin_mp3']),
+                strval($ligne['chemin_pochette']), strval($ligne['artiste_original']), boolval($ligne['composition']),
+                intval($ligne['taille']), intval($ligne['duree']), intval($ligne['nb_ecoutes']),
+                strval($ligne['date_insertion']), intval($ligne['id'])
+            );
+
+            $connexion::close();
+        }
+        catch (Exception $exception){
+            throw new \Exception("Erreur de connexion à la bdd");
+            $music = null;
+        }
+
+        return $music;
     }
 }

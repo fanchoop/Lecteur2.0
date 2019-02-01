@@ -25,7 +25,7 @@ final class MusicTest extends TestCase
      * @covers ::convertJson
      */
     public function testConvertJson(){
-        $json = '{"id_Album":1,"id_style":1,"id_profil_artiste":1,"libelle":"J\'ai mal au mic","liste_point":[1,2,3,4,5],"chemin_mp3":"musique.mp3","chemin_pochette":"pochette.jpg","artiste_original":"Oxmo Puccino","composition":true,"taille":3,"duree":1200,"nb_ecoutes":3,"date_insertion":"03\/02\/2015","id":1}';
+        $json = '{"id_album":1,"id_style":1,"id_profil_artiste":1,"libelle":"J\'ai mal au mic","liste_point":[1,2,3,4,5],"chemin_mp3":"musique.mp3","chemin_pochette":"pochette.jpg","artiste_original":"Oxmo Puccino","composition":true,"taille":3,"duree":1200,"nb_ecoutes":3,"date_insertion":"03\/02\/2015","id":1}';
 
         $this->assertSame($json, $this->music->convertJson());
     }
@@ -48,5 +48,14 @@ final class MusicTest extends TestCase
         $nb_ecoutes = $this->music->getNb_ecoutes() -1;
         $this->music->deleteListen();
         $this->assertSame($nb_ecoutes, $this->music->getNb_ecoutes());
+    }
+
+    /**
+     * Test de la méthode findAll
+     * @covers ::findAll
+     * @expectedException Exception
+     */
+    public function testFindAllException(){
+        $this->music->findAll();
     }
 }
