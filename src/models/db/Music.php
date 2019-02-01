@@ -34,4 +34,24 @@ class Music extends Entity {
     public function convertJson(){
         return json_encode($this->values);
     }
+
+    /**
+     * Méthode d'ajout d'un like dans la base de données
+     * Cette méthode ajout un like sur un musique via un user
+     */
+    public function addLike(){
+
+    }
+
+    public function addListen(){
+
+    }
+
+    public function deleteLike(){
+
+    }
+
+    public function deleteListen(){
+
+    }
 }
