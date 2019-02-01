@@ -7,8 +7,8 @@ use PHPUnit\Runner\Exception;
 
 class User extends Entity {
 
-    const TABLE_NAME = "pers_personnes";
-    const PK_NAME = "id";
+    const TABLENAME = "pers_personnes";
+    const PKNAME = "id";
 
     /**
      * User constructor.
