@@ -79,31 +79,26 @@ class Music extends Entity {
 
         $musics = array();
 
-        try{
-            $connexion = new DAO();
-            $sql = "SELECT * FROM ".self::TABLE_NAME;
-            $prepareStatement = $connexion::getInstance()->prepare($sql);
-            $prepareStatement->execute();
+        $connexion = new DAO();
+        $sql = "SELECT * FROM ".self::TABLE_NAME;
+        $prepareStatement = $connexion::getInstance()->prepare($sql);
+        $prepareStatement->execute();
+        $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+        while ($ligne) {
+            $music = new Music(
+                intval($ligne['id_album']), intval($ligne['id_style']), intval($ligne['id_profil_artiste']),
+                strval($ligne['libelle']), (array) $ligne['liste_points'], strval($ligne['chemin_mp3']),
+                strval($ligne['chemin_pochette']), strval($ligne['artiste_original']), boolval($ligne['composition']),
+                intval($ligne['taille']), intval($ligne['duree']), intval($ligne['nb_ecoutes']),
+                strval($ligne['date_insertion']), intval($ligne['id'])
+            );
+
+            $musics[] = $music;
+
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-
-            while ($ligne) {
-                $music = new Music(
-                    intval($ligne['id_album']), intval($ligne['id_style']), intval($ligne['id_profil_artiste']),
-                    strval($ligne['libelle']), $ligne['liste_point'], strval($ligne['chemin_mp3']),
-                    strval($ligne['chemin_pochette']), strval($ligne['artiste_original']), boolval($ligne['composition']),
-                    intval($ligne['taille']), intval($ligne['duree']), intval($ligne['nb_ecoutes']),
-                    strval($ligne['date_insertion']), intval($ligne['id'])
-                );
-
-                $musics[] = $music;
-
-                $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-            }
-            $connexion::close();
         }
-        catch (Exception $exception){
-            throw new Exception("Erreur de connexion à la bdd");
-        }
+        $connexion::close();
 
         return $musics;
     }

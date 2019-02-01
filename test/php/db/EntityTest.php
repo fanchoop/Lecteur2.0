@@ -43,4 +43,35 @@ final class EntityTest extends TestCase
         //Test Get et Set attribut simple
         $this->assertFalse($this->music->unexistFonctionId());
     }
+
+    /**
+     * Test de la méthode hydrate
+     * @covers ::hydrate
+     * @covers ::getValues
+     */
+    public function testHydrate(){
+        $array = array(
+            'id' => 1,
+            'id_album' => 1,
+            'id_style' => 1,
+            'id_profil_artiste' => 1,
+            'libelle' => 'J\'ai mal au mic',
+            'liste_point' => array(
+                0 => 1,
+                1 => 2,
+                2 => 3,
+                3 => 4,
+                4 => 5
+            ),
+            'chemin_mp3' => 'musique.mp3',
+            'chemin_pochette' => 'pochette.jpg',
+            'artiste_original' => 'Oxmo Puccino',
+            'composition' => true,
+            'taille' => 3,
+            'duree' => 1200,
+            'nb_ecoutes' => 3,
+            'date_insertion' => '03/02/2015'
+        );
+        $this->assertSame($array, $this->music->getValues());
+    }
 }

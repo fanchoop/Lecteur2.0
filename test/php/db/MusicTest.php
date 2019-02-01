@@ -1,7 +1,9 @@
 <?php
 include_once "src/models/db/Music.php";
+include_once "src/models/db/DAO.php";
 use PHPUnit\Framework\TestCase;
 use src\models\db\Music;
+use src\models\db\DAO;
 
 /**
  * Class MusicTest
@@ -18,6 +20,14 @@ final class MusicTest extends TestCase
     public function setupNeeds(){
         $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",
             "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 1);
+    }
+
+    /**
+     * Test de la méthode convertJson
+     * @covers ::__construct
+     */
+    public function testConstructeur(){
+        $this->assertSame(1, $this->music->getId_album());
     }
 
     /**
@@ -48,6 +58,14 @@ final class MusicTest extends TestCase
         $nb_ecoutes = $this->music->getNb_ecoutes() -1;
         $this->music->deleteListen();
         $this->assertSame($nb_ecoutes, $this->music->getNb_ecoutes());
+    }
+
+    /**
+     * Test de la méthide findAll
+     * @covers ::findAll
+     */
+    public function testFindAll(){
+        $musics = $this->music->findAll();
     }
 
     /**

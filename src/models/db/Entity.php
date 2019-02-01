@@ -16,6 +16,10 @@ class Entity{
         $this->values = $values;
     }
 
+    public function getValues(){
+        return $this->values;
+    }
+
     public function __call(string $method, array $params){
 
         $function = substr($method,0 ,3);
