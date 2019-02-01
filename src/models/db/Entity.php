@@ -12,19 +12,6 @@ class Entity{
         $this->pkName = $pkName;
     }
 
-    /* Ajout des undescore devant les Majuscules
-    protected static function underscore(string $s) : string {
-        $pattern = '/[A-Z]/';
-        $replace = '_$0';
-
-        $values = preg_replace($pattern, $replace, $s);
-
-        if(substr($values, 0, 1) === "_") $values = substr($values, 1);
-
-        $values = strtolower($values);
-        return $values;
-    }*/
-
     protected function hydrate($values){
         $this->values = $values;
     }
@@ -32,7 +19,7 @@ class Entity{
     public function __call(string $method, array $params){
 
         $function = substr($method,0 ,3);
-        $columsName = self::underscore( substr($method, 3) );
+        $columsName = strtolower( substr($method, 3) );
 
         if($function === "set"){
             $this->values[$columsName] = $params[0];
@@ -41,11 +28,13 @@ class Entity{
         elseif($function === "get"){
             return $this->values[$columsName];
         }
+
         return false;
     }
 
     public function save(){
 
+        $update = "";
         $i = 0;
         foreach ($this->values as $key => $value){
             $columns[$i] = $key;
