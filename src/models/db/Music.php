@@ -43,8 +43,11 @@ class Music extends Entity {
 
     }
 
+    /**
+     * Méthode d'ajout d'une écoute.
+     */
     public function addListen(){
-
+        $this->setNb_ecoutes($this->getNb_ecoutes() + 1);
     }
 
     public function deleteLike(){
@@ -52,6 +55,6 @@ class Music extends Entity {
     }
 
     public function deleteListen(){
-
+        $this->setNb_ecoutes($this->getNb_ecoutes() - 1);
     }
 }

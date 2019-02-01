@@ -22,6 +22,7 @@ final class MusicTest extends TestCase
 
     /**
      * Test de la méthode convertJson
+     * @covers ::convertJson
      */
     public function testConvertJson(){
         $json = '{"id_Album":1,"id_style":1,"id_profil_artiste":1,"libelle":"J\'ai mal au mic","liste_point":[1,2,3,4,5],"chemin_mp3":"musique.mp3","chemin_pochette":"pochette.jpg","artiste_original":"Oxmo Puccino","composition":true,"taille":3,"duree":1200,"nb_ecoutes":3,"date_insertion":"03\/02\/2015","id":1}';
@@ -29,4 +30,23 @@ final class MusicTest extends TestCase
         $this->assertSame($json, $this->music->convertJson());
     }
 
+    /**
+     * Test de la méthode addListen
+     * @covers ::addListen
+     */
+    public function testAddListen(){
+        $nb_ecoutes = $this->music->getNb_ecoutes() +1;
+        $this->music->addListen();
+        $this->assertSame($nb_ecoutes, $this->music->getNb_ecoutes());
+    }
+
+    /**
+     * Test de la méthode deleteListen
+     * @covers ::deleteListen
+     */
+    public function testDeleteListen(){
+        $nb_ecoutes = $this->music->getNb_ecoutes() -1;
+        $this->music->deleteListen();
+        $this->assertSame($nb_ecoutes, $this->music->getNb_ecoutes());
+    }
 }

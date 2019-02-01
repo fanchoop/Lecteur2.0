@@ -18,7 +18,7 @@ final class HtmlDocumentTest extends TestCase
      */
     public static function setUpSomeHtml()
     {
-        self::$html = new HtmlDocument("test/php/ctrlTest.php");
+        self::$html = new HtmlDocument("test/php/res/ctrlTest.php");
         self::$html->addHeader("<link src='test'/>", HtmlDocument::LAST);
     }
 
@@ -36,7 +36,7 @@ final class HtmlDocumentTest extends TestCase
      * @expectedException Exception
      */
     public function testSingleton(){
-        self::$html = new HtmlDocument("test/php/ctrlTest.php");
+        self::$html = new HtmlDocument("test/php/res/ctrlTest.php");
     }
 
     /**
