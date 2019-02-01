@@ -23,8 +23,9 @@ class User extends Entity {
      * note : regex valide jusqu'en 2029
      * 
      */
-    public function __construct(string $date_inscription, string $login, string $md5_password,
-                                string $nom, string $prenom, string $email, int $id = null){
+    public function __construct(string $date_inscription, string $login, string $md5_password, string $nom, string $prenom, string $email, int $id = null){
+
+        parent::__construct(self::TABLENAME, self::PKNAME);
 
         if (!preg_match('/'.'^(201[9]|20[2-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
 
@@ -64,9 +65,7 @@ class User extends Entity {
         while ($ligne) {
 
             $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
-
             $users[] = $user;
-
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         }
@@ -87,10 +86,9 @@ class User extends Entity {
 
         $prepareStatement = $connexion::getInstance()->prepare($sql);
         $prepareStatement->bindValue(":id_utilisateur",$id_utilisateur, PDO::PARAM_STR);
-
         $prepareStatement->execute();
+        
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-
         $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
 
         $connexion::close();
