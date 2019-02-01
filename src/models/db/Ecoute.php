@@ -3,7 +3,8 @@
 namespace src\models\db;
 include_once "src/models/db/Entity.php";
 
-class Ecoute extends Entity {
+class Ecoute extends Entity
+{
 
     CONST TABLENAME = 'mp3_ecoutes';
     CONST PKNAME = 'id_fichier, id_pers';
@@ -16,7 +17,8 @@ class Ecoute extends Entity {
      * @param float $pourcent
      * @param bool $liked
      */
-    public function __construct(int $idMusic, int $idUser, string $date, float $pourcent, bool $liked) {
+    public function __construct(int $idMusic, int $idUser, string $date, float $pourcent, bool $liked)
+    {
         parent::__construct(self::TABLENAME, self::PKNAME);
 
         $this->hydrate([
@@ -34,8 +36,10 @@ class Ecoute extends Entity {
      * @param $id_music
      * @return une ecoute
      */
-    public static function find($id_user, $id_music) : Ecoute{
+    public static function find($id_user, $id_music): Ecoute
+    {
         $connexion = new DAO();
 
-        $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :";
+        $sql = "SELECT * FROM " . self::TABLENAME . " WHERE " . self::PKNAME . " = :";
     }
+}

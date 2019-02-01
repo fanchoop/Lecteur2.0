@@ -2,6 +2,8 @@
 
 namespace src\models\db;
 
+use Exception;
+
 include_once "src/models/db/Entity.php";
 include_once "src/models/db/DAO.php";
 
@@ -16,6 +18,7 @@ class Music extends Entity {
 
         parent::__construct(self::TABLE_NAME, self::PK_NAME);
         $this->hydrate(array(
+            'id' => $id,
             'id_album' => $id_album,
             'id_style' => $id_style,
             'id_profil_artiste' => $id_profil_artiste,
@@ -28,8 +31,7 @@ class Music extends Entity {
             'taille' => $taille,
             'duree' => $duree,
             'nb_ecoutes' => $nb_ecoutes,
-            'date_insertion' => $dateInsertion,
-            'id' => $id
+            'date_insertion' => $dateInsertion
         ));
     }
 
@@ -70,11 +72,15 @@ class Music extends Entity {
      * Méthode findAll pour récupérer toutes les
      * musiques de la bdd
      * @return array Music[]
+     * @throws \Exception
      */
     public function findAll() : array {
+
+        $musics = array();
+
         try{
             $connexion = new DAO();
-            $sql = "SELECT * FROM ".self::TABLENAME;
+            $sql = "SELECT * FROM ".self::TABLE_NAME;
             $prepareStatement = $connexion::getInstance()->prepare($sql);
             $prepareStatement->execute();
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
@@ -95,8 +101,7 @@ class Music extends Entity {
             $connexion::close();
         }
         catch (Exception $exception){
-            throw new \Exception("Erreur de connexion à la bdd");
-            $musics = array();
+            throw new Exception("Erreur de connexion à la bdd");
         }
 
         return $musics;
@@ -105,18 +110,19 @@ class Music extends Entity {
     /**
      * Méthode find pour récuperer une musique selon
      * sont ID.
-     * @param id
-     * @return Music
+     * @param int id
+     * @return Music music
      * @throws \Exception
      */
-    public function find($id) : Music{
+    public function find($idMusic) : Music{
+        $music = null;
         try{
             $connexion = new DAO();
 
-            $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_Music";
+            $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE ".self::PK_NAME." = :id_Music";
 
             $prepareStatement = $connexion::getInstance()->prepare($sql);
-            $prepareStatement->bindValue(":id_Music",$id_Music, PDO::PARAM_STR);
+            $prepareStatement->bindValue(":id_Music",$idMusic, PDO::PARAM_STR);
 
             $prepareStatement->execute();
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
@@ -132,8 +138,7 @@ class Music extends Entity {
             $connexion::close();
         }
         catch (Exception $exception){
-            throw new \Exception("Erreur de connexion à la bdd");
-            $music = null;
+            throw new Exception("Erreur de connexion à la bdd");
         }
 
         return $music;
