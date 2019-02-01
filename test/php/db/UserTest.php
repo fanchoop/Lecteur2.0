@@ -10,11 +10,11 @@ use src\models\db\User;
  */
 final class UserTest extends TestCase
 {
-    private $user;
+    private static $user;
 
-    public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
-        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        self::$user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -22,9 +22,9 @@ final class UserTest extends TestCase
      * @covers \src\models\db\Entity::__call
      */
     public function testCall(){
-        $this->assertSame("toto", $this->user->getLogin());
-        $this->user->setLogin("titi");
-        $this->assertSame("titi", $this->user->getLogin());
+        $this->assertSame("toto", self::$user->getLogin());
+        self::$user->setLogin("titi");
+        $this->assertSame("titi", self::$user->getLogin());
     }
 
     /**
@@ -66,6 +66,4 @@ final class UserTest extends TestCase
     {
         $user5 = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
     }
-
-    //yollo
 }
