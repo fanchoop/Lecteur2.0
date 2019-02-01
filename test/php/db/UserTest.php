@@ -12,10 +12,7 @@ final class UserTest extends TestCase
 {
     private $user;
 
-    /**
-     * @before
-     */
-    public function setUpNeeds()
+    public function setUpBeforeClass()
     {
         $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
@@ -35,7 +32,8 @@ final class UserTest extends TestCase
      */
     public function testFailingDate1()
     {
-        $this->user = new User('2019-54-30 10:39:4232548792132', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        private $user1;
+        $this->user1 = new User('3019-01-30 10:39:61', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -43,7 +41,8 @@ final class UserTest extends TestCase
      */
     public function testFailingDate2()
     {
-        $this->user = new User('2019-01-3021657 54:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        private $user2;
+        $this->user2 = new User('2019-13-32 54:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -51,7 +50,8 @@ final class UserTest extends TestCase
      */
     public function testFailingDate3()
     {
-        $this->user = new User('5419278-0132549-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        private $user3;
+        $this->user3 = new User('2019-12-32 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -59,7 +59,8 @@ final class UserTest extends TestCase
      */
     public function testFailingPass()
     {
-        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71db7525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        private $user4;
+        $this->user4 = new User('2019-01-30 10:39:42', 'toto', 'f71db7525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -67,6 +68,7 @@ final class UserTest extends TestCase
      */
     public function testFailingMail()
     {
-        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
+        private $user5;
+        $this->user5 = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
     }
 }
