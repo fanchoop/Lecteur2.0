@@ -32,8 +32,7 @@ final class UserTest extends TestCase
      */
     public function testFailingDate1()
     {
-        private $user1;
-        $this->user1 = new User('3019-01-30 10:39:61', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $user1 = new User('3019-01-30 10:39:61', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -41,8 +40,7 @@ final class UserTest extends TestCase
      */
     public function testFailingDate2()
     {
-        private $user2;
-        $this->user2 = new User('2019-13-32 54:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $user2 = new User('2019-13-32 54:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -50,8 +48,7 @@ final class UserTest extends TestCase
      */
     public function testFailingDate3()
     {
-        private $user3;
-        $this->user3 = new User('2019-12-32 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $user3 = new User('2019-12-32 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -59,8 +56,7 @@ final class UserTest extends TestCase
      */
     public function testFailingPass()
     {
-        private $user4;
-        $this->user4 = new User('2019-01-30 10:39:42', 'toto', 'f71db7525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $user4 = new User('2019-01-30 10:39:42', 'toto', 'f71db7525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -68,7 +64,8 @@ final class UserTest extends TestCase
      */
     public function testFailingMail()
     {
-        private $user5;
-        $this->user5 = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
+        $user5 = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
     }
+
+    //yollo
 }
