@@ -3,6 +3,7 @@ include "src/models/db/Artist.php";
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
 use src\models\db\Artist;
+use PHPUnit\DbUnit\DataSet\ITable;
 
 /**
  * Class ArtistTest
@@ -17,12 +18,12 @@ final class ArtistTest extends TestCase
 
     use TestCaseTrait;
 
-    public function setUp()
+    protected function setUp()
     {
 //        $this->artist = new Artist("toto");
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
 
     }
@@ -30,11 +31,11 @@ final class ArtistTest extends TestCase
     /**
      * @return PHPUnit\DbUnit\Database\Connection
      */
-    public function getConnection()
+    protected function getConnection()
     {
         if ($this->conn === null) {
             if ($this->pdo == null) {
-                $this->pdo = new PDO('mysql:dbname=lecteur_test;host=localhost', 'user', 'user');
+                $this->pdo = new PDO('mysql:dbname=lecteur_test;host=localhost;', 'user', 'user');
             }
             $this->conn = $this->createDefaultDBConnection($this->pdo,'leteur-test');
         }
@@ -44,7 +45,7 @@ final class ArtistTest extends TestCase
     /**
      * @return PHPUnit\DbUnit\DataSet\IDataSet
      */
-    public function getDataSet() {
+    protected function getDataSet() {
         return $this->createFlatXMLDataSet('test/php/res/database.xml');
     }
 
@@ -52,7 +53,7 @@ final class ArtistTest extends TestCase
      * @before
      * @uses Artist
      */
-    public function setupNeeds() {
+    protected function setupNeeds() {
         $this->artist = new Artist("IAM");
     }
 
