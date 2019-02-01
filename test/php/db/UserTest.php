@@ -66,4 +66,5 @@ final class UserTest extends TestCase
     {
         $user5 = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
     }
+ 
 }
