@@ -26,7 +26,7 @@ class User extends Entity {
     public function __construct(string $date_inscription, string $login, string $md5_password,
                                 string $nom, string $prenom, string $email, int $id = null){
 
-        if (!preg_match('/'.'^(201[9]|202[0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
+        if (!preg_match('/'.'^(201[9]|20[2-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
 
             throw new Exception('Date incorrect.');
         }
@@ -44,9 +44,57 @@ class User extends Entity {
             'date_inscription' => $date_inscription,
             'login' => $login,
             'md5_password' => $md5_password,
-            'email' => $email,
             'nom' => $nom,
-            'prenom' => $prenom
+            'prenom' => $prenom,
+            'email' => $email
         ]);
+    }
+
+    /**
+     * Récupère la totalité de la table contenant les utilisateurs.
+     * @return un tableau contenant tous les utilisateurs.
+     */
+    public static function findAll() : array {
+        $connexion = new DAO();
+        $sql = "SELECT * FROM ".self::TABLENAME;
+        $prepareStatement = $connexion::getInstance()->prepare($sql);
+        $prepareStatement->execute();
+        $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+        while ($ligne) {
+
+            $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
+
+            $users[] = $user;
+
+            $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+        }
+        $connexion::close();
+
+        return $users;
+    }
+
+    /**
+     * On recherche dans la base de donnée un utilisateur en fonction de son id de BD.
+     * @param $id_utilisateur
+     * @return un utilisateur
+     */
+    public static function find($id_utilisateur) : User{
+        $connexion = new DAO();
+
+        $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_utilisateur";
+
+        $prepareStatement = $connexion::getInstance()->prepare($sql);
+        $prepareStatement->bindValue(":id_utilisateur",$id_utilisateur, PDO::PARAM_STR);
+
+        $prepareStatement->execute();
+        $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+        $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
+
+        $connexion::close();
+
+        return $user;
     }
 }
