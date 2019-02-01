@@ -26,7 +26,7 @@ class User extends Entity {
     public function __construct(string $date_inscription, string $login, string $md5_password,
                                 string $nom, string $prenom, string $email, int $id = null){
 
-        if (!preg_match('/'.'^(201[8-9]|202[0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
+        if (!preg_match('/'.'^(201[9]|202[0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
 
             throw new Exception('Date incorrect.');
         }
