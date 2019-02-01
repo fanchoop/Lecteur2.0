@@ -34,7 +34,7 @@ final class ArtistTest extends TestCase
     {
         if ($this->conn === null) {
             if ($this->pdo == null) {
-                $this->pdo = new PDO('mysql:dbname=lecteur-test;host=localhost', 'user', 'user');
+                $this->pdo = new PDO('mysql:dbname=lecteur_test;host=localhost', 'user', 'user');
             }
             $this->conn = $this->createDefaultDBConnection($this->pdo,'leteur-test');
         }
