@@ -1,0 +1,304 @@
+<?xml version="1.0" ?>
+<!-- Ce fichier XML permet de structurer une base de données factice pour les tests
+afin de pouvoir réaliser l'intégralité des tests unitaires manipulant les données en base de données sans
+pour autant en créer une nouvelle sur chaque poste de l'équipe.-->
+<dataset>
+    <!-- La table mp3_albums -->
+    <table name="mp3_albums">
+        <!-- Les différents colonnes de cette table -->
+        <column>id</column>
+        <column>id_profil_artiste</column>
+        <column>titre</column>
+        <column>date</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>1</value>
+            <value>1</value>
+            <value>Agartha</value>
+            <value>2017-01-01</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>6</value>
+            <value>On You</value>
+            <value>2018-01-01</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>9</value>
+            <value>Kickass Metal</value>
+            <value>1990-01-01</value>
+        </row>
+    </table>
+
+    <!-- La table mp3_ecoutes -->
+    <table name="mp3_ecoutes">
+        <!-- Les différents colonnes de cette table -->
+        <column>id_fichier</column>
+        <column>id_pers</column>
+        <column>date_first_ecoute</column>
+        <column>pourcent_ecoute</column>
+        <column>is_liked</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>1</value>
+            <value>4</value>
+            <value>2019-01-30 11:35:36</value>
+            <value>0.55</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>1</value>
+            <value>5</value>
+            <value>2019-01-30 11:00:20</value>
+            <value>0.3</value>
+            <value>0</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>4</value>
+            <value>2019-01-30 11:00:20</value>
+            <value>0.66</value>
+            <value>0</value>
+        </row>
+    </table>
+
+    <!-- La table mp3_fichiers -->
+    <table name="mp3_fichiers">
+        <!-- Les différents colonnes de cette table -->
+        <column>id</column>
+        <column>id_album</column>
+        <column>id_style</column>
+        <column>id_profil_artiste</column>
+        <column>id_licence</column>
+        <column>libelle</column>
+        <column>liste_points</column>
+        <column>chemin_mp3</column>
+        <column>chemin_pochette</column>
+        <column>artiste_original</column>
+        <column>composition</column>
+        <column>taille</column>
+        <column>duree</column>
+        <column>nb_ecoutes</column>
+        <column>nb_telechargements</column>
+        <column>date_insertion</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>1</value>
+            <value>1</value>
+            <value>4</value>
+            <value>1</value>
+            <value>4</value>
+            <value>Eurotrap</value>
+            <value>[2 , 5, 4, 4, 1, 6, 6, 4, 2, 4, 6, 6, 5, 4, 5, 4, 3, 2, 3, 2, 3, 2, 2, 2, 3, 3, 2, 3, 4, 4, 3, 2, 2, 1, 1, 1, 2, 2, 3, 3, 4, 3, 3, 2, 3, 2, 0, 0, 1, 6, 4, 3, 1, 2, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 4, 4, 3, 4, 4, 3, 1, 1, 2, 2, 4, 4, 3, 1, 2, 5, 4, 2, 5, 5, 3, 2, 3, 4, 3, 5, 9, 10, 10, 15, 16, 13, 8, 12, 14, 13, 7, 14, 16, 11, 7, 15, 13, 13, 14, 15, 15, 9, 9, 16, 12, 7, 14, 17, 13, 8, 21, 25, 19, 5, 5, 6, 6, 4, 5, 7, 4, 3, 3, 4, 5, 7, 7, 5, 2, 4, 5, 5, 4, 5, 6, 5, 5, 5, 6, 7, 11, 12, 12, 16, 21, 18, 11, 11, 18, 15, 11, 14, 18, 17, 6, 13, 18, 13, 13, 16, 15, 13, 6, 14, 14, 11, 6, 14, 15, 9, 10, 22, 20, 17, 4, 5, 4, 4, 5, 5, 5, 6, 7, 6, 5, 4, 6, 7, 4, 1, 3, 3, 4, 3, 4, 4, 5, 5, 6, 5, 4, 5, 6, 5, 13, 15, 16, 15, 14, 17, 10, 8, 9, 7, 6, 7, 7, 7, 5, 8, 16, 16, 16, 13, 14, 13, 10, 7, 8, 9, 8, 9, 12, 9, 6, 7, 5, 7, 4, 8, 8, 8, 6, 8, 7, 7, 10, 15, 17, 23, 16, 18, 11, 4, 2, 3, 2, 2, 6, 7, 9, 5, 7, 9, 6, 5, 4, 5, 7, 11, 15, 16, 12, 8, 8, 9, 6, 5, 8, 8, 7, 6, 9, 9, 13, 17, 17, 17, 20, 17, 15, 9, 15, 15, 14, 7, 16, 17, 13, 7, 16, 17, 14, 15, 16, 17, 11, 9, 16, 14, 9, 10, 15, 15, 8, 14, 25, 21, 23, 29, 40, 32, 22, 31, 34, 31, 8, 5, 11, 7, 7, 9, 12, 8, 4, 4, 5, 7, 16, 22, 26, 25, 33, 33, 29, 21, 30, 28, 22, 23, 23, 20, 13, 21, 23, 18, 13, 25, 23, 6, 8, 14, 21, 27, 34, 33, 24, 17, 28, 24, 16, 18, 20, 14, 5, 10, 15, 20, 27, 32, 32, 27, 33, 28, 30, 31, 40, 38, 21]</value>
+            <value>vald-eurotrap.mp3</value>
+            <value>vald-eurotrap.jpg</value>
+            <value>Vald</value>
+            <value>N</value>
+            <null />
+            <value>11:12:00</value>
+            <value>999</value>
+            <value>555</value>
+            <value>2019-01-30 10:57:10</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>2</value>
+            <value>3</value>
+            <value>6</value>
+            <value>4</value>
+            <value>On You</value>
+            <value>[2 , 5, 4, 4, 1, 6, 6, 4, 2, 4, 6, 6, 5, 4, 5, 4, 3, 2, 3, 2, 3, 2, 2, 2, 3, 3, 2, 3, 4, 4, 3, 2, 2, 1, 1, 1, 2, 2, 3, 3, 4, 3, 3, 2, 3, 2, 0, 0, 1, 6, 4, 3, 1, 2, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 4, 4, 3, 4, 4, 3, 1, 1, 2, 2, 4, 4, 3, 1, 2, 5, 4, 2, 5, 5, 3, 2, 3, 4, 3, 5, 9, 10, 10, 15, 16, 13, 8, 12, 14, 13, 7, 14, 16, 11, 7, 15, 13, 13, 14, 15, 15, 9, 9, 16, 12, 7, 14, 17, 13, 8, 21, 25, 19, 5, 5, 6, 6, 4, 5, 7, 4, 3, 3, 4, 5, 7, 7, 5, 2, 4, 5, 5, 4, 5, 6, 5, 5, 5, 6, 7, 11, 12, 12, 16, 21, 18, 11, 11, 18, 15, 11, 14, 18, 17, 6, 13, 18, 13, 13, 16, 15, 13, 6, 14, 14, 11, 6, 14, 15, 9, 10, 22, 20, 17, 4, 5, 4, 4, 5, 5, 5, 6, 7, 6, 5, 4, 6, 7, 4, 1, 3, 3, 4, 3, 4, 4, 5, 5, 6, 5, 4, 5, 6, 5, 13, 15, 16, 15, 14, 17, 10, 8, 9, 7, 6, 7, 7, 7, 5, 8, 16, 16, 16, 13, 14, 13, 10, 7, 8, 9, 8, 9, 12, 9, 6, 7, 5, 7, 4, 8, 8, 8, 6, 8, 7, 7, 10, 15, 17, 23, 16, 18, 11, 4, 2, 3, 2, 2, 6, 7, 9, 5, 7, 9, 6, 5, 4, 5, 7, 11, 15, 16, 12, 8, 8, 9, 6, 5, 8, 8, 7, 6, 9, 9, 13, 17, 17, 17, 20, 17, 15, 9, 15, 15, 14, 7, 16, 17, 13, 7, 16, 17, 14, 15, 16, 17, 11, 9, 16, 14, 9, 10, 15, 15, 8, 14, 25, 21, 23, 29, 40, 32, 22, 31, 34, 31, 8, 5, 11, 7, 7, 9, 12, 8, 4, 4, 5, 7, 16, 22, 26, 25, 33, 33, 29, 21, 30, 28, 22, 23, 23, 20, 13, 21, 23, 18, 13, 25, 23, 6, 8, 14, 21, 27, 34, 33, 24, 17, 28, 24, 16, 18, 20, 14, 5, 10, 15, 20, 27, 32, 32, 27, 33, 28, 30, 31, 40, 38, 21]</value>
+            <value>kazy-lambist-onyou.mp3</value>
+            <value>kazy-lambist-onyou.jpg</value>
+            <value>Kazy Lambist</value>
+            <value>N</value>
+            <null />
+            <value>11:12:00</value>
+            <value>333</value>
+            <value>666</value>
+            <value>2019-01-30 10:57:10</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>3</value>
+            <value>1</value>
+            <value>9</value>
+            <value>4</value>
+            <value>Nothing Else Matters</value>
+            <value>[2 , 5, 4, 4, 1, 6, 6, 4, 2, 4, 6, 6, 5, 4, 5, 4, 3, 2, 3, 2, 3, 2, 2, 2, 3, 3, 2, 3, 4, 4, 3, 2, 2, 1, 1, 1, 2, 2, 3, 3, 4, 3, 3, 2, 3, 2, 0, 0, 1, 6, 4, 3, 1, 2, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 4, 4, 3, 4, 4, 3, 1, 1, 2, 2, 4, 4, 3, 1, 2, 5, 4, 2, 5, 5, 3, 2, 3, 4, 3, 5, 9, 10, 10, 15, 16, 13, 8, 12, 14, 13, 7, 14, 16, 11, 7, 15, 13, 13, 14, 15, 15, 9, 9, 16, 12, 7, 14, 17, 13, 8, 21, 25, 19, 5, 5, 6, 6, 4, 5, 7, 4, 3, 3, 4, 5, 7, 7, 5, 2, 4, 5, 5, 4, 5, 6, 5, 5, 5, 6, 7, 11, 12, 12, 16, 21, 18, 11, 11, 18, 15, 11, 14, 18, 17, 6, 13, 18, 13, 13, 16, 15, 13, 6, 14, 14, 11, 6, 14, 15, 9, 10, 22, 20, 17, 4, 5, 4, 4, 5, 5, 5, 6, 7, 6, 5, 4, 6, 7, 4, 1, 3, 3, 4, 3, 4, 4, 5, 5, 6, 5, 4, 5, 6, 5, 13, 15, 16, 15, 14, 17, 10, 8, 9, 7, 6, 7, 7, 7, 5, 8, 16, 16, 16, 13, 14, 13, 10, 7, 8, 9, 8, 9, 12, 9, 6, 7, 5, 7, 4, 8, 8, 8, 6, 8, 7, 7, 10, 15, 17, 23, 16, 18, 11, 4, 2, 3, 2, 2, 6, 7, 9, 5, 7, 9, 6, 5, 4, 5, 7, 11, 15, 16, 12, 8, 8, 9, 6, 5, 8, 8, 7, 6, 9, 9, 13, 17, 17, 17, 20, 17, 15, 9, 15, 15, 14, 7, 16, 17, 13, 7, 16, 17, 14, 15, 16, 17, 11, 9, 16, 14, 9, 10, 15, 15, 8, 14, 25, 21, 23, 29, 40, 32, 22, 31, 34, 31, 8, 5, 11, 7, 7, 9, 12, 8, 4, 4, 5, 7, 16, 22, 26, 25, 33, 33, 29, 21, 30, 28, 22, 23, 23, 20, 13, 21, 23, 18, 13, 25, 23, 6, 8, 14, 21, 27, 34, 33, 24, 17, 28, 24, 16, 18, 20, 14, 5, 10, 15, 20, 27, 32, 32, 27, 33, 28, 30, 31, 40, 38, 21]</value>
+            <value>metallica.mp3</value>
+            <value>metallica.jpg</value>
+            <value>Metallica</value>
+            <value>N</value>
+            <null />
+            <value>11:12:00</value>
+            <value>17666</value>
+            <value>15443</value>
+            <value>2019-01-30 10:57:10</value>
+        </row>
+    </table>
+
+    <!-- La table mp3_playlist -->
+    <table name="mp3_playlist">
+        <!-- Les différents colonnes de cette table -->
+        <column>id</column>
+        <column>id_pers</column>
+        <column>name</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>1</value>
+            <value>3</value>
+            <value>Ma playlist</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>4</value>
+            <value>Playlist 2K18</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>5</value>
+            <value>Playlist 2K19</value>
+        </row>
+    </table>
+
+    <!-- La table mp3_playlist_fichiers -->
+    <table name="mp3_playlist_fichiers">
+        <!-- Les différents colonnes de cette table -->
+        <column>id_playlist</column>
+        <column>id_fichier</column>
+        <row>
+            <value>1</value>
+            <value>1</value>
+        </row>
+        <row>
+            <value>1</value>
+            <value>2</value>
+        </row>
+        <row>
+            <value>1</value>
+            <value>3</value>
+        </row>
+    </table>
+
+    <!-- La table mp3_styles -->
+    <table name="mp3_styles">
+        <!-- Les différents colonnes de cette table -->
+        <column>id</column>
+        <column>libelle</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>1</value>
+            <value>ROCK</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>POP</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>ELECTRO</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>RAP</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>CLASSIQUE</value>
+        </row>
+    </table>
+
+    <!-- La table pers_personnes -->
+    <table name="pers_personnes">
+        <!-- Les différents colonnes de cette table -->
+        <column>id</column>
+        <column>date_inscription</column>
+        <column>login</column>
+        <column>md5_password</column>
+        <column>nom</column>
+        <column>prenom</column>
+        <column>email</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>3</value>
+            <value>2019-01-30 10:39:42</value>
+            <value>toto</value>
+            <value>f71dbe52628a3f83a77ab494817525c6</value>
+            <value>Toto</value>
+            <value>tutu</value>
+            <value>tutu.toto@tutu.com</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>2019-01-30 10:39:42</value>
+            <value>tata</value>
+            <value>49d02d55ad10973b7b9d0dc9eba7fdf0</value>
+            <value>Tata</value>
+            <value>tete</value>
+            <value>tete.tata@tete.com</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>2019-01-30 10:39:42</value>
+            <value>titi</value>
+            <value>5d933eef19aee7da192608de61b6c23d</value>
+            <value>Titi</value>
+            <value>tyty</value>
+            <value>tyty.titi@tyty.com</value>
+        </row>
+    </table>
+
+    <!-- La table profil_profils_artistes -->
+    <table name="profil_profils_artistes">
+        <!-- Les différents colonnes de cette table -->
+        <column>id</column>
+        <column>nom</column>
+        <!-- Insertion des données pour chaque ligne -->
+        <row>
+            <value>1</value>
+            <value>VALD</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>SOPRANO</value>
+        </row>
+        <row>
+            <value>3</value>
+            <value>BACH</value>
+        </row>
+        <row>
+            <value>4</value>
+            <value>MOZART</value>
+        </row>
+        <row>
+            <value>5</value>
+            <value>DAVID GUETTA</value>
+        </row>
+        <row>
+            <value>6</value>
+            <value>KAZY LAMBIST</value>
+        </row>
+        <row>
+            <value>7</value>
+            <value>NIRVANA</value>
+        </row>
+        <row>
+            <value>8</value>
+            <value>LED ZEPPELIN</value>
+        </row>
+        <row>
+            <value>9</value>
+            <value>METALLICA</value>
+        </row>
+        <row>
+            <value>10</value>
+            <value>KATY PERRY</value>
+        </row>
+        <row>
+            <value>11</value>
+            <value>RIHANNA</value>
+        </row>
+    </table>
+</dataset>
