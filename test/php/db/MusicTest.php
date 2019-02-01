@@ -63,7 +63,7 @@ final class MusicTest extends TestCase
     /**
      * Test de la méthide findAll
      * @covers ::findAll
-     */
+
     public function testFindAll(){
         $musics = $this->music->findAll();
     }
@@ -72,10 +72,10 @@ final class MusicTest extends TestCase
      * Test de la méthode findAll
      * @covers ::findAll
      * @expectedException Exception
-     */
+
     public function testFindAllException(){
         $this->music->findAll();
-    }
+    }*/
 
     /**
      * Test de la méthode find

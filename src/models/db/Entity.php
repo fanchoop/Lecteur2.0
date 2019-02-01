@@ -16,6 +16,10 @@ class Entity{
         $this->values = $values;
     }
 
+    public function getValues() : array {
+        return $this->values;
+    }
+
     public function __call(string $method, array $params){
 
         $function = substr($method,0 ,3);
@@ -39,7 +43,13 @@ class Entity{
         foreach ($this->values as $key => $value){
             $columns[$i] = $key;
             $datas[$i] = $value;
-            if($key != $this->pkName) $update .= ", $key = :$key";
+            if(!strpos(",", $this->pkName)){
+                if($key != $this->pkName) $update .= ", $key = :$key";
+            }
+            else{
+                $pkNames = explode(',', $this->pkName);
+                if(in_array($key, $pkNames)) $update .= ", $key = :$key";
+            }
             $i++;
         }
 
@@ -58,12 +68,24 @@ class Entity{
 
         $cnx = new DAO();
 
-        $prepare = "DELETE FROM $this->tableName WHERE $this->pkName = $this-value[$this->pkName]";
+        if(!strpos(",", $this->pkName)){
+            $prepare = "DELETE FROM $this->tableName WHERE $this->pkName = $this->value[$this->pkName]";
+        }
+        else{
+            $pkNames = explode(',', $this->pkName);
+            $where = "";
+            foreach ($pkNames as $pkname){
+                $pkname = trim($pkname);
+                $where .= $pkname." = ".$this->values[$pkname].",";
+            }
+            $where = substr($where, 0, strlen($where) -1);
+            $prepare = "DELETE FROM $this->tableName WHERE ".$where;
+        }
 
         $query = $cnx::getInstance()->prepare($prepare);
 
-        //$query->execute();
-        var_dump($query->debugDumpParams());
+        $query->execute();
+        //var_dump($query->debugDumpParams());
         $cnx::close();
     }
 }
