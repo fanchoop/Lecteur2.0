@@ -132,21 +132,17 @@ function Player(domElement) {
         if (this.sound == null) {
             barPosition = 0;
         } else {
-			// console.log("yo");
             barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
-			// console.log(( this.playlist.getCurrentMusic().duration * 1000 ));
         }
         if (barPosition <= pos) {
             for (let position = barPosition + 1; position <= pos; position++) {
                 waveformUp.childNodes[position].classList.add("hover-front");
                 waveformDown.childNodes[position].classList.add("hover-front");
-                // console.log("hover after !");
             }
         } else {
             for (let position = pos; position <= barPosition; position++) {
                 waveformUp.childNodes[position].classList.add("hover-back");
                 waveformDown.childNodes[position].classList.add("hover-back");
-                // console.log("hover before !");
             }
         }
 
@@ -157,7 +153,7 @@ function Player(domElement) {
      * @namespace private
      */
     this.clearColorWave = function () {
-        let barsList = this.domElement.querySelectorAll(".bar-up ,.audioplayer .bar-down");
+        let barsList = this.domElement.querySelectorAll(".audioplayer .bar-up ,.audioplayer .bar-down");
         if (barsList.length !== 0) {
             for (var index = 0; index < barsList.length; index++) {
                 barsList[index].classList.remove("played");
@@ -215,6 +211,46 @@ function Player(domElement) {
     };
 
 
+    this.addWaveformListener = function (){
+        var waveformElement = this.domElement.querySelector(".audioplayer .player .waveform");
+
+        waveformElement.addEventListener("mousemove", function(e){
+            let rect = e.currentTarget.getBoundingClientRect();
+            let posX = e.clientX - rect.left;
+            let barPosition = parseInt(posX/4);
+
+            var query = ".audioplayer .player .waveform .bar-up[data_position='" + barPosition + "']";
+            var target = this.domElement.querySelector(query);
+            if (target !== null) {
+                if (target.attributes.hasOwnProperty("data_position")) {
+                    this.colorWaveToHoverPos(Number(target.attributes.data_position.value));
+                    this.drawHoverTime(Number(target.attributes.data_position.value))
+                }
+            }
+        }.bind(this));
+
+        waveformElement.addEventListener("click", function(e){
+            let rect = e.currentTarget.getBoundingClientRect();
+            let posX = e.clientX - rect.left;
+            let barPosition = parseInt(posX/4);
+
+            var query = ".audioplayer .player .waveform .bar-up[data_position='" + barPosition + "']";
+            var target = this.domElement.querySelector(query);
+            if (target !== null) {
+                this.clearColorWave();
+                if (target.attributes.hasOwnProperty("data_position")){
+                    this.goTo(Number(target.attributes.data_position.value));
+                }
+            }
+        }.bind(this));
+
+        waveformElement.addEventListener("mouseout", function(e){
+            this.clearColorHoverWave();
+            this.clearHoverTime();
+        }.bind(this));
+    };
+
+
     /**
      * Will draw the waveform at this position
      * @namespace private
@@ -231,28 +267,25 @@ function Player(domElement) {
         }
 
         //Add event to each bar of the spectrum
-        var barsList = this.domElement.querySelectorAll(".bar-up , .audioplayer .bar-down");
-        for (var index = 0; index < barsList.length; index++) {
-            barsList[index].addEventListener("click", function (evt) {
-                this.clearColorWave();
-                if (evt.target.attributes.hasOwnProperty("data_position"))
-                    this.goTo(Number(evt.target.attributes.data_position.value));
-            }.bind(this));
-            barsList[index].addEventListener("mouseover", function (evt) {
-                if (evt.target.attributes.hasOwnProperty("data_position")) {
-                    // console.log("Hover in !");
-                    // console.log(Number(evt.target.attributes.data_position.value));
-                    this.colorWaveToHoverPos(Number(evt.target.attributes.data_position.value));
-                    this.drawHoverTime(Number(evt.target.attributes.data_position.value))
-                }
-            }.bind(this));
-            barsList[index].addEventListener("mouseout", function () {
-                // console.log("Hover out !");
-                this.clearColorHoverWave();
-                this.clearHoverTime();
-            }.bind(this));
-        }
-
+    //     var barsList = this.domElement.querySelectorAll(".bar-up , .audioplayer .bar-down");
+    //     for (var index = 0; index < barsList.length; index++) {
+    //         barsList[index].addEventListener("click", function (evt) {
+    //             this.clearColorWave();
+    //             if (evt.target.attributes.hasOwnProperty("data_position"))
+    //                 this.goTo(Number(evt.target.attributes.data_position.value));
+    //         }.bind(this));
+    //         barsList[index].addEventListener("mouseover", function (evt) {
+    //             if (evt.target.attributes.hasOwnProperty("data_position")) {
+    //                 this.colorWaveToHoverPos(Number(evt.target.attributes.data_position.value));
+    //                 this.drawHoverTime(Number(evt.target.attributes.data_position.value))
+    //             }
+    //         }.bind(this));
+    //         barsList[index].addEventListener("mouseout", function () {
+    //             this.clearColorHoverWave();
+    //             this.clearHoverTime();
+    //         }.bind(this));
+    //     }
+        this.addWaveformListener();
     };
 
     /**
@@ -308,7 +341,9 @@ function Player(domElement) {
 
         this.domElement.querySelector(".prev").addEventListener("click", this.previous.bind(this));
         this.domElement.querySelector(".next").addEventListener("click", this.next.bind(this));
-        this.domElement.querySelector(".play-pause").addEventListener("click", this.play_pause.bind(this));
+        this.domElement.querySelector(".play-pause").addEventListener("click", function(e) {
+            this.play_pause();
+        }.bind(this));
         this.domElement.querySelector(".like").addEventListener("click", this.like.bind(this));
         this.domElement.querySelector(".share").addEventListener("click", this.share.bind(this));
         this.domElement.querySelector(".controls .volume input[type=range].volume-input-range").addEventListener("input", this.targetVolume.bind(this));
@@ -506,7 +541,6 @@ function Player(domElement) {
     constructor(domElement);
 
 }
-
 /**
  * Set the new volume
  * @namespace Player
@@ -515,53 +549,25 @@ function Player(domElement) {
 Player.prototype.setVolume = function (newVolume) {
     this.volume = newVolume;
     if (this.sound !== null) {
-        this.sound.setVolume(newVolume);
 
+        this.sound.setVolume(newVolume);
         let volume = this.domElement.querySelector(".controls .volume .volume_button");
+
         if (newVolume === 0) {
-            if (volume.classList.contains('volume-on')) {
-                volume.classList.remove("volume-on");
-                volume.classList.add("volume-off");
-            }if (volume.classList.contains('volume-moyen2')) {
-                    volume.classList.remove('volume-moyen2');
-                    volume.classList.add("volume-off");
-            }if (volume.classList.contains('volume-moyen3')) {
-                volume.classList.remove('volume-moyen3');
-                volume.classList.add("volume-off");
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-off");
             }
         }else if (newVolume>0 && newVolume<33){
-            if (volume.classList.contains('volume-off')) {
-                volume.classList.remove("volume-off");
-                volume.classList.add("volume-on");
-            }if (volume.classList.contains('volume-moyen2')) {
-                    volume.classList.remove('volume-moyen2');
-                    volume.classList.add("volume-on");
-            }if (volume.classList.contains('volume-moyen3')) {
-                volume.classList.remove('volume-moyen3');
-                volume.classList.add("volume-on");
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-on");
             }
-            
         }else if(newVolume>33 && newVolume<66){
-            if (volume.classList.contains('volume-off')) {
-                volume.classList.remove("volume-off");
-                volume.classList.add("volume-moyen2");
-            }if (volume.classList.contains('volume-moyen3')) {
-                    volume.classList.remove('volume-moyen3');
-                    volume.classList.add("volume-moyen2");
-            }if (volume.classList.contains('volume-on')) {
-                volume.classList.remove('volume-on');
-                volume.classList.add("volume-moyen2");
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-moyen2");
             }
         }else if(newVolume>66){
-            if (volume.classList.contains('volume-on')) {
-                volume.classList.remove("volume-on");
-                volume.classList.add("volume-moyen3");
-            }if (volume.classList.contains('volume-off')) {
-                    volume.classList.remove('volume-off');
-                    volume.classList.add("volume-moyen3");
-            }if (volume.classList.contains('volume-moyen2')) {
-                volume.classList.remove('volume-moyen2');
-                volume.classList.add("volume-moyen3");
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-moyen3");
             }
         }
     }
@@ -574,39 +580,20 @@ Player.prototype.setVolume = function (newVolume) {
  */
 Player.prototype.mute = function () {
     let volume = this.domElement.querySelector(".controls .volume .volume_button");
-
-    if (volume.classList.contains('volume-on')) {
-        volume.classList.remove("volume-on");
-        volume.classList.add("volume-off");
-
-        if (this.sound !== null){
-            this.sound.mute();
-        }
-    }
-    if (volume.classList.contains('volume-moyen2')) {
-        volume.classList.remove("volume-moyen2");
-        volume.classList.add("volume-off");
-
-        if (this.sound !== null){
-            this.sound.mute();
-        }
-    }
-    if (volume.classList.contains('volume-moyen3')) {
-        volume.classList.remove("volume-moyen3");
-        volume.classList.add("volume-off");
-
-        if (this.sound !== null){
-            this.sound.mute();
-        }
-    } else {
-        volume.classList.remove("volume-off");
-        volume.classList.add("volume-moyen2");
-
-        if (this.sound !== null){
+    if (volume.classList.item(1) !== null) {
+        if (volume.classList.item(1) != "volume-off") {
+            volume.classList.replace(volume.classList.item(1), "volume-off");
+            if (this.sound !== null){
+                this.sound.mute();
+            }
+        }else {
             this.sound.unmute();
+            let lastVolume = this.domElement.querySelector(".audioplayer .player .controls .volume_slider .volume_sliderTotale .volume-input-range").value;
+            this.setVolume(lastVolume);
         }
     }
 };
+
 
 /**
  * Return if the player add the mute button enabled
@@ -726,7 +713,6 @@ Player.prototype.play_pause = function () {
     //If not undefined
     if (currentMusic != null) {
         let playButton = this.domElement.querySelector(".play-pause");
-
         //If don't have any current sound in play
         if (this.sound == null) {
             //Reset the waveform color in case of a new music
@@ -738,7 +724,6 @@ Player.prototype.play_pause = function () {
             this.sound.play();
             playButton.classList.remove("play");
             playButton.classList.add("pause");
-
         }
         //If a Sound is already set
         else {
