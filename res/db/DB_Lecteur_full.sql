@@ -20,6 +20,14 @@ SET time_zone = "+00:00";
 -- Base de données :  `lecteur`
 --
 CREATE DATABASE IF NOT EXISTS `lecteur` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+
+GRANT ALL PRIVILEGES
+    ON `lecteur` . * TO 'user'@'localhost' IDENTIFIED
+BY
+PASSWORD 'user';
+
+FLUSH PRIVILEGES;
+
 USE `lecteur`;
 
 -- --------------------------------------------------------

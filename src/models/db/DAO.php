@@ -9,8 +9,8 @@ class DAO
     private static $dao = null;
     const host = "localhost";
     const nameBdd = "lecteur";
-    const user = "root";
-    const mdp = "";
+    const user = "user";
+    const mdp = "user";
 
     public function __construct(){
         if(self::$dao !== null) throw new Exception("Classe déjà instancié");
