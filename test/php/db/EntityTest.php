@@ -51,7 +51,7 @@ final class EntityTest extends TestCase
      */
     public function testHydrate(){
         $array = array(
-            'id' => 99999999,
+            'id' => 999999,
             'id_album' => 1,
             'id_style' => 1,
             'id_profil_artiste' => 1,
