@@ -12,9 +12,12 @@ final class UserTest extends TestCase
 {
     private static $user;
 
+    /**
+     * @beforeClass
+     */
     public static function setUpBeforeClass()
     {
-        self::$user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -28,7 +31,22 @@ final class UserTest extends TestCase
     }
 
     /**
+     * Test de la création de l'instance du User
+     * @covers ::__construct
+     * @depends testFailingDate1
+     * @depends testFailingDate2
+     * @depends testFailingDate3
+     * @depends testFailingPass
+     * @depends testFailingMail
+     */
+    public function testConstruct()
+    {
+        $this->assertInstanceOf(User::class, $this->user);
+    }
+
+    /**
      * @expectedException Exception
+     * @covers \src\models\db\User::__construct
      */
     public function testFailingDate1()
     {
@@ -37,6 +55,7 @@ final class UserTest extends TestCase
 
     /**
      * @expectedException Exception
+     * @covers \src\models\db\User::__construct
      */
     public function testFailingDate2()
     {
@@ -45,6 +64,7 @@ final class UserTest extends TestCase
 
     /**
      * @expectedException Exception
+     * @covers \src\models\db\User::__construct
      */
     public function testFailingDate3()
     {
@@ -53,6 +73,7 @@ final class UserTest extends TestCase
 
     /**
      * @expectedException Exception
+     * @covers \src\models\db\User::__construct
      */
     public function testFailingPass()
     {
@@ -61,10 +82,39 @@ final class UserTest extends TestCase
 
     /**
      * @expectedException Exception
+     * @covers \src\models\db\User::__construct
      */
     public function testFailingMail()
     {
         $user5 = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toutu.com');
     }
  
+    /**
+     * Test de la fonction findAll de la classe User
+     * @covers \src\models\db\User::findAll
+     */
+    public function testFindAll() {
+        $users = User::findAll();
+        $my_users = ['toto', 'tata', 'titi'];
+        $this->assertEquals($users.join(), $my_users.join());
+    }
+
+    /**
+     * Test de la fonction find de la classe User
+     * @covers \src\models\db\User::find
+     */
+    public function testFind() {
+        try{
+            $user2 = Artist::find(2);
+        }
+        catch (Exception $e){
+            $e->getMessage();
+        }
+        finally{
+            DAO::close();
+        }
+
+        $this->assertSame($user2->getId(), 2);
+        $this->assertSame($user2->getLogin(), 'titi');
+    }
 }
