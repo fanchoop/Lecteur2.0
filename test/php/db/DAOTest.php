@@ -13,8 +13,8 @@ use src\models\db\DAO;
     private static $DAO;
     const host = "localhost";
     const nameBdd = "lecteur";
-    const user = "user";
-    const mdp = "user";
+    const user = "root";
+    const mdp = "";
 
     /**
      * Test du constructeur de

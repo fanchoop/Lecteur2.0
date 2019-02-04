@@ -3,6 +3,8 @@
 namespace src\models\db;
 include_once "src/models/db/Entity.php";
 
+use PDO;
+
 /**
  * Class Artist
  * @package src\db\models
@@ -39,7 +41,7 @@ class Artist extends Entity {
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         while ($ligne) {
-            $artist = new Artist(intVal($ligne['id']), $ligne['nom']);
+            $artist = new Artist( $ligne['nom'], intVal($ligne['id']));
 
             $artists[] = $artist;
 
