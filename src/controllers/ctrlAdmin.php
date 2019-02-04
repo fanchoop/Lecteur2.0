@@ -3,6 +3,7 @@
 /* Requires */
 require('src/models/db/Music.php');
 require('src/views/nav.html');
+include "src/models/db/Artist.php";
 
 use src\models\db\Music;
 
