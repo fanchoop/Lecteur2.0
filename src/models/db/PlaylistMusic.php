@@ -22,7 +22,7 @@ class PlaylistMusic extends Entity
      */
     public function __construct(int $id_playlist, int $id_fichier)
     {
-        parent::__construct(TABLE_NAME, PK_NAME);
+        parent::__construct(self::TABLE_NAME, self::PK_NAME);
 
         $this->hydrate(array(
             "id_playlist" => $id_playlist,

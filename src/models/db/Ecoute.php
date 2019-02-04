@@ -35,6 +35,7 @@ class Ecoute extends Entity
      * @param $id_user
      * @param $id_music
      * @return une ecoute
+     * @throws \Exception
      */
     public static function find($id_user, $id_music): Ecoute
     {

@@ -15,7 +15,7 @@ class Music extends Entity {
 
     public function __construct(int $id_album ,int $id_style,int $id_profil_artiste, string $libelle, array $liste_point,
                               string $chemin_mp3, string $chemin_pochette, string  $artiste_original, bool $composition,
-                              int $taille, int $duree, int $nb_ecoutes, string $dateInsertion, int $id = null){
+                              int $taille, string $duree, int $nb_ecoutes, string $dateInsertion, int $id = null){
 
         parent::__construct(self::TABLE_NAME, self::PK_NAME);
         $this->hydrate(array(
@@ -75,7 +75,7 @@ class Music extends Entity {
      * @return array Music[]
      * @throws \Exception
      */
-    public function findAll() : array {
+    public static function findAll() : array {
 
         $musics = array();
 
@@ -90,7 +90,7 @@ class Music extends Entity {
                 intval($ligne['id_album']), intval($ligne['id_style']), intval($ligne['id_profil_artiste']),
                 strval($ligne['libelle']), (array) $ligne['liste_points'], strval($ligne['chemin_mp3']),
                 strval($ligne['chemin_pochette']), strval($ligne['artiste_original']), boolval($ligne['composition']),
-                intval($ligne['taille']), intval($ligne['duree']), intval($ligne['nb_ecoutes']),
+                intval($ligne['taille']), strval($ligne['duree']), intval($ligne['nb_ecoutes']),
                 strval($ligne['date_insertion']), intval($ligne['id'])
             );
 
@@ -110,7 +110,7 @@ class Music extends Entity {
      * @return Music music
      * @throws \Exception
      */
-    public function find($idMusic) : Music{
+    public static function find($idMusic) : Music{
         $music = null;
         try{
             $connexion = new DAO();
