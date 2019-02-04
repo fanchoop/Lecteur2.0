@@ -74,4 +74,9 @@ final class EntityTest extends TestCase
         );
         $this->assertSame($array, $this->music->getValues());
     }
+
+    /**
+     * Test de la function save
+     * @covers
+     */
 }
