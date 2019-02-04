@@ -17,7 +17,7 @@ final class UserTest extends TestCase
      */
     public static function setUpBeforeClass()
     {
-        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        self::$user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
     }
 
     /**
@@ -41,7 +41,7 @@ final class UserTest extends TestCase
      */
     public function testConstruct()
     {
-        $this->assertInstanceOf(User::class, $this->user);
+        $this->assertInstanceOf(User::class, self::$user);
     }
 
     /**
