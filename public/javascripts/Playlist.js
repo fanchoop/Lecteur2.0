@@ -115,6 +115,25 @@ Playlist.prototype.previous = function () {
     }
 };
 
+Playlist.prototype.changePlaylistPlayPauseClass = function (e) {
+	let currentMusicId = parseInt(this.player.domElement.querySelector(".play-pause").getAttribute("data-currentMusicId"));
+	let index = Number( (e.currentTarget.nextSibling.innerText) -1 );
+	let currentMusicState;
+	if ( currentMusicId == index ) {
+		currentMusicState = this.player.domElement.querySelector(".play-pause").classList[1];//Recuper l'etat de la musique selon le bouton principal
+	}else{
+		currentMusicState = "play";
+	}
+	if (e.currentTarget.classList.contains("play")) {
+		e.currentTarget.classList.replace("play", currentMusicState);
+	}else if (e.currentTarget.classList.contains("pause")) {
+		e.currentTarget.classList.replace("pause", currentMusicState);
+	}else{
+		e.currentTarget.classList.add(currentMusicState);
+	}
+	e.currentTarget.setAttribute("src", "../public/images/_icons/" + currentMusicState + ".svg");
+};
+
 /**
  * Will generate the block which contains the musics into the playlist
  * @param allMusic {boolean} - If more than 5 musics in the playlist, put "true" to show all, false by default
@@ -143,8 +162,31 @@ Playlist.prototype.generatePlaylistBlock = function (allMusic) {
             musicBlock.classList.add("element");
 
             let coverBlock = document.createElement("img");
-            coverBlock.classList.add("image");
-            coverBlock.setAttribute("src", this.musicList[index].coverPath);
+			coverBlock.classList.add("image");
+			coverBlock.setAttribute("style", "background-image: url(" + this.musicList[index].coverPath + ");");
+			coverBlock.addEventListener("click", function(e){
+				let currentMusicId = parseInt(this.player.domElement.querySelector(".play-pause").getAttribute("data-currentMusicId"));
+				let index = Number( (e.currentTarget.nextSibling.innerText) -1 );
+				if ( currentMusicId !== index ) {
+					let index = Number(numberBlock.innerText) - 1;
+					this.player.domElement.querySelector(".play-pause").setAttribute("data-currentMusicId", index);
+					this.player.setPosition(index);//Use to get the good position (var outside effect problem, even with let)
+				}
+				this.player.play_pause(e);
+				this.changePlaylistPlayPauseClass(e);
+			}.bind(this));
+			coverBlock.addEventListener("mouseover", function(e){
+				this.changePlaylistPlayPauseClass(e);
+			}.bind(this));
+
+			coverBlock.addEventListener("mouseout", function(e){
+				let target = e.currentTarget;
+				if (typeof target.classList[1] !== "undefined") {
+					let state = target.classList.item(1);
+					target.classList.remove(state);
+				};
+				e.currentTarget.removeAttribute("src");
+			}.bind(this));
 
             let numberBlock = document.createElement("p");
             numberBlock.classList.add("numero");
@@ -166,17 +208,29 @@ Playlist.prototype.generatePlaylistBlock = function (allMusic) {
             musicBlock.appendChild(numberBlock);
             musicBlock.appendChild(titleBlock);
             musicBlock.appendChild(artistBlock);
-            musicBlock.appendChild(statsBlock);
-            musicBlock.addEventListener("click", function () {
-                this.player.setPosition(Number(numberBlock.innerText) - 1);//Use to get the good position (var outside effect problem, even with let)
-                this.player.play_pause();
+			musicBlock.appendChild(statsBlock);
+            musicBlock.addEventListener("click", function (e) {
+				if (e.target !== coverBlock) {
+					let currentMusicId = parseInt(this.player.domElement.querySelector(".play-pause").getAttribute("data-currentMusicId"));
+					let index = Number(numberBlock.innerText) - 1;
+					if ( currentMusicId !== index ) {
+						this.player.domElement.querySelector(".play-pause").setAttribute("data-currentMusicId", index);
+						this.player.setPosition(index);//Use to get the good position (var outside effect problem, even with let)
+						this.player.play_pause(e);
+					}
+				}
+				let playlistElementSelected = document.querySelectorAll("div.audioplayer div.playlist ol.tracklist li.element[class~='selected']");//Array
+				for (var i = 0; i < playlistElementSelected.length; i++) {
+					playlistElementSelected[i].classList.remove("selected");
+				}
+				e.currentTarget.classList.add("selected");
             }.bind(this));
 
             tracklist.appendChild(musicBlock);
         }
 
         playlistBlock.appendChild(tracklist);
-		
+
         //If more than 5 musics into the playlist add a button to show them all
         if (this.musicList.length > 5) {
             let moreBlock = document.createElement("a");
