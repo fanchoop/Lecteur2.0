@@ -68,7 +68,7 @@ final class EntityTest extends TestCase
             'artiste_original' => 'Oxmo Puccino',
             'composition' => true,
             'taille' => 3,
-            'duree' => 1200,
+            'duree' => "1200",
             'nb_ecoutes' => 3,
             'date_insertion' => '03/02/2015'
         );
