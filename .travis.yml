@@ -31,14 +31,12 @@ addons:
 jdk:
   - oraclejdk8
 
-# On install mysql
-before_script:
-  - bash .travis.install-mysql-5.7.sh
+before_install:
+  - sudo mysql < ./res/db/DB_Lecteur_full.sql
 
 # Les commandes de script qui permettent de déclencher les différents tests.
 # Lors de la commande 'sonar-scanner', Travis va aller les informations de connexion
 # dans notre fichier de configuration 'sonar-projet.properties' qui se situe aussi à la racine du projet.
 script:
-  - sudo mysql < ./res/db/DB_Lecteur_full.sql
   - ./vendor/bin/phpunit
   - sonar-scanner
