@@ -1,8 +1,8 @@
 <?php
 
 include_once "src/models/db/PlaylistMusic.php";
-use PHPUnit\DbUnit\TestCase;
 use src\models\db\PlaylistMusic;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * User: Leveque Melvin
