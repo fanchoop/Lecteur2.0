@@ -16,11 +16,12 @@ final class ArtistTest extends TestCase {
 
     /**
      * @before
-     * @uses Artist
+     * @covers ::__construct
      */
-    public function setupArtist()
+    public function testConstruct()
     {
         $this->artist = new Artist("IAM");
+        $this->assertInstanceOf(Artist::class, $this->artist);
     }
 
     /**
