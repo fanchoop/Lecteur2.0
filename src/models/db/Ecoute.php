@@ -35,13 +35,25 @@ class Ecoute extends Entity
      * @param $id_user
      * @param $id_music
      * @return une ecoute
-     * @throws \Exception
-     */
+     * 
+     * */
     public static function find($id_user, $id_music): Ecoute
     {
-        $connexion = new DAO();
         $pkname[] = explode(", ",self::TABLENAME);
 
+        $connexion = new DAO();
+
         $sql = "SELECT * FROM " . self::TABLENAME . " WHERE " . $pkname[1] . " = :id_music" . $pkname[2] . " = :id_pers";
+
+        $prepareStatement = $connexion::getInstance()->prepare($sql);
+        $prepareStatement->bindValue(":id_utilisateur",$id_utilisateur, PDO::PARAM_STR);
+        $prepareStatement->execute();
+
+        $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+        $ecoute = new Ecoute(intVal($ligne['id_fichier']), intVal(ligne['id_pers']), $ligne['date_first_ecoute'], $ligne['pourcent_ecoute'], $ligne['is_liked']);
+
+        $connexion::close();
+
+        return $ecoute;
     }
 }

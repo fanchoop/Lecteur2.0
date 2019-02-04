@@ -12,13 +12,15 @@ class User extends Entity {
 
     /**
      * User constructor.
-     * @param string $date_inscription
+     * @param string $date_inscription //=>voir conversion timestamp
      * @param string $login
      * @param string $md5_password
      * @param string $nom
      * @param string $prenom
      * @param string $email
      * @param int|null $id
+     * 
+     * @throws \Exception
      * 
      * note : regex valide jusqu'en 2029
      * 
