@@ -17,7 +17,7 @@ final class EntityTest extends TestCase
      */
     public function setupNeeds(){
         $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",
-            "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 999999999);
+            "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 99999999);
     }
 
     /**
@@ -25,7 +25,7 @@ final class EntityTest extends TestCase
      */
     public function testCall(){
         //Test Get et Set attribut simple
-        $this->assertSame(999999999, $this->music->getId());
+        $this->assertSame(99999999, $this->music->getId());
 
         $this->music->setId(3);
         $this->assertSame(3, $this->music->getId());
@@ -51,7 +51,7 @@ final class EntityTest extends TestCase
      */
     public function testHydrate(){
         $array = array(
-            'id' => 999999999,
+            'id' => 99999999,
             'id_album' => 1,
             'id_style' => 1,
             'id_profil_artiste' => 1,
