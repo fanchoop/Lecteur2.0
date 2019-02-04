@@ -40,7 +40,8 @@ class Ecoute extends Entity
     public static function find($id_user, $id_music): Ecoute
     {
         $connexion = new DAO();
+        $pkname[] = explode(", ",self::TABLENAME);
 
-        $sql = "SELECT * FROM " . self::TABLENAME . " WHERE " . self::PKNAME . " = :";
+        $sql = "SELECT * FROM " . self::TABLENAME . " WHERE " . $pkname[1] . " = :id_music" . $pkname[2] . " = :id_pers";
     }
 }
