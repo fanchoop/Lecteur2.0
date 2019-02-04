@@ -67,7 +67,7 @@ class Artist extends Entity {
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
-        $artist = new Artist($ligne['id'], $ligne['nom']);
+        $artist = new Artist($ligne['nom'], intval($ligne['id']));
 
         $connexion::close();
 

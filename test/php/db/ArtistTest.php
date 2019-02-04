@@ -2,6 +2,7 @@
 include "src/models/db/Artist.php";
 use PHPUnit\Framework\TestCase;
 use src\models\db\Artist;
+use src\models\db\DAO;
 
 /**
  * Class ArtistTest
@@ -53,7 +54,16 @@ final class ArtistTest extends TestCase {
      * @covers \src\models\db\Artist::find
      */
     public function testFind() {
-        $led_zep = Artist::find(8);
+        try{
+            $led_zep = Artist::find(8);
+        }
+        catch (Exception $e){
+            $e->getMessage();
+        }
+        finally{
+            DAO::close();
+        }
+
         $this->assertSame($led_zep->getId(), 8);
         $this->assertSame($led_zep->getNom(), 'LED ZEPPELIN');
     }

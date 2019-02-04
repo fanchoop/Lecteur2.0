@@ -40,10 +40,30 @@ class Entity{
 
         $update = "";
         $i = 0;
+
+        /**
+         * On parcours le tableau de valeurs.
+         */
         foreach ($this->values as $key => $value){
             $columns[$i] = $key;
+
+            /**
+             * Modification de la values : si celle-ci est
+             * un tableau on la convertie en json.
+             */
+            if(is_array($value)){
+                $this->values[$key] = json_encode($value);
+            }
+
             $datas[$i] = $value;
+
+            /**
+             * Verification de la clé primaire :
+             * si c'est une clé composé alors on décompose
+             * les clés primaires pour crée la requête.
+             */
             if(!strpos(",", $this->pkName)){
+                // Si l'attribut n'est pas celui de la clé primaire
                 if($key != $this->pkName) $update .= ", $key = :$key";
             }
             else{
@@ -53,15 +73,24 @@ class Entity{
             $i++;
         }
 
+        //Connexion à la bdd
         $cnx = new DAO();
 
+        //Création de la requête SQL
         $prepare = "INSERT INTO $this->tableName (".implode(',', $columns).") VALUES ( :".implode(', :', $columns).") ON DUPLICATE KEY UPDATE ".substr($update, 1);
 
+        //Préparation de la requête
         $query = $cnx::getInstance()->prepare($prepare);
 
-        $query->execute($this->values);
+        //On execute la requête et on passe ne param les valeurs à binder.
+        $result =  $query->execute($this->values);
+
+        //$query->debugDumpParams();
+
+        //Fermeture de la connexion
         $cnx::close();
 
+        return $result;
     }
 
     public function delete(){

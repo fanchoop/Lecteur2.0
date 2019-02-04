@@ -24,7 +24,7 @@ class Music extends Entity {
             'id_style' => $id_style,
             'id_profil_artiste' => $id_profil_artiste,
             'libelle' => $libelle,
-            'liste_point' => $liste_point,
+            'liste_points' => $liste_point,
             'chemin_mp3' => $chemin_mp3,
             'chemin_pochette' => $chemin_pochette,
             'artiste_original' => $artiste_original,

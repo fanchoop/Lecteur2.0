@@ -35,7 +35,7 @@ final class MusicTest extends TestCase
      * @covers ::convertJson
      */
     public function testConvertJson(){
-        $json = '{"id":1,"id_album":1,"id_style":1,"id_profil_artiste":1,"libelle":"J\'ai mal au mic","liste_point":[1,2,3,4,5],"chemin_mp3":"musique.mp3","chemin_pochette":"pochette.jpg","artiste_original":"Oxmo Puccino","composition":true,"taille":3,"duree":"1200","nb_ecoutes":3,"date_insertion":"03\/02\/2015"}';
+        $json = '{"id":1,"id_album":1,"id_style":1,"id_profil_artiste":1,"libelle":"J\'ai mal au mic","liste_points":[1,2,3,4,5],"chemin_mp3":"musique.mp3","chemin_pochette":"pochette.jpg","artiste_original":"Oxmo Puccino","composition":true,"taille":3,"duree":"1200","nb_ecoutes":3,"date_insertion":"03\/02\/2015"}';
 
         $this->assertSame($json, $this->music->convertJson());
     }

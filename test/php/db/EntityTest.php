@@ -17,7 +17,7 @@ final class EntityTest extends TestCase
      */
     public function setupNeeds(){
         $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",
-            "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 1);
+            "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 999999999);
     }
 
     /**
@@ -25,15 +25,15 @@ final class EntityTest extends TestCase
      */
     public function testCall(){
         //Test Get et Set attribut simple
-        $this->assertSame(1, $this->music->getId());
+        $this->assertSame(999999999, $this->music->getId());
 
         $this->music->setId(3);
         $this->assertSame(3, $this->music->getId());
 
         //Test Get et Set attribut nom complexe
-        $this->assertSame([1, 2, 3, 4, 5], $this->music->getListe_point());
-        $this->music->setListe_point([1, 2, 3, 4, 5, 6, 7]);
-        $this->assertSame( [1, 2, 3, 4, 5, 6, 7] , $this->music->getListe_point() );
+        $this->assertSame([1, 2, 3, 4, 5], $this->music->getListe_points());
+        $this->music->setListe_points([1, 2, 3, 4, 5, 6, 7]);
+        $this->assertSame( [1, 2, 3, 4, 5, 6, 7] , $this->music->getListe_points() );
     }
 
     /**
@@ -51,12 +51,12 @@ final class EntityTest extends TestCase
      */
     public function testHydrate(){
         $array = array(
-            'id' => 1,
+            'id' => 999999999,
             'id_album' => 1,
             'id_style' => 1,
             'id_profil_artiste' => 1,
             'libelle' => 'J\'ai mal au mic',
-            'liste_point' => array(
+            'liste_points' => array(
                 0 => 1,
                 1 => 2,
                 2 => 3,
@@ -77,6 +77,9 @@ final class EntityTest extends TestCase
 
     /**
      * Test de la function save
-     * @covers
+     * @covers ::save
      */
+    public function testSave(){
+        $this->assertTrue($this->music->save());
+    }
 }
