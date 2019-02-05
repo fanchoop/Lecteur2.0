@@ -62,7 +62,7 @@ class Artist extends Entity {
         $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_artist";
 
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->bindValue(":id_artist",$id_artist, PDO::PARAM_STR);
+        $prepareStatement->bindValue(":id_artist",$id_artist, PDO::PARAM_INT);
 
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
