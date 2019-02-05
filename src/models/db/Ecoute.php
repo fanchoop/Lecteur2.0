@@ -1,6 +1,8 @@
 <?php
 
 namespace src\models\db;
+use PDO;
+
 include_once "src/models/db/Entity.php";
 
 class Ecoute extends Entity
@@ -39,19 +41,17 @@ class Ecoute extends Entity
      */
     public static function find($id_user, $id_music): Ecoute
     {
-        $pkname[] = explode(", ",self::TABLENAME);
-
         $connexion = new DAO();
 
-        $sql = "SELECT * FROM " . self::TABLENAME . " WHERE " . $pkname[1] . " = :id_music" . $pkname[2] . " = :id_pers";
+        $sql = "SELECT * FROM " . self::TABLENAME . " WHERE id_fichier = :id_music AND id_pers = :id_pers";
 
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->bindValue(":id_pers",$id_user, PDO::PARAM_STR);
-        $prepareStatement->bindValue(":id_music",$id_music, PDO::PARAM_STR);
+        $prepareStatement->bindValue(":id_pers",$id_user, PDO::PARAM_INT);
+        $prepareStatement->bindValue(":id_music",$id_music, PDO::PARAM_INT);
         $prepareStatement->execute();
 
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-        $ecoute = new Ecoute(intVal($ligne['id_fichier']), intVal(ligne['id_pers']), $ligne['date_first_ecoute'], $ligne['pourcent_ecoute'], $ligne['is_liked']);
+        $ecoute = new Ecoute(intVal($ligne['id_fichier']), intVal($ligne['id_pers']), $ligne['date_first_ecoute'], $ligne['pourcent_ecoute'], $ligne['is_liked']);
 
         $connexion::close();
 
