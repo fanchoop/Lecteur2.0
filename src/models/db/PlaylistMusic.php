@@ -47,7 +47,7 @@ class PlaylistMusic extends Entity
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         while ($ligne) {
-            $playlistMusics[] = new PlaylistMusic($ligne["id_playlist"], $ligne["id_music"]);
+            $playlistMusics[] = new PlaylistMusic($ligne["id_playlist"], $ligne["id_fichier"]);
 
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
         }
@@ -73,7 +73,7 @@ class PlaylistMusic extends Entity
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
-        $playlistMusic = new PlaylistMusic($ligne["id_playlist"], $ligne["id_music"]);
+        $playlistMusic = new PlaylistMusic($ligne["id_playlist"], $ligne["id_fichier"]);
 
         $connexion::close();
 

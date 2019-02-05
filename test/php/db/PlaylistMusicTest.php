@@ -42,13 +42,12 @@ final class PlaylistMusicTest extends TestCase
             DAO::close();
         }
 
-
         $idMusics = [1, 2, 3];
         $this->assertSame(3, count($playlistMusics));
 
         $i = 0;
         foreach ($playlistMusics as $playlistMusic) {
-            $this->assertSame($playlistMusic->getId_fichiers(), $idMusics[$i]);
+            $this->assertSame($playlistMusic->getId_fichier(), $idMusics[$i]);
             $i++;
         }
     }
