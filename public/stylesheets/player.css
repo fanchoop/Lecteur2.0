@@ -258,6 +258,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     content: '';
     background-image: url("../images/_icons/volume1.svg");
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
     width: 25px;
     height: 25px;
@@ -268,6 +269,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     content: '';
     background-image: url("../images/_icons/mute.svg");
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
     width: 25px;
     height: 25px;
@@ -277,6 +279,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     content: '';
     background-image: url("../images/_icons/volume2.svg");
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
     width: 25px;
     height: 25px;
@@ -286,6 +289,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     content: '';
     background-image: url("../images/_icons/volume3.svg");
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
     width: 25px;
     height: 25px;
