@@ -34,9 +34,9 @@ class Ecoute extends Entity
      * On recherche dans la base de donnée une ecoute en fonction de l'id de l'utilisateur et de la musique dans la BD.
      * @param $id_user
      * @param $id_music
-     * @return une ecoute
-     * 
-     * */
+     * @return Ecoute
+     * @throws \Exception
+     */
     public static function find($id_user, $id_music): Ecoute
     {
         $pkname[] = explode(", ",self::TABLENAME);
