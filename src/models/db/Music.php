@@ -47,30 +47,18 @@ class Music extends Entity {
      * Cette méthode ajout un like sur un musique via un user
      */
     public function addLike(){
-        try{
-            $ecoute = Ecoute::find( $_SESSION["id"], $this->getId());
-        }
-        catch (Exception $e){
-            echo $e->getMessage();
-            $ecoute = null;
-        }
-
-        $ecoute->setIs_like(true);
+        $ecoute = Ecoute::find( $_SESSION["id"], $this->getId());
+        $ecoute->setIs_liked(1);
+        $ecoute->save();
     }
 
     /**
      * Méthode de suppression d'un like.
      */
     public function deleteLike(){
-        try{
-            $ecoute = Ecoute::find( $_SESSION["id"], $this->getId());
-        }
-        catch (Exception $e){
-            echo $e->getMessage();
-            $ecoute = null;
-        }
-
-        $ecoute->setIs_like(false);
+        $ecoute = Ecoute::find( $_SESSION["id"], $this->getId());
+        $ecoute->setIs_liked(0);
+        $ecoute->save();
     }
 
     /**
