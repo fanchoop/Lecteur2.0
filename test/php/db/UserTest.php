@@ -2,6 +2,7 @@
 include "src/models/db/User.php";
 use PHPUnit\Framework\TestCase;
 use src\models\db\User;
+use src\models\db\DAO;
 
 /**
  * Class UserTest
@@ -101,8 +102,9 @@ final class UserTest extends TestCase
      * @covers \src\models\db\User::find
      */
     public function testFind() {
+        $user2 = null;
         try{
-            $user2 = Artist::find(2);
+            $user2 = User::find(2);
         }
         catch (Exception $e){
             $e->getMessage();
