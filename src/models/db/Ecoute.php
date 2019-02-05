@@ -51,7 +51,7 @@ class Ecoute extends Entity
         $prepareStatement->execute();
 
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-        $ecoute = new Ecoute(intVal($ligne['id_fichier']), intVal($ligne['id_pers']), $ligne['date_first_ecoute'], $ligne['pourcent_ecoute'], $ligne['is_liked']);
+        $ecoute = new Ecoute(intVal($ligne['id_fichier']), intVal($ligne['id_pers']), $ligne['date_first_ecoute'], $ligne['pourcent_ecoute'], boolval($ligne['is_liked']));
 
         $connexion::close();
 
