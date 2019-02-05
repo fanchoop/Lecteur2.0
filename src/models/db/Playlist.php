@@ -35,11 +35,12 @@ class Playlist extends Entity
      * Fonction d'ajout d'une musique
      * dans la playlist.
      * Manipule un obj PlaylistMusic
-     * @param Music $music
+     * @param int $idMusic
+     * @return bool
      */
     public function addMusic(int $idMusic){
         $playlistMusic = new PlaylistMusic($this->getId(), $idMusic);
-        $playlistMusic->save();
+        return $playlistMusic->save();
     }
 
     /**
@@ -47,11 +48,12 @@ class Playlist extends Entity
      * dans la playlist.
      * Manipule un obj PlaylistMusic
      * @param int id
+     * @return bool
      * @throws Exception
      */
     public function deleteMusic(int $idMusic){
-        $playlistMusic = PlaylistMusic::find($this->getId(), $idMusic);
-        $playlistMusic->delete();
+        $playlistMusic = new PlaylistMusic($this->getId(), $idMusic);
+        return $playlistMusic->delete();
     }
 
     /**
@@ -64,7 +66,7 @@ class Playlist extends Entity
     public function getMusics() : array {
         $playlistMusics = PlaylistMusic::findAll( $this->getId() );
         foreach ($playlistMusics as $playlistMusic){
-            $musics[] = Music::find($playlistMusic->getId_fichiers());
+            $musics[] = Music::find($playlistMusic->getId_fichier());
         }
         return $musics;
     }

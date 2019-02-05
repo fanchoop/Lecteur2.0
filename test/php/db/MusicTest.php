@@ -59,31 +59,4 @@ final class MusicTest extends TestCase
         $this->music->deleteListen();
         $this->assertSame($nb_ecoutes, $this->music->getNb_ecoutes());
     }
-
-    /**
-     * Test de la méthide findAll
-     * @covers ::findAll
-
-    public function testFindAll(){
-        $musics = $this->music->findAll();
-    }
-
-    /**
-     * Test de la méthode findAll
-     * @covers ::findAll
-     * @expectedException Exception
-
-    public function testFindAllException(){
-        $this->music->findAll();
-    }*/
-
-    /**
-     * Test de la méthode find
-     * @covers ::find
-     * @expectedException Exception
-     */
-    public function testFindException(){
-        $this->music->find(1);
-        DAO::close();
-    }
 }

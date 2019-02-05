@@ -46,7 +46,8 @@ class Ecoute extends Entity
         $sql = "SELECT * FROM " . self::TABLENAME . " WHERE " . $pkname[1] . " = :id_music" . $pkname[2] . " = :id_pers";
 
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->bindValue(":id_utilisateur",$id_utilisateur, PDO::PARAM_STR);
+        $prepareStatement->bindValue(":id_pers",$id_user, PDO::PARAM_STR);
+        $prepareStatement->bindValue(":id_music",$id_music, PDO::PARAM_STR);
         $prepareStatement->execute();
 
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);

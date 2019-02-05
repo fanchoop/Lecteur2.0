@@ -110,32 +110,31 @@ class Music extends Entity {
      * @return Music music
      * @throws \Exception
      */
-    public static function find($idMusic) : Music{
+    public static function find(int $idMusic) : Music{
         $music = null;
-        try{
-            $connexion = new DAO();
 
-            $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE ".self::PK_NAME." = :id_Music";
+        $connexion = new DAO();
 
-            $prepareStatement = $connexion::getInstance()->prepare($sql);
-            $prepareStatement->bindValue(":id_Music",$idMusic, PDO::PARAM_STR);
+        $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE ".self::PK_NAME." = :id_Music";
 
-            $prepareStatement->execute();
+        $prepareStatement = $connexion::getInstance()->prepare($sql);
+        $prepareStatement->bindValue(":id_Music",$idMusic, PDO::PARAM_STR);
+
+        $result = $prepareStatement->execute();
+
+        if($result){
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
             $music = new Music(
                 intval($ligne['id_album']), intval($ligne['id_style']), intval($ligne['id_profil_artiste']),
-                strval($ligne['libelle']), $ligne['liste_point'], strval($ligne['chemin_mp3']),
+                strval($ligne['libelle']), (array) $ligne['liste_points'], strval($ligne['chemin_mp3']),
                 strval($ligne['chemin_pochette']), strval($ligne['artiste_original']), boolval($ligne['composition']),
                 intval($ligne['taille']), intval($ligne['duree']), intval($ligne['nb_ecoutes']),
                 strval($ligne['date_insertion']), intval($ligne['id'])
             );
+        }
 
-            DAO::close();
-        }
-        catch (Exception $exception){
-            throw new Exception("Erreur de connexion à la bdd");
-        }
+        DAO::close();
 
         return $music;
     }

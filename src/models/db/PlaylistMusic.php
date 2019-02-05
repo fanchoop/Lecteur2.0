@@ -54,29 +54,4 @@ class PlaylistMusic extends Entity
         $connexion::close();
         return $playlistMusics;
     }
-
-    /**
-     * @param $id_playlist
-     * @param $id_music
-     * @return PlaylistMusic
-     * @throws Exception
-     */
-    public static function find($id_playlist, $id_music) : PlaylistMusic{
-        $connexion = new DAO();
-
-        $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE id_playlist = :id_playlist AND id_music = :id_music";
-
-        $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->bindValue(":id_playlist", $id_playlist, PDO::PARAM_INT);
-        $prepareStatement->bindValue(":id_music", $id_music, PDO::PARAM_INT);
-
-        $prepareStatement->execute();
-        $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-
-        $playlistMusic = new PlaylistMusic($ligne["id_playlist"], $ligne["id_fichier"]);
-
-        $connexion::close();
-
-        return $playlistMusic;
-    }
 }

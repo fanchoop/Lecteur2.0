@@ -19,28 +19,34 @@ final class PlaylistTest extends TestCase {
      */
     public function testConstruct() {
 
-        $this->playlist = new Playlist(5, "Mon incroyable playlist");
+        $this->playlist = new Playlist(5, "Mon incroyable playlist", 2);
         $this->assertInstanceOf(Playlist::class, $this->playlist);
     }
 
     /**
-     * @covers \src\models\db\Playlist::addMusic
+     * @covers ::addMusic
      */
-//    public function testAddMusic() {
-//        $this->assertTrue($this->playlist->save());
-//    }
+    public function testAddMusic() {
+        $this->assertTrue($this->playlist->addMusic(1));
+    }
 
     /**
-     * @covers \src\models\db\Playlist::deleteMusic
+     * @covers ::getMusics
      */
-//    public function testDeleteMusic() {
-//
-//    }
+    public function testGetMusics() {
+
+        $libelleMusicExcepted = "Eurotrap";
+
+        $musics = $this->playlist->getMusics();
+        foreach ($musics as $music) {
+            $this->assertEquals($libelleMusicExcepted, $music->getLibelle());
+        }
+    }
 
     /**
-     * @covers \src\models\db\Playlist::getMusics
+     * @covers ::deleteMusic
      */
-//    public function getMusics() {
-//
-//    }
+    public function testDeleteMusic() {
+        $this->assertTrue($this->playlist->deleteMusic(1));
+    }
 }
