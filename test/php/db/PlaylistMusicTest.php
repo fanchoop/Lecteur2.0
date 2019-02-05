@@ -2,6 +2,7 @@
 
 include_once "src/models/db/PlaylistMusic.php";
 use src\models\db\PlaylistMusic;
+use src\models\db\DAO;
 use \PHPUnit\Framework\TestCase;
 
 /**
@@ -17,32 +18,38 @@ final class PlaylistMusicTest extends TestCase
 
     /**
      * @before
-     */
-    public function setupNeeds(){
-        $this->PlaylistMusics = new PlaylistMusic(1, 1);
-    }
-
-    /**
-     * Test du contructeur
      * @covers ::__construct
      */
     public function testConstructeur(){
-        $this->assertSame(1, $this->PlaylistMusics->getId_playlist());
+        $this->PlaylistMusics = new PlaylistMusic(1, 1);
+        $this->assertInstanceOf(PlaylistMusic::class, $this->PlaylistMusics);
     }
 
     /**
-     * Returns the test database connection.
-     *
-     * @return \PHPUnit\DbUnit\Database\Connection
-     */protected function getConnection()
-    {
-        // TODO: Implement getConnection() method.
-    }/**
-     * Returns the test dataset.
-     *
-     * @return \PHPUnit\DbUnit\DataSet\IDataSet
-     */protected function getDataSet()
-    {
-        // TODO: Implement getDataSet() method.
+     * @covers ::findAll
+     */
+    public function testFindAll(){
+        DAO::close();
+
+        try{
+            $playlistMusics = PlaylistMusic::findAll(1);
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+            $playlistMusics = null;
+        }
+        finally{
+            DAO::close();
+        }
+
+
+        $idMusics = [1, 2, 3];
+        $this->assertSame(3, count($playlistMusics));
+
+        $i = 0;
+        foreach ($playlistMusics as $playlistMusic) {
+            $this->assertSame($playlistMusic->getId_fichiers(), $idMusics[$i]);
+            $i++;
+        }
     }
 }

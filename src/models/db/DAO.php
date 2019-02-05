@@ -13,7 +13,7 @@ class DAO
     const mdp = "user";
 
     public function __construct(){
-        if(self::$dao !== null) throw new Exception("Classe déjà instancié");
+        if(self::$dao !== null) throw new Exception("Classe DAO déjà instancié");
 
         self::$dao = new PDO ("mysql:host=" . self::host . ";dbname=" . self::nameBdd.';charset=utf8', self::user, self::mdp);
     }

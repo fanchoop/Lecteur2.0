@@ -84,5 +84,6 @@ final class MusicTest extends TestCase
      */
     public function testFindException(){
         $this->music->find(1);
+        DAO::close();
     }
 }

@@ -131,7 +131,7 @@ class Music extends Entity {
                 strval($ligne['date_insertion']), intval($ligne['id'])
             );
 
-            $connexion::close();
+            DAO::close();
         }
         catch (Exception $exception){
             throw new Exception("Erreur de connexion à la bdd");

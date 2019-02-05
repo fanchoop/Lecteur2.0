@@ -77,7 +77,7 @@ class Entity{
         //$query->debugDumpParams();
 
         //Fermeture de la connexion
-        $cnx::close();
+        DAO::close();
 
         return $result;
     }
@@ -98,14 +98,13 @@ class Entity{
             }
             $where = substr($where, 0, strlen($where) -5);
             $prepare = "DELETE FROM $this->tableName WHERE ".$where;
-            echo "\n\n\n $prepare \n\n";
         }
 
         $query = $cnx::getInstance()->prepare($prepare);
 
         $result = $query->execute();
 
-        $cnx::close();
+        DAO::close();
 
         return $result;
     }

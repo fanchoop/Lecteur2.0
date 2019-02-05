@@ -37,7 +37,17 @@ final class ArtistTest extends TestCase {
      * @covers \src\models\db\Artist::findAll
      */
     public function testFindAll() {
-        $ARTISTS = Artist::findAll();
+
+        try{
+            $ARTISTS = Artist::findAll();
+        }
+        catch (Exception $e){
+            $e->getMessage();
+        }
+        finally{
+            DAO::close();
+        }
+
         $my_artists = ['VALD', 'SOPRANO', 'BACH', 'MOZART', 'DAVID GUETTA', 'KAZY LAMBIST', 'NIRVANA', 'LED ZEPPELIN', 'METALLICA', 'KATY PERRY', 'RIHANNA'];
         $this->assertSame(11, count($ARTISTS));
 

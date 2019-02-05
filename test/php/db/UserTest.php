@@ -92,7 +92,17 @@ final class UserTest extends TestCase
      * @covers \src\models\db\User::findAll
      */
     public function testFindAll() {
-        $users = User::findAll();
+        try{
+            $users = User::findAll();
+        }
+        catch (Exception $e){
+            $e->getMessage();
+            $users = null;
+        }
+        finally{
+            DAO::close();
+        }
+
         $my_users = ['toto', 'tata', 'titi'];
         $this->assertEquals($users.join(), $my_users.join());
     }
@@ -103,6 +113,7 @@ final class UserTest extends TestCase
      */
     public function testFind() {
         $user2 = null;
+
         try{
             $user2 = User::find(2);
         }
