@@ -223,6 +223,8 @@ function Player(domElement) {
             var target = this.domElement.querySelector(query);
             if (target !== null) {
                 if (target.attributes.hasOwnProperty("data_position")) {
+                    this.clearColorHoverWave();
+                    this.clearHoverTime();
                     this.colorWaveToHoverPos(Number(target.attributes.data_position.value));
                     this.drawHoverTime(Number(target.attributes.data_position.value))
                 }
@@ -244,9 +246,11 @@ function Player(domElement) {
             }
         }.bind(this));
 
-        waveformElement.addEventListener("mouseout", function(e){
-            this.clearColorHoverWave();
-            this.clearHoverTime();
+        waveformElement.addEventListener("mouseleave", function(e){
+            if (e.target == e.currentTarget){
+                this.clearColorHoverWave();
+                this.clearHoverTime();
+            }
         }.bind(this));
     };
 
@@ -266,6 +270,7 @@ function Player(domElement) {
             createWaveForm(this, this.playlist.getCurrentMusic().listPoints);
         }
 
+        //ANCIEN CODE (Listener sur chaque bar du spectre)
         //Add event to each bar of the spectrum
     //     var barsList = this.domElement.querySelectorAll(".bar-up , .audioplayer .bar-down");
     //     for (var index = 0; index < barsList.length; index++) {

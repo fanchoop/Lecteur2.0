@@ -15,15 +15,21 @@ body {
 
 /* ========= AUDIOPLAYER ========= */
 .audioplayer {
-    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* ============================== */
 /*             Player             */
 /* ============================== */
 .audioplayer .player {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     position: relative;
     background-color: white;
     height: 200px;
@@ -46,6 +52,8 @@ body {
 /* ========= INFOS ========= */
 
 .audioplayer .player .infos {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin: 5px 0 5px 0;
 }
@@ -64,9 +72,16 @@ body {
 /* ========= WAVEFORM ========= */
 
 .audioplayer .player .waveform {
-    flex: 3;
+    -webkit-box-flex: 3;
+        -ms-flex: 3;
+            flex: 3;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin: 10px;
 	overflow: hidden ;
 }
@@ -82,6 +97,7 @@ body {
     border: solid black 1px !important;
     fill: #f95800 !important;
     stroke: url(#waveformStyleBarUpPlayed) !important;
+    -webkit-transition: fill 1s ease-in-out, stroke 1s ease-in-out;
     transition: fill 1s ease-in-out, stroke 1s ease-in-out;
 }
 
@@ -95,6 +111,7 @@ body {
 .audioplayer .player .waveform .bar-up.hover-back {
     border: solid black 1px !important;
     fill: #c33900 !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
     stroke: url(#waveformStyleBarUpHoverBack) !important;
 
@@ -103,6 +120,7 @@ body {
 .audioplayer .player .waveform .bar-up.hover-front {
     border: solid black 1px !important;
     fill: #993600 !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
     stroke: url(#waveformStyleBarUpHoverFront) !important;
 
@@ -117,6 +135,7 @@ body {
 .audioplayer .player .waveform .bar-down.played {
     fill: rgba(255, 91, 0, 0.68) !important;
     stroke: url(#waveformStyleBarDownPlayed) !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
 }
 
@@ -127,12 +146,14 @@ body {
 
 .audioplayer .player .waveform .bar-down.hover-back {
     fill: rgba(195, 52, 0, 0.68) !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
     stroke: url(#waveformStyleBarDownHoverBack) !important;
 }
 
 .audioplayer .player .waveform .bar-down.hover-front {
     fill: rgba(153, 51, 0, 0.68) !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
     stroke: url(#waveformStyleBarDownHoverFront) !important;
 }
@@ -149,6 +170,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-up {
 _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-up.played {
     border: solid black 1px !important;
     fill: #f95800 !important;
+    -webkit-transition: fill 1s ease-in-out, stroke 1s ease-in-out;
     transition: fill 1s ease-in-out, stroke 1s ease-in-out;
 }
 
@@ -160,12 +182,14 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-up.played-flash {
 _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-up.hover-back {
     border: solid black 1px !important;
     fill: #c33900 !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
 }
 
 _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-up.hover-front {
     border: solid black 1px !important;
     fill: #993600 !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
 }
 
@@ -177,6 +201,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down {
 
 _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.played {
     fill: rgba(255, 91, 0, 0.68) !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
 }
 
@@ -186,11 +211,13 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.played-flash {
 
 _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-back {
     fill: rgba(195, 52, 0, 0.68) !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
 }
 
 _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     fill: rgba(153, 51, 0, 0.68) !important;
+    -webkit-transition: fill 1s ease-in-out;
     transition: fill 1s ease-in-out;
 }
 
@@ -255,37 +282,41 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 /* ========= VOLUME ========= */
 
 .audioplayer .player .controls .volume .volume-on {
-    content: '';
-    background-image: url("../images/_icons/volume1.svg");
-    background-repeat: no-repeat;
+    content            : '';
+    background-image   : url("../images/_icons/volume1.svg");
+    background-repeat  : no-repeat;
+    background-size    : contain;
     background-position: center;
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
+    width              : 25px;
+    height             : 25px;
+    margin-left        :  10px;
 }
 
 .audioplayer .player .controls .volume .volume-off {
-    content: '';
-    background-image: url("../images/_icons/mute.svg");
-    background-repeat: no-repeat;
+    content            : '';
+    background-image   : url("../images/_icons/mute.svg");
+    background-repeat  : no-repeat;
+    background-size    : contain;
     background-position: center;
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
+    width              : 25px;
+    height             : 25px;
+    margin-left        :  10px;
 }
 .audioplayer .player .controls .volume .volume-moyen2 {
-    content: '';
-    background-image: url("../images/_icons/volume2.svg");
-    background-repeat: no-repeat;
+    content            : '';
+    background-image   : url("../images/_icons/volume2.svg");
+    background-repeat  : no-repeat;
+    background-size    : contain;
     background-position: center;
-    width: 25px;
-    height: 25px;
-    margin-left: 10px;
+    width              : 25px;
+    height             : 25px;
+    margin-left        : 10px;
 }
 .audioplayer .player .controls .volume .volume-moyen3 {
     content: '';
     background-image: url("../images/_icons/volume3.svg");
     background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
     width: 25px;
     height: 25px;
@@ -323,7 +354,8 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 .audioplayer .player .controls .volume_sliderTotale {
     background-color: white;
     border: 1px solid transparent;
-    box-shadow: 0 2px 10px 0 rgba(25, 25, 34, .24);
+    -webkit-box-shadow: 0 2px 10px 0 rgba(25, 25, 34, .24);
+            box-shadow: 0 2px 10px 0 rgba(25, 25, 34, .24);
     padding: 10px 15px;
     border-radius: 4px;
     display: block;
@@ -336,10 +368,7 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     width: 150px;
     height: 6px;
     background-color: #ccc;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f95800), color-stop(100%, #f95800));
-    background-image: -webkit-linear-gradient(#473e4f, #51475a);
-    background-image: -moz-linear-gradient(#473e4f, #51475a);
-    background-image: -o-linear-gradient(#473e4f, #51475a);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f95800), to(#f95800));
     background-image: linear-gradient(#f95800, #f95800);
     background-size: 0% 100%;
     background-repeat: no-repeat;
@@ -349,7 +378,8 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 }
 
 .audioplayer .player .controls .volume input[type=range].volume-input-range::-webkit-slider-runnable-track {
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     border: none;
     background: transparent;
     -webkit-appearance: none;
@@ -378,7 +408,8 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     border: 0;
     background: #f95800;
     border-radius: 100%;
-    box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
     -webkit-appearance: none;
 }
 
@@ -409,6 +440,8 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 .audioplayer .player .temps {
     position: absolute;
     bottom: 13px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: 15px;
 }
@@ -436,6 +469,8 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 
 .audioplayer .player .statistiques {
     position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     bottom: 13px;
     right: 20px;
@@ -525,9 +560,12 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
     padding: 0;
     border: 1px solid #888;
     width: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    animation-name: animatetop;
-    animation-duration: 0.4s
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+            animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+            animation-duration: 0.4s
 }
 
 .audioplayer .player .modal .close {
@@ -577,21 +615,23 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 /* ============================== */
 
 .audioplayer .playlist {
-    padding: 20px;
+    padding  : 20px;
     font-size: 12px;
 }
 
 .audioplayer .playlist .tracklist {
     list-style: none;
-    padding: 0;
-    margin: 0;
-    border: 1px solid #f2f2f2;
+    padding   : 0;
+    margin    : 0;
+    border    : 1px solid #f2f2f2;
 }
 
 .audioplayer .playlist .tracklist .element {
-    cursor: pointer;
+    cursor       : pointer;
     border-bottom: 1px solid #f2f2f2;
-    display: flex;
+    display      : -webkit-box;
+    display      : -ms-flexbox;
+    display      : flex;
 }
 
 
@@ -604,15 +644,15 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 }
 
 .audioplayer .playlist .tracklist .element .image {
-    margin: 9px 9px;
+    margin         : 9px 9px;
     background-size: contain !important;
-    width: 40px;
-    height: 40px;
+    width          : 40px;
+    height         : 40px;
 }
 
 .audioplayer .playlist .tracklist .element .image.play, .audioplayer .playlist .tracklist .element .image.pause  {
-    width: 20px;
-    height: 20px;
+    width  : 20px;
+    height : 20px;
     padding: 10px;
 }
 
@@ -625,7 +665,9 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 }
 
 .audioplayer .playlist .tracklist .element .artiste {
-    flex: 1;
+    -webkit-box-flex : 1;
+        -ms-flex : 1;
+            flex : 1;
     color: #9b9b9b;
     color: var(--secondary);
     margin-right: 5px;
@@ -643,15 +685,15 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 /* ========= MORE ========= */
 
 .audioplayer .playlist .more {
-    text-align: center;
-    display: block;
-    padding: 5px 10px;
-    color: #9b9b9b;
-    color: var(--secondary);
+    text-align     : center;
+    display        : block;
+    padding        : 5px 10px;
+    color          : #9b9b9b;
+    color          : var(--secondary);
     text-decoration: none;
-    border: 1px solid #f2f2f2;
-    border-top: none;
-	background-color: #F7F7F7 ;
+    border         : 1px solid #f2f2f2;
+    border-top     : none;
+	background-color  : #F7F7F7 ;
 }
 
 .audioplayer .playlist .more:hover {
@@ -667,12 +709,12 @@ _:-ms-fullscreen, :root .audioplayer .player .waveform .bar-down.hover-front {
 
 @media screen and (max-height: 200px) {
     .audioplayer  .player .visuel {
-        width: 100vh;
-        height: 100vh;
+        width       : 100vh;
+        height      : 100vh;
     }
 
     .audioplayer  .player {
-        height: 100vh;
+        height      : 100vh;
         padding-left: 100vh;
     }
 }
