@@ -15,7 +15,7 @@ final class UserTest extends TestCase
 
     /**
      * @covers ::__construct
-     * @beforeClass
+     * @before
      */
     public function testConstruct()
     {
