@@ -42,6 +42,7 @@ final class StyleTest extends TestCase {
         }
         catch (Exception $e){
             $e->getMessage();
+            $styles = null;
         }
         finally{
             DAO::close();
@@ -63,27 +64,17 @@ final class StyleTest extends TestCase {
      */
     public function testFind() {
         try{
-            $rock = Style::find(1);
-            $electro = Style::find(3);
-            $classique = Style::find(5);
+            $styleElectro = Style::find(3);
         }
         catch (Exception $e){
             $e->getMessage();
+            $styleElectro = null;
         }
         finally{
             DAO::close();
         }
 
-        // ROCK
-        $this->assertSame($rock->getId(), 1);
-        $this->assertSame($rock->getLibelle(), 'ROCK');
-
-        // ELECTRO
-        $this->assertSame($electro->getId(), 3);
-        $this->assertSame($electro->getLibelle(), 'ELECTRO');
-
-        // CLASSIQUE
-        $this->assertSame($classique->getId(), 5);
-        $this->assertSame($classique->getLibelle(), 'CLASSIQUE');
+        $this->assertSame($styleElectro->getId(), 3);
+        $this->assertSame($styleElectro->getLibelle(), "ELECTRO");
     }
 }

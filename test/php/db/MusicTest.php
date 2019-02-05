@@ -93,7 +93,6 @@ final class MusicTest extends TestCase
      */
     public function testFind() {
         try{
-
             $kazyLambist = Music::find(2);
         }
         catch (Exception $e){
