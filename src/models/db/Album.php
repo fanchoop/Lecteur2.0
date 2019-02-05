@@ -25,7 +25,7 @@ class Album extends Entity{
 
     }
 
-    public function find($id_album){
+    public static function find($id_album){
         $connexion = new DAO();
 
         $sql = "SELECT * FROM ".self::TABLE_NAME." WHERE id = :id";
@@ -42,7 +42,7 @@ class Album extends Entity{
         return $album;
     }
 
-    public function findAll(){
+    public static function findAll(){
         $connexion = new DAO();
 
         $sql = "SELECT * FROM ".self::TABLE_NAME;
