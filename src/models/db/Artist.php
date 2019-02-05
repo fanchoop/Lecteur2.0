@@ -23,10 +23,10 @@ class Artist extends Entity {
     public function __construct(string $nom, int $id = null) {
         parent::__construct(self::TABLENAME, self::PKNAME);
 
-        $this->hydrate([
+        $this->hydrate(array(
             'id' => $id,
             'nom' => $nom
-        ]);
+        ));
     }
 
     /**
