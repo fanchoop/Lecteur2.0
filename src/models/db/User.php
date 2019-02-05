@@ -67,7 +67,7 @@ class User extends Entity {
 
         while ($ligne) {
 
-            $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
+            $user = new User($ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email'], intVal($ligne['id']));
             $users[] = $user;
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
