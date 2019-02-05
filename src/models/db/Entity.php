@@ -57,19 +57,8 @@ class Entity{
 
             $datas[$i] = $value;
 
-            /**
-             * Verification de la clé primaire :
-             * si c'est une clé composé alors on décompose
-             * les clés primaires pour crée la requête.
-             */
-            if(!strpos(",", $this->pkName)){
-                // Si l'attribut n'est pas celui de la clé primaire
-                if($key != $this->pkName) $update .= ", $key = :$key";
-            }
-            else{
-                $pkNames = explode(',', $this->pkName);
-                if(in_array($key, $pkNames)) $update .= ", $key = :$key";
-            }
+            if($key != $this->pkName) $update .= ", $key = :$key";
+
             $i++;
         }
 
@@ -97,24 +86,27 @@ class Entity{
 
         $cnx = new DAO();
 
-        if(!strpos(",", $this->pkName)){
-            $prepare = "DELETE FROM $this->tableName WHERE $this->pkName = $this->value[$this->pkName]";
+        if(!strpos($this->pkName, ",")){
+            $prepare = "DELETE FROM $this->tableName WHERE $this->pkName = ".$this->values[$this->pkName];
         }
         else{
             $pkNames = explode(',', $this->pkName);
             $where = "";
             foreach ($pkNames as $pkname){
                 $pkname = trim($pkname);
-                $where .= $pkname." = ".$this->values[$pkname].",";
+                $where .= $pkname." = ".$this->values[$pkname]." AND ";
             }
-            $where = substr($where, 0, strlen($where) -1);
+            $where = substr($where, 0, strlen($where) -5);
             $prepare = "DELETE FROM $this->tableName WHERE ".$where;
+            echo "\n\n\n $prepare \n\n";
         }
 
         $query = $cnx::getInstance()->prepare($prepare);
 
-        $query->execute();
-        //var_dump($query->debugDumpParams());
+        $result = $query->execute();
+
         $cnx::close();
+
+        return $result;
     }
 }

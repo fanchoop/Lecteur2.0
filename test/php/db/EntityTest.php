@@ -1,7 +1,10 @@
 <?php
 include "src/models/db/Music.php";
+include "src/models/db/PlaylistMusic.php";
 use PHPUnit\Framework\TestCase;
+use src\models\db\Entity;
 use src\models\db\Music;
+use src\models\db\PlaylistMusic;
 
 /**
  * Class EntityTest
@@ -10,15 +13,23 @@ use src\models\db\Music;
  */
 final class EntityTest extends TestCase
 {
+    /* Exemple d'objet clé primaire unique */
     private $music;
+    /* Exemple d'objet clé primaire composée */
+    private $playlistMusic;
 
     /**
      * @before
+     * @covers ::__construct
      */
-    public function setupNeeds(){
+    public function testConstruct(){
         $this->music = new Music(1, 1, 1, "J'ai mal au mic", [1, 2, 3, 4, 5], "musique.mp3",
             "pochette.jpg", "Oxmo Puccino", true, 3, 1200, 3, "03/02/2015", 999999);
+        $this->playlistMusic = new PlaylistMusic(2, 1);
+        $this->assertInstanceOf(Entity::class, $this->music);
+        $this->assertInstanceOf(Entity::class, $this->playlistMusic);
     }
+
 
     /**
      * @covers \src\models\db\Entity::__call
@@ -81,5 +92,29 @@ final class EntityTest extends TestCase
      */
     public function testSave(){
         $this->assertTrue($this->music->save());
+    }
+
+    /**
+     * Test de la function save
+     * @covers ::save
+     */
+    public function testSaveDoublePrimaryKey(){
+        $this->assertTrue($this->playlistMusic->save());
+    }
+
+    /**
+     * Test de la methode delete
+     * @covers ::delete
+     */
+    public function testDelete(){
+        $this->assertTrue($this->music->delete());
+    }
+
+    /**
+     * Test de la methode delete
+     * @covers ::delete
+     */
+    public function testDeleteDoublePrimaryKey(){
+        $this->assertTrue($this->playlistMusic->delete());
     }
 }
