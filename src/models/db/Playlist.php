@@ -3,8 +3,10 @@ namespace src\models\db;
 
 use Exception;
 use PDO;
+use src\models\db\PlaylistMusic;
 
 include_once "src/models/db/Entity.php";
+include_once "src/models/db/PlaylistMusic";
 include_once "src/models/db/DAO.php";
 
 class Playlist extends Entity
@@ -20,7 +22,7 @@ class Playlist extends Entity
      */
     public function __construct(int $id_pers, string $name, int $id = null)
     {
-        parent::__construct(TABLE_NAME, PK_NAME);
+        parent::__construct(self::TABLE_NAME, self::PK_NAME);
 
         $this->hydrate(array(
             "id" => $id,
