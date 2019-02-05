@@ -4,6 +4,7 @@ namespace src\models\db;
 include_once "src/models/db/Entity.php";
 
 use PHPUnit\Runner\Exception;
+use PDO;
 
 class User extends Entity {
 
@@ -91,7 +92,7 @@ class User extends Entity {
         $prepareStatement->execute();
 
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-        $user = new User(intVal($ligne['id']), $ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email']);
+        $user = new User($ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email'], intVal($ligne['id']));
 
         $connexion::close();
 

@@ -6,7 +6,7 @@ use PDO;
 use src\models\db\PlaylistMusic;
 
 include_once "src/models/db/Entity.php";
-include_once "src/models/db/PlaylistMusic";
+include_once "src/models/db/PlaylistMusic.php";
 include_once "src/models/db/DAO.php";
 
 class Playlist extends Entity
