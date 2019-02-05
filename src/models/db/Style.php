@@ -37,7 +37,7 @@ class Style extends Entity {
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         while ($ligne) {
-            $style = new Style( $ligne['libelle'], intVal($ligne['id']));
+            $style = new Style(str($ligne['libelle']), intVal($ligne['id']));
 
             $styles[] = $style;
 
@@ -47,7 +47,7 @@ class Style extends Entity {
         return $styles;
     }
 
-    public function find($id_style) : Style {
+    public function find(int $id_style) : Style {
         $connexion = new DAO();
 
         $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_style";

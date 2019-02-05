@@ -51,6 +51,9 @@ final class StyleTest extends TestCase {
         $my_styles = ['ROCK', 'POP', 'ELECTRO', 'RAP', 'CLASSIQUE'];
         $this->assertSame(5, count($styles));
 
+
+        var_dump($styles);
+
         $i = 0;
         foreach ($styles as $style) {
             $this->assertSame($style->getLibelle(), $my_styles[$i]);
@@ -73,6 +76,8 @@ final class StyleTest extends TestCase {
         finally{
             DAO::close();
         }
+
+        var_dump($styleElectro);
 
         $this->assertSame($styleElectro->getId(), 3);
         $this->assertSame($styleElectro->getLibelle(), "ELECTRO");
