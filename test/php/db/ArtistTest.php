@@ -11,8 +11,6 @@ use src\models\db\DAO;
  */
 final class ArtistTest extends TestCase {
     private $artist;
-    private $pdo = null;
-    private $conn = null;
 
     /**
      * @before
