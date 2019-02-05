@@ -134,9 +134,9 @@ CREATE TABLE IF NOT EXISTS `mp3_playlist` (
 --
 
 INSERT INTO `mp3_playlist` (`id`, `id_pers`, `name`) VALUES
-(1, 3, ''),
-(2, 4, ''),
-(3, 5, '');
+(1, 3, 'Janvier 2K19'),
+(2, 4, 'Ma playlist préféré'),
+(3, 5, 'Décembre 2K18');
 
 -- --------------------------------------------------------
 
