@@ -73,9 +73,9 @@ CREATE TABLE IF NOT EXISTS `mp3_ecoutes` (
 --
 
 INSERT INTO `mp3_ecoutes` (`id_fichier`, `id_pers`, `date_first_ecoute`, `pourcent_ecoute`, `is_liked`) VALUES
-(1, 4, '2019-01-30 11:35:36', 0.55, 0),
-(1, 5, '2019-01-30 11:00:20', 0.3, 0),
-(2, 4, '2019-01-30 11:00:20', 0.66, 0);
+(1, 1, '2019-01-30 11:35:36', 0.55, 0),
+(1, 2, '2019-01-30 11:00:20', 0.3, 0),
+(2, 1, '2019-01-30 11:00:20', 0.66, 0);
 
 -- --------------------------------------------------------
 
@@ -134,9 +134,9 @@ CREATE TABLE IF NOT EXISTS `mp3_playlist` (
 --
 
 INSERT INTO `mp3_playlist` (`id`, `id_pers`, `name`) VALUES
-(1, 3, 'Janvier 2K19'),
-(2, 4, 'Ma playlist préféré'),
-(3, 5, 'Décembre 2K18');
+(1, 1, 'Janvier 2K19'),
+(2, 2, 'Ma playlist préféré'),
+(3, 3, 'Décembre 2K18');
 
 -- --------------------------------------------------------
 
