@@ -40,3 +40,7 @@ before_install:
 script:
   - ./vendor/bin/phpunit
   - sonar-scanner
+
+notifications:
+  email: false
+  slack: lecteur20:gnvcWdzWf2On3Mtamke5Vu8E
