@@ -2,6 +2,8 @@
 
 namespace src\models\db;
 
+session_start();
+
 use Exception;
 use PDO;
 
@@ -45,14 +47,30 @@ class Music extends Entity {
      * Cette méthode ajout un like sur un musique via un user
      */
     public function addLike(){
+        try{
+            $ecoute = Ecoute::find( $_SESSION["id"], $this->getId());
+        }
+        catch (Exception $e){
+            echo $e->getMessage();
+            $ecoute = null;
+        }
 
+        $ecoute->setIs_like(true);
     }
 
     /**
      * Méthode de suppression d'un like.
      */
     public function deleteLike(){
+        try{
+            $ecoute = Ecoute::find( $_SESSION["id"], $this->getId());
+        }
+        catch (Exception $e){
+            echo $e->getMessage();
+            $ecoute = null;
+        }
 
+        $ecoute->setIs_like(false);
     }
 
     /**
