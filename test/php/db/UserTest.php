@@ -11,11 +11,17 @@ use src\models\db\DAO;
  */
 final class UserTest extends TestCase
 {
-    private static $user;
+    private $user;
 
-    public static function setUpBeforeClass()
+    /**
+     * @covers ::__construct
+     * @beforeClass
+     */
+    public function testConstruct()
     {
-        self::$user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->user = new User('2019-01-30 10:39:42', 'toto', 'f71dbe52628a3f83a77ab494817525c6', 'Toto', 'tutu', 'tutu.toto@tutu.com');
+        $this->assertInstanceOf(User::class, $this->user);
+//        var_dump($this->user);
     }
 
     /**
@@ -23,23 +29,9 @@ final class UserTest extends TestCase
      * @covers \src\models\db\Entity::__call
      */
     public function testCall(){
-        $this->assertSame("toto", self::$user->getLogin());
-        self::$user->setLogin("titi");
-        $this->assertSame("titi", self::$user->getLogin());
-    }
-
-    /**
-     * Test de la création de l'instance du User
-     * @covers ::__construct
-     * @depends testFailingDate1
-     * @depends testFailingDate2
-     * @depends testFailingDate3
-     * @depends testFailingPass
-     * @depends testFailingMail
-     */
-    public function testConstruct()
-    {
-        $this->assertInstanceOf(User::class, self::$user);
+        $this->assertSame("toto", $this->user->getLogin());
+        $this->user->setLogin("titi");
+        $this->assertSame("titi", $this->user->getLogin());
     }
 
     /**
@@ -103,8 +95,13 @@ final class UserTest extends TestCase
             DAO::close();
         }
 
-        $my_users = ['toto', 'tata', 'titi'];
-        $this->assertEquals($users.join(), $my_users.join());
+        $my_users = ['Toto', 'Tata', 'Titi'];
+
+        $i = 0;
+        foreach ($users as $user) {
+            $this->assertSame($user->getNom(), $my_users[$i]);
+            $i++;
+        }
     }
 
     /**
@@ -125,6 +122,6 @@ final class UserTest extends TestCase
         }
 
         $this->assertSame($user2->getId(), 2);
-        $this->assertSame($user2->getLogin(), 'titi');
+        $this->assertSame($user2->getLogin(), 'tata');
     }
 }
