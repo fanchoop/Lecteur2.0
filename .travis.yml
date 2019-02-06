@@ -41,6 +41,7 @@ before_install:
 script:
   - ./vendor/bin/phpunit
   - sonar-scanner
+  - sudo mysql -u user -puser < ./res/db/debug.sql
 
 notifications:
   email: false
