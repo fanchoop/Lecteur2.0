@@ -141,7 +141,6 @@ class Music extends Entity {
         }
 
         DAO::close();
-
         return $music;
     }
 }
