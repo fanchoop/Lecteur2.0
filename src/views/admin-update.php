@@ -1,18 +1,7 @@
 <div class="page-ajout">
-    <form method="post" action="/admin" enctype="multipart/form-data">
-        <div class="upload">
-            <div class="title">Upload Zone</div>
-            <div class="champs">
-                <label>Musique mp3</label>
-                <input id="mySound" name="foo" type="file" required="required" accept="audio/mpeg"/>
-            </div>
-            <div class="champs">
-                <label>Cover</label>
-                <input id="myCover" name="cover" type="file" required="required" accept="image/jpeg"/>
-            </div>
-        </div>
+    <form method="post" action="/admin/put/undefined" enctype="multipart/form-data">
         <div class="champs-block">
-            <div class="title">Informations de la musique</div>
+            <div class="title">Modification de la musique</div>
             <div class="champs">
                 <input type="text" name="titre" required="required" placeholder="Titre"/>
                 <label>Titre *</label>
