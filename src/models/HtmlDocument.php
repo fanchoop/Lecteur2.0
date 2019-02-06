@@ -29,7 +29,6 @@ class HtmlDocument
         }
 
         $this->mainFilePath = $fileName;
-        $this->mainFilePath = $this->getPath();
         $this->headers = [];
         $this->mainContent = null;
         $this->bodyContent = null;
@@ -39,6 +38,7 @@ class HtmlDocument
 
     public function parseMain()
     {
+        $this->mainFilePath = $this->getPath();
         ob_start();
         include ($this->mainFilePath);
         $this->mainContent = ob_get_contents();
@@ -47,8 +47,27 @@ class HtmlDocument
 
     public function render()
     {
+        include('src/views/header.html');
+
+        if( $this->mainFilePath != "player" && $this->mainFilePath != "login"){
+            //include("src/middleware/checkLogin.php");
+            include('src/views/nav.html');
+
+            if($this->mainFilePath == "music"){
+                include('src/models/db/Music.php');
+            }
+            elseif ($this->mainFilePath == "playlist"){
+                include('src/models/db/Playlist.php');
+            }
+            elseif ($this->mainFilePath == "album"){
+                include('src/models/db/Album.php');
+            }
+
+        }
+
         $this->parseMain();
         echo $this->mainContent;
+
     }
 
     public function addHeader(string $html, int $position)

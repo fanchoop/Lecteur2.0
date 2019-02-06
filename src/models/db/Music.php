@@ -2,8 +2,6 @@
 
 namespace src\models\db;
 
-session_start();
-
 use Exception;
 use PDO;
 
