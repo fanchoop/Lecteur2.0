@@ -23,23 +23,23 @@ class User extends Entity {
      * 
      * @throws \Exception
      * 
-     * note : regex valide jusqu'en 2029
+     * note : regex valide jusqu'en 2099
      * 
      */
     public function __construct(string $date_inscription, string $login, string $md5_password, string $nom, string $prenom, string $email, int $id = null){
 
         parent::__construct(self::TABLENAME, self::PKNAME);
 
-        if (!preg_match('/'.'^(201[9]|20[2-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
+        if (!preg_match('/'.'^(201[9]|20[2-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', preg_quote($date_inscription))) {
 
             throw new Exception('Date incorrect.');
         }
 
-        elseif(!preg_match('/'.'^[a-f0-9]{32}$/i', $md5_password)) {
+        elseif(!preg_match('/'.'^[a-f0-9]{32}$/i', preg_quote($md5_password))) {
             throw new Exception('Format Password incorrect.');
         }
 
-        elseif (!preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {
+        elseif (!preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', preg_quote($email))) {
             throw new Exception('Email incorrect.');
         }
 
@@ -138,5 +138,7 @@ class User extends Entity {
 
     strtotime() - Transforme un texte anglais en timestamp
 
+    tu vas voir mes modifs espèce de connard push !!!!
     */
+    
 }
