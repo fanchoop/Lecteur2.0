@@ -31,13 +31,15 @@ class Style extends Entity {
 
     public function findAll() : array {
         $connexion = new DAO();
-//        $sql = "SELECT * FROM ".self::TABLENAME;
-        $sql = "SELECT * FROM mp3_styles ;";
+        $sql = "SELECT * FROM ".self::TABLENAME;
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->debugDumpParams();
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-
+        echo "\n";
+        echo "\n";
+        var_dump($ligne);
+        echo "\n";
+        echo "\n";
         while ($ligne) {
             $style = new Style($ligne['libelle'], intVal($ligne['id']));
 
@@ -46,28 +48,29 @@ class Style extends Entity {
             $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
         }
         $connexion::close();
-        var_dump($styles);
-
         return $styles;
     }
 
     public function find(int $id_style) : Style {
         $connexion = new DAO();
 
-//        $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_style ;";
-        $sql = "SELECT * FROM mp3_styles WHERE id = 2 ;";
+        $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_style";
 
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-//        $prepareStatement->bindValue(":id_style",$id_style, PDO::PARAM_INT);
-        $prepareStatement->debugDumpParams();
+        $prepareStatement->bindValue(":id_style",$id_style, PDO::PARAM_INT);
 
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+        echo '\n';
+        echo '\n';
+        var_dump($ligne);
+        echo '\n';
+        echo '\n';
 
         $style = new Style($ligne['libelle'], intval($ligne['id']));
 
         $connexion::close();
-        var_dump($style);
+
         return $style;
     }
 }

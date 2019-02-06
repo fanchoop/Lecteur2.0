@@ -7,7 +7,7 @@ use PDO;
 
 /**
  * Class Artist
- * @package src\db\models
+ * @package src\models\db
  */
 class Artist extends Entity {
 
