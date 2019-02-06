@@ -30,7 +30,7 @@ class User extends Entity {
 
         parent::__construct(self::TABLENAME, self::PKNAME);
 
-        if (!preg_match('/'.'^(201[9]|20[2-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription,)) {
+        if (!preg_match('/'.'^(201[9]|20[2-9][0-9])-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1]) ([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/', $date_inscription)) {
 
             throw new Exception('Date incorrect.');
         }
@@ -137,6 +137,8 @@ class User extends Entity {
     $today = date("Y-m-d H:i:s"); // 2001-03-10 17:16:18 (le format DATETIME de MySQL)
 
     strtotime() - Transforme un texte anglais en timestamp
+
+    prends mes modi
     */
     
 }
