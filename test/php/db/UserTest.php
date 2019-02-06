@@ -124,4 +124,46 @@ final class UserTest extends TestCase
         $this->assertSame($user2->getId(), 2);
         $this->assertSame($user2->getLogin(), 'tata');
     }
+
+    /**
+     * Test de la fonction findByLogin de la classe User
+     * @covers \src\models\db\User::findByLogin
+     */
+    public function testFindByLogin() {
+        /**
+         * Cas d'un login qui existe
+         */
+        $user = null;
+
+        try{
+            $user = User::findByLogin("toto");
+        }
+        catch (Exception $e){
+            $e->getMessage();
+        }
+        finally{
+            DAO::close();
+        }
+
+        $this->assertSame($user->getId(), 1);
+        $this->assertSame($user->getLogin(), 'toto');
+
+        /**
+         * Cas d'un login qui n'existe pas
+         */
+
+        $user = null;
+
+        try{
+            $user = User::findByLogin("LoginNotExistInBdd");
+        }
+        catch (Exception $e){
+            $e->getMessage();
+        }
+        finally{
+            DAO::close();
+        }
+
+        $this->assertFalse($user);
+    }
 }

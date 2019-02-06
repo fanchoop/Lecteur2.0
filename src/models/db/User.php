@@ -57,6 +57,7 @@ class User extends Entity {
     /**
      * Récupère la totalité de la table contenant les utilisateurs.
      * @return un tableau contenant tous les utilisateurs.
+     * @throws \Exception
      */
     public static function findAll() : array {
         $connexion = new DAO();
@@ -80,9 +81,10 @@ class User extends Entity {
     /**
      * On recherche dans la base de donnée un utilisateur en fonction de son id de BD.
      * @param $id_utilisateur
-     * @return un utilisateur
+     * @return User utilisateur
+     * @throws \Exception
      */
-    public static function find($id_utilisateur) : User{
+    public static function find(int $id_utilisateur) : User{
         $connexion = new DAO();
 
         $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_utilisateur";
@@ -97,6 +99,37 @@ class User extends Entity {
         $connexion::close();
 
         return $user;
+    }
+
+    /**
+     * On recherche dans la base de donnée un utilisateur en fonction de son id de BD.
+     * @param string $login
+     * @return bool|User
+     * @throws \Exception
+     */
+    public static function findByLogin(string $login){
+        $connexion = new DAO();
+
+        $sql = "SELECT * FROM ".self::TABLENAME." WHERE login = :login";
+
+        $prepareStatement = $connexion::getInstance()->prepare($sql);
+        $prepareStatement->bindValue(":login",$login, PDO::PARAM_STR);
+        $prepareStatement->execute();
+        $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+
+        if($ligne){
+
+            $user = new User($ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email'], intVal($ligne['id']));
+
+            $connexion::close();
+
+            $return = $user;
+        }
+        else{
+            $return = false;
+        }
+
+        return $return;
     }
 
     /*  A voir !!! 
