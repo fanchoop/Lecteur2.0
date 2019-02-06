@@ -33,8 +33,8 @@ class Style extends Entity {
         $connexion = new DAO();
         $sql = "SELECT * FROM ".self::TABLENAME;
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->execute();
         $prepareStatement->debugDumpParams();
+        $prepareStatement->execute();
 //        var_dump($toto);
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
@@ -52,7 +52,7 @@ class Style extends Entity {
     public function find(int $id_style) : Style {
         $connexion = new DAO();
 
-        $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_style";
+        $sql = "SELECT * FROM ".self::TABLENAME." WHERE ".self::PKNAME." = :id_style ;";
 
         $prepareStatement = $connexion::getInstance()->prepare($sql);
         $prepareStatement->bindValue(":id_style",$id_style, PDO::PARAM_INT);
