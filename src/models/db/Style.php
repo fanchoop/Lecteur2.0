@@ -38,7 +38,7 @@ class Style extends Entity {
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         while ($ligne) {
-            $style = new Style(str($ligne['libelle']), intVal($ligne['id']));
+            $style = new Style($ligne['libelle'], intVal($ligne['id']));
 
             $styles[] = $style;
 
