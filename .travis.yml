@@ -33,6 +33,7 @@ jdk:
 
 before_install:
   - sudo mysql < ./res/db/DB_Lecteur_full.sql
+  - sudo mysql < ./res/db/debug.sql
 
 # Les commandes de script qui permettent de déclencher les différents tests.
 # Lors de la commande 'sonar-scanner', Travis va aller les informations de connexion
