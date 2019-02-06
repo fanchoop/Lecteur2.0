@@ -120,12 +120,12 @@ class User extends Entity {
         if($ligne){
 
             $user = new User($ligne['date_inscription'], $ligne['login'], $ligne['md5_password'], $ligne['nom'], $ligne['prenom'], $ligne['email'], intVal($ligne['id']));
-
-            $connexion::close();
+            DAO::close();
 
             $return = $user;
         }
         else{
+            DAO::close();
             $return = false;
         }
 

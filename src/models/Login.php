@@ -1,9 +1,7 @@
 <?php
 
 namespace src\models;
-use src\models\db\user;
-
-include_once "src/models/db/user.php";
+use src\models\db\User;
 
 class Login
 {
@@ -32,9 +30,9 @@ class Login
                 /**
                  * Connexion acceptée
                  */
-                $_SESSION["id"];
-                $_SESSION["login"];
-                $_SESSION["email"];
+                $_SESSION["id"] = $user->getId();
+                $_SESSION["login"] = $user->getLogin();
+                $_SESSION["email"] = $user->getEmail();
 
                 $cnx = true;
             }
@@ -50,7 +48,7 @@ class Login
      * @return bool
      */
     public static function checkUser(){
-        if( isEmpty($_SESSION["id"]) OR isEmpty($_SESSION["login"]) OR isEmpty($_SESSION["email"])){
+        if( empty($_SESSION["id"]) OR empty($_SESSION["login"]) OR empty($_SESSION["email"])){
             $return = false;
         }
         else{
