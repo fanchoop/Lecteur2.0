@@ -33,7 +33,8 @@ class Style extends Entity {
         $connexion = new DAO();
         $sql = "SELECT * FROM ".self::TABLENAME;
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $prepareStatement->execute();
+        $toto = $prepareStatement->execute();
+        var_dump($toto);
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
 
         while ($ligne) {
