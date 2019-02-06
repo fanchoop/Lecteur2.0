@@ -1,5 +1,4 @@
 <?php
-
 include_once "src/models/Login.php";
 use PHPUnit\Framework\TestCase;
 use src\models\Login;
@@ -39,6 +38,10 @@ class LoginTest extends TestCase
         Login::login("toto", "qzefqezfqezfqezf");
     }
 
+    /**
+     * Test de la méthode logout
+     * @covers ::logout
+     */
     public function testLogout(){
         Login::logout();
         $this->assertNull($_SESSION["id"]);
@@ -46,9 +49,19 @@ class LoginTest extends TestCase
         $this->assertNull($_SESSION["email"]);
     }
 
+    /**
+     * Test de la méthode checkUser
+     * @covers ::checkUser
+     * @throws Exception
+     */
     public function testCheckUser(){
+
         /* Return false */
-        $this->assertFalse(Login::checkUser());
+        Login::logout();
+        $this->assertFalse( Login::checkUser() );
+
         /* Return true */
+        Login::login("toto", "toto");
+        $this->assertTrue( Login::checkUser() );
     }
 }

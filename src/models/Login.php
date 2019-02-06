@@ -62,8 +62,8 @@ class Login
      */
     public static function logout(){
         /* On unset les variables de session */
-        unset($_SESSION["id"]);
-        unset($_SESSION["login"]);
-        unset($_SESSION["email"]);
+        $_SESSION["id"] = null;
+        $_SESSION["login"] = null;
+        $_SESSION["email"] = null;
     }
 }
