@@ -39,7 +39,7 @@ class User extends Entity {
             throw new Exception('Format Password incorrect.');
         }
 
-        elseif (!preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', preg_quote($email))) {
+        elseif (!preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {
             throw new Exception('Email incorrect.');
         }
 
@@ -138,7 +138,7 @@ class User extends Entity {
 
     strtotime() - Transforme un texte anglais en timestamp
 
-    prends mes modi
+    prends les modifs 
     */
     
 }
