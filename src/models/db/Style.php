@@ -33,10 +33,13 @@ class Style extends Entity {
         $connexion = new DAO();
         $sql = "SELECT * FROM ".self::TABLENAME;
         $prepareStatement = $connexion::getInstance()->prepare($sql);
-        $toto = $prepareStatement->execute();
-        var_dump($toto);
+        $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
-
+        echo "\n";
+        echo "\n";
+        var_dump($ligne);
+        echo "\n";
+        echo "\n";
         while ($ligne) {
             $style = new Style($ligne['libelle'], intVal($ligne['id']));
 
@@ -58,6 +61,11 @@ class Style extends Entity {
 
         $prepareStatement->execute();
         $ligne = $prepareStatement->fetch(PDO::FETCH_ASSOC);
+        echo '\n';
+        echo '\n';
+        var_dump($ligne);
+        echo '\n';
+        echo '\n';
 
         $style = new Style($ligne['libelle'], intval($ligne['id']));
 
