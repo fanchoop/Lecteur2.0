@@ -18,7 +18,7 @@ sudo: true
 
 # Avant de déclencher les scripts, on lui indique quoi installer si nécessaire.
 install:
-  - php composer.phar install --dev --no-interaction
+  - php composer.phar install --no-interaction
 
 # On précise ici qu'en complétement de Travis, on utilise SonarCloud.
 addons:
