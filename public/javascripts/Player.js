@@ -85,7 +85,7 @@ function Player(domElement) {
         let hasBeenHoverBack = false;
 
         let waveform = this.domElement.querySelectorAll(".waveform .sprectrumContainer");
-        let barPosition = Math.ceil(this.sound.position / this.sound.duration * waveform[0].childElementCount);
+        let barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
 
         let bar_up;
         let bar_bottom;
@@ -95,24 +95,24 @@ function Player(domElement) {
             bar_bottom = waveform[1].childNodes[position];
 
             //Check if the new position get the "hover-front" class, remove it
-            if (PlayerUtils.hasClass(bar_up, "hover-front") || PlayerUtils.hasClass(bar_bottom, "hover-front")) {
-                PlayerUtils.removeClass(bar_up, "hover-front");
-                PlayerUtils.removeClass(bar_bottom, "hover-front");
+            if (bar_up.classList.contains("hover-front") || bar_bottom.classList.contains("hover-front")) {
+                bar_up.classList.remove("hover-front");
+                bar_bottom.classList.remove("hover-front");
             }
 
-            PlayerUtils.addClass(bar_up, "played");
-            PlayerUtils.addClass(bar_bottom, "played");
+            bar_up.classList.add("played");
+            bar_bottom.classList.add("played");
 
 
             //Check if a "hover-back" class is set
-            if (PlayerUtils.hasClass(bar_up, "hover-back") || PlayerUtils.hasClass(bar_bottom, "hover-back"))
+            if (bar_up.classList.contains("hover-back") || bar_bottom.classList.contains("hover-back"))
                 hasBeenHoverBack = true;
 
             //If one of the bar get the "hover-back" class, add it to all next bars
             if (hasBeenHoverBack)
-                if (!PlayerUtils.hasClass(bar_up, "hover-front") && !PlayerUtils.hasClass(bar_bottom, "hover-front")) {
-                    PlayerUtils.addClass(bar_up, "hover-back");
-                    PlayerUtils.addClass(bar_bottom, "hover-back");
+                if (!bar_up.classList.contains("hover-front") && !bar_bottom.classList.contains("hover-front")) {
+                    bar_up.classList.add("hover-back");
+                    bar_bottom.classList.add("hover-back");
                 }
         }
     };
@@ -132,18 +132,17 @@ function Player(domElement) {
         if (this.sound == null) {
             barPosition = 0;
         } else {
-            barPosition = Math.ceil(this.sound.position / this.sound.duration * waveform[0].childElementCount);
+            barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
         }
         if (barPosition <= pos) {
             for (let position = barPosition + 1; position <= pos; position++) {
-                PlayerUtils.addClass(waveformUp.childNodes[position], "hover-front");
-                PlayerUtils.addClass(waveformDown.childNodes[position], "hover-front");
-
+                waveformUp.childNodes[position].classList.add("hover-front");
+                waveformDown.childNodes[position].classList.add("hover-front");
             }
         } else {
             for (let position = pos; position <= barPosition; position++) {
-                PlayerUtils.addClass(waveformUp.childNodes[position], "hover-back");
-                PlayerUtils.addClass(waveformDown.childNodes[position], "hover-back");
+                waveformUp.childNodes[position].classList.add("hover-back");
+                waveformDown.childNodes[position].classList.add("hover-back");
             }
         }
 
@@ -154,13 +153,13 @@ function Player(domElement) {
      * @namespace private
      */
     this.clearColorWave = function () {
-        let barsList = this.domElement.querySelectorAll(".bar-up ,.audioplayer .bar-down");
+        let barsList = this.domElement.querySelectorAll(".audioplayer .bar-up ,.audioplayer .bar-down");
         if (barsList.length !== 0) {
             for (var index = 0; index < barsList.length; index++) {
-                PlayerUtils.removeClass(barsList[index], "played");
-                PlayerUtils.removeClass(barsList[index], "played-flash");
-                PlayerUtils.removeClass(barsList[index], "hover-front");
-                PlayerUtils.removeClass(barsList[index], "hover-back");
+                barsList[index].classList.remove("played");
+                barsList[index].classList.remove("played-flash");
+                barsList[index].classList.remove("hover-front");
+                barsList[index].classList.remove("hover-back");
             }
 
         }
@@ -176,8 +175,8 @@ function Player(domElement) {
         if (barsList.length !== 0) {
             for (var index = 0; index < barsList.length; index++) {
 
-                PlayerUtils.removeClass(barsList[index], "hover-front");
-                PlayerUtils.removeClass(barsList[index], "hover-back");
+                barsList[index].classList.remove("hover-front");
+                barsList[index].classList.remove("hover-back");
             }
 
         }
@@ -189,7 +188,7 @@ function Player(domElement) {
      */
     this.clearHoverTime = function () {
         let currentTime = this.domElement.querySelector(".en-cours");
-        PlayerUtils.removeClass(currentTime, "spectrumHoverTime");
+        currentTime.classList.remove("spectrumHoverTime");
         currentTime.innerText = PlayerUtils.milliSecondsToReadableTime(this.sound.position);
     };
 
@@ -203,12 +202,56 @@ function Player(domElement) {
         let currentTime = this.domElement.querySelector(".en-cours");
         let nbBarSpectrum = this.domElement.querySelectorAll(".waveform .sprectrumContainer")[0].childElementCount - 1;
 
-        if (!PlayerUtils.hasClass(currentTime, "spectrumHoverTime")) {
-            let time = position / nbBarSpectrum * this.sound.duration;
+        if (!currentTime.classList.contains("spectrumHoverTime")) {
+            let time = position / nbBarSpectrum * ( this.playlist.getCurrentMusic().duration * 1000 );
             currentTime.innerText = PlayerUtils.milliSecondsToReadableTime(time);
-            PlayerUtils.addClass(currentTime, "spectrumHoverTime");
+            currentTime.classList.add("spectrumHoverTime");
 
         }
+    };
+
+
+    this.addWaveformListener = function (){
+        var waveformElement = this.domElement.querySelector(".audioplayer .player .waveform");
+
+        waveformElement.addEventListener("mousemove", function(e){
+            let rect = e.currentTarget.getBoundingClientRect();
+            let posX = e.clientX - rect.left;
+            let barPosition = parseInt(posX/4);
+
+            var query = ".audioplayer .player .waveform .bar-up[data_position='" + barPosition + "']";
+            var target = this.domElement.querySelector(query);
+            if (target !== null) {
+                if (target.attributes.hasOwnProperty("data_position")) {
+                    this.clearColorHoverWave();
+                    this.clearHoverTime();
+                    this.colorWaveToHoverPos(Number(target.attributes.data_position.value));
+                    this.drawHoverTime(Number(target.attributes.data_position.value))
+                }
+            }
+        }.bind(this));
+
+        waveformElement.addEventListener("click", function(e){
+            let rect = e.currentTarget.getBoundingClientRect();
+            let posX = e.clientX - rect.left;
+            let barPosition = parseInt(posX/4);
+
+            var query = ".audioplayer .player .waveform .bar-up[data_position='" + barPosition + "']";
+            var target = this.domElement.querySelector(query);
+            if (target !== null) {
+                this.clearColorWave();
+                if (target.attributes.hasOwnProperty("data_position")){
+                    this.goTo(Number(target.attributes.data_position.value));
+                }
+            }
+        }.bind(this));
+
+        waveformElement.addEventListener("mouseleave", function(e){
+            if (e.target == e.currentTarget){
+                this.clearColorHoverWave();
+                this.clearHoverTime();
+            }
+        }.bind(this));
     };
 
 
@@ -220,33 +263,34 @@ function Player(domElement) {
         this.clearColorWave();
 
         if (this.sound != null) {
-            let barPositionPercentile = this.sound.position / this.sound.duration;
+            let barPositionPercentile = this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 );
 
             createWaveForm(this, this.playlist.getCurrentMusic().listPoints, barPositionPercentile);
         } else {
             createWaveForm(this, this.playlist.getCurrentMusic().listPoints);
         }
 
+        //ANCIEN CODE (Listener sur chaque bar du spectre)
         //Add event to each bar of the spectrum
-        var barsList = this.domElement.querySelectorAll(".bar-up , .audioplayer .bar-down");
-        for (var index = 0; index < barsList.length; index++) {
-            barsList[index].addEventListener("click", function (evt) {
-                this.clearColorWave();
-                if (evt.target.attributes.hasOwnProperty("data_position"))
-                    this.goTo(Number(evt.target.attributes.data_position.value));
-            }.bind(this));
-            barsList[index].addEventListener("mouseover", function (evt) {
-                if (evt.target.attributes.hasOwnProperty("data_position")) {
-                    this.colorWaveToHoverPos(Number(evt.target.attributes.data_position.value));
-                    this.drawHoverTime(Number(evt.target.attributes.data_position.value))
-                }
-            }.bind(this));
-            barsList[index].addEventListener("mouseout", function () {
-                this.clearColorHoverWave();
-                this.clearHoverTime();
-            }.bind(this));
-        }
-
+    //     var barsList = this.domElement.querySelectorAll(".bar-up , .audioplayer .bar-down");
+    //     for (var index = 0; index < barsList.length; index++) {
+    //         barsList[index].addEventListener("click", function (evt) {
+    //             this.clearColorWave();
+    //             if (evt.target.attributes.hasOwnProperty("data_position"))
+    //                 this.goTo(Number(evt.target.attributes.data_position.value));
+    //         }.bind(this));
+    //         barsList[index].addEventListener("mouseover", function (evt) {
+    //             if (evt.target.attributes.hasOwnProperty("data_position")) {
+    //                 this.colorWaveToHoverPos(Number(evt.target.attributes.data_position.value));
+    //                 this.drawHoverTime(Number(evt.target.attributes.data_position.value))
+    //             }
+    //         }.bind(this));
+    //         barsList[index].addEventListener("mouseout", function () {
+    //             this.clearColorHoverWave();
+    //             this.clearHoverTime();
+    //         }.bind(this));
+    //     }
+        this.addWaveformListener();
     };
 
     /**
@@ -256,7 +300,7 @@ function Player(domElement) {
     this.drawMusicTime = function () {
         if (this.sound != null) {
             let currentTime = this.domElement.querySelector(".en-cours");
-            if (!PlayerUtils.hasClass(currentTime, "spectrumHoverTime"))
+            if (!currentTime.classList.contains("spectrumHoverTime"))
                 currentTime.innerText = PlayerUtils.milliSecondsToReadableTime(this.sound.position);
 
             this.colorWaveToCurrentPos();
@@ -270,7 +314,7 @@ function Player(domElement) {
     this.drawMusicData = function () {
         let currentMusic = this.playlist.getCurrentMusic();
         if (currentMusic != null) {
-            //Add an escape double quote to allow name with quote 
+            //Add an escape double quote to allow name with quote
             this.domElement.querySelector(".visuel").style.background = "url(\"" + currentMusic.coverPath + "\")";
             this.domElement.querySelector(".artiste").innerText = currentMusic.artistName;
             this.domElement.querySelector(".titre").innerText = currentMusic.title;
@@ -302,7 +346,9 @@ function Player(domElement) {
 
         this.domElement.querySelector(".prev").addEventListener("click", this.previous.bind(this));
         this.domElement.querySelector(".next").addEventListener("click", this.next.bind(this));
-        this.domElement.querySelector(".play-pause").addEventListener("click", this.play_pause.bind(this));
+        this.domElement.querySelector(".play-pause").addEventListener("click", function(e) {
+            this.play_pause();
+        }.bind(this));
         this.domElement.querySelector(".like").addEventListener("click", this.like.bind(this));
         this.domElement.querySelector(".share").addEventListener("click", this.share.bind(this));
         this.domElement.querySelector(".controls .volume input[type=range].volume-input-range").addEventListener("input", this.targetVolume.bind(this));
@@ -335,7 +381,7 @@ function Player(domElement) {
      * @namespace private
      */
     this.volumeMouseOver = function () {
-        PlayerUtils.addClass(this.domElement.querySelector(".controls .volume"), "is-active");
+        this.domElement.querySelector(".controls .volume").classList.add("is-active");
 
     };
 
@@ -346,12 +392,12 @@ function Player(domElement) {
     this.volumeMouseOverCompact = function () {
         let volumeButton = this.domElement.querySelector(".controls .volume");
 
-        if (!PlayerUtils.hasClass(volumeButton, "volume-timed")) {
-            PlayerUtils.addClass(volumeButton, "is-active");
+        if (!volumeButton.classList.contains("volume-timed")) {
+            volumeButton.classList.add("is-active");
 
             //Little timeout to avoid a instant showing and hiding
             setTimeout(function () {
-                PlayerUtils.addClass(volumeButton, "volume-timed");
+                volumeButton.classList.add("volume-timed");
 
             }, 200)
         }
@@ -362,7 +408,7 @@ function Player(domElement) {
      * @namespace private
      */
     this.volumeMouseOut = function () {
-        PlayerUtils.removeClass(this.domElement.querySelector(".controls .volume"), "is-active");
+        this.domElement.querySelector(".controls .volume").classList.remove("is-active");
     };
 
     /**
@@ -372,11 +418,11 @@ function Player(domElement) {
     this.volumeMouseOutCompact = function () {
         let volumeButton = this.domElement.querySelector(".controls .volume");
 
-        if (PlayerUtils.hasClass(volumeButton, "volume-timed")) {
-            PlayerUtils.removeClass(volumeButton, "is-active");
+        if (volumeButton.classList.contains("volume-timed")) {
+            volumeButton.classList.remove("is-active");
             //Use to avoid a trigger of the two events at the same time
             setTimeout(function () {
-                PlayerUtils.removeClass(volumeButton, "volume-timed");
+                volumeButton.classList.remove("volume-timed");
             }, 200)
         }
     };
@@ -489,18 +535,17 @@ function Player(domElement) {
         let currentMusic = this.playlist.getCurrentMusic();
 
         if (PlayerUtils.getCookie("song-" + currentMusic.id + "-alreadyLike") !== "") {
-            PlayerUtils.addClass(this.domElement.querySelector(".like"), "ilikeit");
+            this.domElement.querySelector(".like").classList.add("ilikeit");
 
 
         } else {
-            PlayerUtils.removeClass(this.domElement.querySelector(".like"), "ilikeit");
+            this.domElement.querySelector(".like").classList.remove("ilikeit");
         }
     };
 
     constructor(domElement);
 
 }
-
 /**
  * Set the new volume
  * @namespace Player
@@ -509,18 +554,25 @@ function Player(domElement) {
 Player.prototype.setVolume = function (newVolume) {
     this.volume = newVolume;
     if (this.sound !== null) {
-        this.sound.setVolume(newVolume);
 
+        this.sound.setVolume(newVolume);
         let volume = this.domElement.querySelector(".controls .volume .volume_button");
+
         if (newVolume === 0) {
-            if (PlayerUtils.hasClass(volume, 'volume-on')) {
-                PlayerUtils.removeClass(volume, "volume-on");
-                PlayerUtils.addClass(volume, "volume-off");
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-off");
             }
-        } else {
-            if (PlayerUtils.hasClass(volume, 'volume-off')) {
-                PlayerUtils.removeClass(volume, 'volume-off');
-                PlayerUtils.addClass(volume, "volume-on");
+        }else if (newVolume>0 && newVolume<33){
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-on");
+            }
+        }else if(newVolume>33 && newVolume<66){
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-moyen2");
+            }
+        }else if(newVolume>66){
+            if (volume.classList.item(1) !== null) {
+                volume.classList.replace(volume.classList.item(1), "volume-moyen3");
             }
         }
     }
@@ -533,21 +585,20 @@ Player.prototype.setVolume = function (newVolume) {
  */
 Player.prototype.mute = function () {
     let volume = this.domElement.querySelector(".controls .volume .volume_button");
-
-    if (PlayerUtils.hasClass(volume, 'volume-on')) {
-        PlayerUtils.removeClass(volume, "volume-on");
-        PlayerUtils.addClass(volume, "volume-off");
-
-        if (this.sound !== null)
-            this.sound.mute();
-    } else {
-        PlayerUtils.removeClass(volume, "volume-off");
-        PlayerUtils.addClass(volume, "volume-on");
-
-        if (this.sound !== null)
+    if (volume.classList.item(1) !== null) {
+        if (volume.classList.item(1) != "volume-off") {
+            volume.classList.replace(volume.classList.item(1), "volume-off");
+            if (this.sound !== null){
+                this.sound.mute();
+            }
+        }else {
             this.sound.unmute();
+            let lastVolume = this.domElement.querySelector(".audioplayer .player .controls .volume_slider .volume_sliderTotale .volume-input-range").value;
+            this.setVolume(lastVolume);
+        }
     }
 };
+
 
 /**
  * Return if the player add the mute button enabled
@@ -556,7 +607,7 @@ Player.prototype.mute = function () {
  */
 Player.prototype.playerIsMute = function () {
     let volume = this.domElement.querySelector(".controls .volume .volume_button");
-    return PlayerUtils.hasClass(volume, 'volume-off');
+    return volume.classList.contains('volume-off');
 };
 
 /**
@@ -569,7 +620,7 @@ Player.prototype.like = function () {
 
     if (PlayerUtils.getCookie("song-" + currentMusic.id + "-alreadyLike") === "") {
         Connexion.addLike(currentMusic.id, console.log);
-        PlayerUtils.addClass(this.domElement.querySelector(".like"), "ilikeit");
+        this.domElement.querySelector(".like").classList.add("ilikeit");
 
 
         let likeNumber = this.domElement.querySelector(".like");
@@ -579,7 +630,7 @@ Player.prototype.like = function () {
         PlayerUtils.setCookie("song-" + currentMusic.id + "-alreadyLike", "true", 99);
     } else {
         Connexion.removeLike(currentMusic.id, console.log);
-        PlayerUtils.removeClass(this.domElement.querySelector(".like"), "ilikeit");
+        this.domElement.querySelector(".like").classList.remove("ilikeit");
 
         let likeNumber = this.domElement.querySelector(".like");
         likeNumber.innerText = Number(likeNumber.innerText) - 1;
@@ -645,7 +696,7 @@ Player.prototype.goTo = function (newPosition) {
     if (this.sound != null) {
 
         let percentile = (newPosition / this.domElement.querySelector(".waveform .sprectrumContainer").childElementCount);
-        let newTime = percentile * this.sound.duration;
+        let newTime = percentile * ( this.playlist.getCurrentMusic().duration * 1000 );
         this.currentTime = newTime / 1000;
         this.sound.setPosition(newTime);
         this.clearColorWave();
@@ -667,7 +718,6 @@ Player.prototype.play_pause = function () {
     //If not undefined
     if (currentMusic != null) {
         let playButton = this.domElement.querySelector(".play-pause");
-
         //If don't have any current sound in play
         if (this.sound == null) {
             //Reset the waveform color in case of a new music
@@ -677,9 +727,8 @@ Player.prototype.play_pause = function () {
             this.loadMusic();
 
             this.sound.play();
-            PlayerUtils.removeClass(playButton, "play");
-            PlayerUtils.addClass(playButton, "pause");
-
+            playButton.classList.remove("play");
+            playButton.classList.add("pause");
         }
         //If a Sound is already set
         else {
@@ -687,14 +736,14 @@ Player.prototype.play_pause = function () {
             if (this.sound.playState) {
                 if (this.sound.paused) {
                     this.sound.resume();
-                    PlayerUtils.removeClass(playButton, "play");
-                    PlayerUtils.addClass(playButton, "pause");
+                    playButton.classList.remove("play");
+                    playButton.classList.add("pause");
 
                 }//If it's played
                 else {
                     this.sound.pause();
-                    PlayerUtils.removeClass(playButton, "pause");
-                    PlayerUtils.addClass(playButton, "play");
+                    playButton.classList.remove("pause");
+                    playButton.classList.add("play");
                 }
             }
         }

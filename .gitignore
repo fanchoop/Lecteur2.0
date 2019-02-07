@@ -1,3 +1,5 @@
-# Created by .ignore support plugin (hsz.mobi)
-Supprimerait .idea/
-Supprimerait Lecteur2.0.iml
+.idea/
+Lecteur2.0.iml
+vendor/
+composer.lock
+test/_reports/

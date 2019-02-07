@@ -1,38 +1,46 @@
-dist: trusty
-sudo: true
+# Le language par défaut du projet.
 language: php
 
-git:
-  depth: 1000
-
+# On indique les différentes versions de PHP à tester.
+# Dans notre projet on cherche à tester la version 7.2
 php:
   - 7.2
 
+# On déclenche un build seulement d'un push sur la branche Master.
 branches:
   only:
     master
 
-install:
-  - php composer.phar install --dev --no-interaction
-  - sudo add-apt-repository ppa:chris-needham/ppa -y
-  - sudo apt-get update -y
-  - sudo apt-get install audiowaveform -y
-  - sudo apt-get install mediainfo -y
+services:
+  - mysql
 
+sudo: true
+
+# Avant de déclencher les scripts, on lui indique quoi installer si nécessaire.
+install:
+  - php composer.phar install --no-interaction
+
+# On précise ici qu'en complétement de Travis, on utilise SonarCloud.
 addons:
   sonarcloud:
     organization: "fanchoop-github"
     token:
-      secure: "66880320fa3e2497d0c5e9eea13f7c5766f159f2"
+      secure: "db29f878472591c66d69eae3f1fc82d1f0124568"
       
-
+# On précis un JDK.
 jdk:
   - oraclejdk8
 
+before_install:
+  - sudo mysql < ./res/db/DB_Lecteur_full.sql
+
+# Les commandes de script qui permettent de déclencher les différents tests.
+# Lors de la commande 'sonar-scanner', Travis va aller les informations de connexion
+# dans notre fichier de configuration 'sonar-projet.properties' qui se situe aussi à la racine du projet.
 script:
   - ./vendor/bin/phpunit
-  - cd ./tests/javascript/
-  - npm install
-  - npm test
-  - cd ../../
   - sonar-scanner
+
+notifications:
+  email: false
+  slack: lecteur20:gnvcWdzWf2On3Mtamke5Vu8E

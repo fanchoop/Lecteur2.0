@@ -1,0 +1,19 @@
+<phpunit bootstrap="test/php/phpunit.php">
+    <testsuite name="unit">
+        <directory>test/php/</directory>
+        <exclude>test/php/res/ctrlTest.php</exclude>
+    </testsuite>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src/models/</directory>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-clover" target="test/_reports/logs/clover.xml"/>
+        <log type="junit" target="test/_reports/logs/junit-logfile.xml"/>
+        <log type="coverage-html" target="test/_reports/coverage" lowUpperBound="35" highLowerBound="70" />
+        <log type="testdox-text" target="test/_reports/testdox/executed.txt"/>
+    </logging>
+</phpunit>
