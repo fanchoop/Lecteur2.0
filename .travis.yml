@@ -18,6 +18,7 @@ sudo: true
 
 # Avant de déclencher les scripts, on lui indique quoi installer si nécessaire.
 install:
+  - sudo apt-get install -y mediainfo
   - php composer.phar install --no-interaction
 
 # On précise ici qu'en complétement de Travis, on utilise SonarCloud.
@@ -44,3 +45,4 @@ script:
 notifications:
   email: false
   slack: lecteur20:gnvcWdzWf2On3Mtamke5Vu8E
+-
