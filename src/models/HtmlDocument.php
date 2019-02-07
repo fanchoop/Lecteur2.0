@@ -12,6 +12,8 @@ class HtmlDocument
 {
     protected $mainFilePath;
     protected $headers;
+    protected $footers;
+    protected $script;
     protected $mainContent;
     protected $bodyContent;
     private static $currentInstance;
@@ -30,6 +32,8 @@ class HtmlDocument
 
         $this->mainFilePath = $fileName;
         $this->headers = [];
+        $this->footers = [];
+        $this->script = [];
         $this->mainContent = null;
         $this->bodyContent = null;
 
@@ -47,27 +51,26 @@ class HtmlDocument
 
     public function render()
     {
-        /*
-        include('src/views/header.html');
-
-        if( $this->mainFilePath != "player" && $this->mainFilePath != "login"){
-            //include("src/middleware/checkLogin.php");
-            include('src/views/nav.html');
-
-            if($this->mainFilePath == "music"){
-                include('src/models/db/Music.php');
-            }
-            elseif ($this->mainFilePath == "playlist"){
-                include('src/models/db/Playlist.php');
-            }
-            elseif ($this->mainFilePath == "album"){
-                include('src/models/db/Album.php');
-            }
-        }*/
-
+        echo "<!DOCTYPE html>";
+        echo "<html lang=\"fr\">";
+        echo "  <head>";
+        foreach ($this->headers as $header){
+            echo $header;
+        }
+        echo "  </head>";
+        echo "  <body>";
         $this->parseMain();
         echo $this->mainContent;
-
+        foreach ($this->footers as $footer){
+            echo $footer;
+        }
+        echo "<script>";
+        foreach ($this->script as $lineScript){
+            echo $lineScript;
+        }
+        echo "</script>";
+        echo "  </body>";
+        echo "</html>";
     }
 
     public function addHeader(string $html, int $position)
@@ -77,6 +80,26 @@ class HtmlDocument
         }
         elseif ($position === self::FIRST){
             array_unshift($this->headers, $html);
+        }
+    }
+
+    public function addFooter(string $html, int $position)
+    {
+        if($position === self::LAST){
+            array_push($this->footers, $html);
+        }
+        elseif ($position === self::FIRST){
+            array_unshift($this->footers, $html);
+        }
+    }
+
+    public function addScript(string $html, int $position)
+    {
+        if($position === self::LAST){
+            array_push($this->script, $html);
+        }
+        elseif ($position === self::FIRST){
+            array_unshift($this->script, $html);
         }
     }
 

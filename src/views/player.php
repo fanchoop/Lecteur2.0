@@ -10,9 +10,9 @@
             <button class="prev">Précédent</button>
             <button class="play-pause play">Lecture</button>
             <button class="next">Suivant</button><span class="volume">
-              <button class="volume_button volume-on" data-value="90">Volume</button><span class="volume_slider"><span
+          <button class="volume_button volume-on" data-value="90">Volume</button><span class="volume_slider"><span
                 class="volume_sliderTotale">
-                  <input class="volume-input-range" type="range" min="0" max="100" value="50"></span></span></span>
+              <input class="volume-input-range" type="range" min="0" max="100" value="50"></span></span></span>
         </div>
         <div class="temps">
             <div class="en-cours">0:00</div>
@@ -25,19 +25,6 @@
         <div class="social">
             <button class="like">333K</button>
             <button class="share">Partager</button>
-        </div>
-        <!-- Modal-->
-        <div class="modal">
-            <div class="modal-content">
-                <div class="modal-header"><span class="close">×</span>
-                    <p>Intégrer le player</p>
-                </div>
-                <div class="modal-body">
-                    <p>Code d'intégration :</p>
-                    <input class="share-input-text" type="text" value="" readonly="readonly">
-                </div>
-                <div class="modal-footer"><a>Copier</a></div>
-            </div>
         </div>
     </div>
 </div>
