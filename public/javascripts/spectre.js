@@ -230,7 +230,7 @@ function createWaveForm(player, dotsList, percentilePlayed) {
 
         //Check if the round don't make the application go over the length of the original Tab and if does
         // reduce the value by 0.0001
-        while (nbValuePerBar * nbBar > 400) {
+        while (nbValuePerBar * nbBar > oNbBar) {
             nbValuePerBar = nbValuePerBar - 0.00000001;
             nbValuePerBar = parseFloat(nbValuePerBar).toFixed(8);
         }
@@ -267,7 +267,7 @@ function createWaveForm(player, dotsList, percentilePlayed) {
                     for (var y = 0; y < intPartVPB; y++) {
                         iValue += oTab[oTabCursor];
                         //Block the incrementation of the cursor when it's the last value (Usefull only if it ends on a round number)
-                        if (oTabCursor < 399) {
+                        if (oTabCursor < oNbBar - 1) {
                             oTabCursor++;
                         }
                     }
@@ -282,11 +282,6 @@ function createWaveForm(player, dotsList, percentilePlayed) {
         } else {
             finalTab = oTab; //The curve is displayed is made with the same data as the one stored in base
         }
-        console.log("FinalTab : ");
-        console.log(finalTab);
-        console.log("Nombre de valeur par barre : ");
-        console.log(nbValuePerBar);
-        console.log("cursor : " + oTabCursor);
         return finalTab;
     }
 }
