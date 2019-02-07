@@ -71,8 +71,6 @@ function removeNegativeValue ($content) {
         $content = $content->{'data'};
     } catch (Exception $e) {
         throw KeyException ($e);
-    } catch (Exception $e) {
-        throw TypeException ($e);
     }
     $y = 0;
     $contentPositive = [];
