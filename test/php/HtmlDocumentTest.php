@@ -54,7 +54,8 @@ final class HtmlDocumentTest extends TestCase
         self::$html->render();
         $htmlRender = ob_get_contents();
         ob_end_clean();
-        $this->assertSame("<html>...</html>", $htmlRender);
+        $expected = '<div>...</div>';
+        $this->assertSame($expected, $htmlRender);
     }
 
     /**
@@ -64,7 +65,7 @@ final class HtmlDocumentTest extends TestCase
     public function testParseMain(){
         self::$html->parseMain();
         $parse = self::$html->getMainContent();
-        $this->assertSame("<html>...</html>", $parse);
+        $this->assertSame("<div>...</div>", $parse);
     }
 
     /**

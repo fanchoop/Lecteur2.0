@@ -47,6 +47,7 @@ class HtmlDocument
 
     public function render()
     {
+        /*
         include('src/views/header.html');
 
         if( $this->mainFilePath != "player" && $this->mainFilePath != "login"){
@@ -62,8 +63,7 @@ class HtmlDocument
             elseif ($this->mainFilePath == "album"){
                 include('src/models/db/Album.php');
             }
-
-        }
+        }*/
 
         $this->parseMain();
         echo $this->mainContent;

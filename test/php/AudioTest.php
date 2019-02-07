@@ -1,10 +1,16 @@
 <?php
+include("src/models/Audio.php");
+
 use PHPUnit\Framework\TestCase;
-use Audio;
+use src\models\Audio;
 
 final class AudioTest extends TestCase {
+
+    /**
+     * Fonction de test de la class duration
+     */
     public function testGetDurationNormal () {
-        $this->assertEquals(18,Audio::getDuration('pipeau-Defakator.mp3'));
+        $this->assertEquals(19,Audio::getDuration('res/pipeau-Defakator.mp3'));
     }
 
     public function testGetDurationNoFile () {
@@ -17,15 +23,16 @@ final class AudioTest extends TestCase {
         exec('rm musiquetest.txt');
     }
 
-
     public function testReadFirstLineNormal () {
         exec('echo "000" > musiquetest.txt');
-        $this->assertEquals('000\n', Audio::readFirstLine('musiquetest.txt'));
+        $this->assertEquals("000\n", Audio::readFirstLine('musiquetest.txt'));
         exec('rm musiquetest.txt');
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testReadFirstLineNoFile () {
-        $this->expectException(NoFileFoundException::class);
         Audio::readFirstLine('NoFileIsNamedLikeThis');
     }
 
@@ -57,7 +64,7 @@ final class AudioTest extends TestCase {
 
     public function testPgcdWithANegativeNumber () {
         $this->assertEquals(8, Audio::pgcd(-32, 8));
-        $this->assertEquals(-8, Audio::pgcd(8, -32));
+        $this->assertEquals(8, Audio::pgcd(8, -32));
     }
 
 
@@ -70,8 +77,10 @@ final class AudioTest extends TestCase {
         $this->assertEquals([-7,7,-10,-1,-4,6,-2,9,-3,3,1,6,-9,7,-9,-2,-2,8,-1,7], Audio::getFileContent('test.json')->{'data'});
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testGetFileContentNoFile () {
-        $this->expectException(NoFileFoundException::class);
         Audio::getFileContent('NoFileIsNamedLikeThis');
     }
 
@@ -80,17 +89,21 @@ final class AudioTest extends TestCase {
         $this->assertEquals([7,-1,6,9,3,6,7,-2,8,7], Audio::removeNegativeValue(Audio::getFileContent('test.json')));
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testRemoveNegativeValueNoDataIndex () {
         $f = fopen('test.json', 'w');
         fwrite($f, '{"version":2,"length":10,"notdata":[-7,7,-10,-1,-4,6,-2,9,-3,3,1,6,-9,7,-9,-2,-2,8,-1,7]}');
         fclose($f);
-        $this->expectException(KeyException::class);
         Audio::removeNegativeValue(Audio::getFileContent('test.json'));
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testRemoveNegativeValueNotAJson () {
         $notAJson = "Definetely not a Json content";
-        $this->expectException(KeyException::class);
         Audio::removeNegativeValue($notAJson);
     }
 
@@ -98,8 +111,6 @@ final class AudioTest extends TestCase {
         $f = fopen('test.json', 'w');
         fwrite($f, '{"version":2,"length":10,"data":[-7,7,-10,-1,-4,6,-2,9,-3,3,1,6,-9,7,-9,-2,-2,8,-1]}');
         fclose($f);
-        $this->assertEquals([7,-1,6,9,3,6,7,-2,8], Audio::getFileContent('test.json'));
+        $this->assertEquals([7,-1,6,9,3,6,7,-2,8], Audio::removeNegativeValue(Audio::getFileContent('test.json')));
     }
 }
-
-?>
