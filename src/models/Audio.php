@@ -41,8 +41,7 @@ class Audio{
      */
     public static function getDuration($filename) : int {
         exec('touch musique.txt');
-        exec('mediainfo --Inform="Audio;%Duration%" '.$filename.' > musique.txt');
-        $duration = self::readFirstLine('musique.txt');
+        $duration = exec('mediainfo --Inform="Audio;%Duration%" '.$filename);
 
         if ($duration == '\n') {
             $duration = 0;
