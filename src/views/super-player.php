@@ -115,14 +115,14 @@
     </article>
 
   </main>
-  <script src="../../public/javascripts/polyfillClassList.js"></script>
-  <script src="../../public/javascripts/script/soundmanager2.js"></script>
-  <script src="../../public/javascripts/PlayerUtils.js"></script>
-  <script src="../../public/javascripts/Connexion.js"></script>
-  <script src="../../public/javascripts/spectre.js"></script>
-  <script src="../../public/javascripts/Music.js"></script>
-  <script src="../../public/javascripts/Playlist.js"></script>
-  <script src="../../public/javascripts/Player.js"></script>
+  <script src="public/javascripts/polyfillClassList.js"></script>
+  <script src="public/javascripts/script/soundmanager2.js"></script>
+  <script src="public/javascripts/PlayerUtils.js"></script>
+  <script src="public/javascripts/Connexion.js"></script>
+  <script src="public/javascripts/spectre.js"></script>
+  <script src="public/javascripts/Music.js"></script>
+  <script src="public/javascripts/Playlist.js"></script>
+  <script src="public/javascripts/Player.js"></script>
 
   <script>
     window.onload = function () {
@@ -131,8 +131,8 @@
         "titre": "Zero",
         "album": "Origins",
         "artiste": "Imagine Dragons",
-        "cheminMP3": "../public/musics/Imagine_Dragons/Zero.mp3",
-        "cover": "../public/images/Imagine_Dragons/Zero.jpg",
+        "cheminMP3": "public/musics/Imagine_Dragons/Zero.mp3",
+        "cover": "public/images/Imagine_Dragons/Zero.jpg",
         "annee": 2018,
         "duree": 228,
         "genre": ["Pop rock", "Rock alternatif"],
@@ -166,8 +166,8 @@
         "titre": "Something Just Like This",
         "album": "Something Just Like This",
         "artiste": "The Chainsmokers & Coldplay",
-        "cheminMP3": "../public/musics/The_Chainsmokers_&_Coldplay/Something_Just_Like_This.mp3",
-        "cover": "../public/images/The_Chainsmokers_&_Coldplay/Something_Just_Like_This.jpg",
+        "cheminMP3": "public/musics/The_Chainsmokers_&_Coldplay/Something_Just_Like_This.mp3",
+        "cover": "public/images/The_Chainsmokers_&_Coldplay/Something_Just_Like_This.jpg",
         "annee": 2017,
         "duree": 248,
         "genre": ["Pop rock", "Rock alternatif", "Danse"],
