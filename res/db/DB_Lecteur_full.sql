@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `mp3_ecoutes` (
   `date_first_ecoute` datetime NOT NULL COMMENT 'date de la première écoute',
   `pourcent_ecoute` float UNSIGNED NOT NULL DEFAULT '0' COMMENT 'Un nombre entre 0 et 1',
   `is_liked` tinyint(1) NOT NULL DEFAULT '0',
+  `logs` varchar(4096) DEFAULT NULL,
   PRIMARY KEY (`id_fichier`,`id_pers`),
   KEY `id_pers` (`id_pers`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Ecoutes ralatives à un morceau en particulier';
