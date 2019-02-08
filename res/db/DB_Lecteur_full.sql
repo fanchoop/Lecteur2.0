@@ -202,6 +202,17 @@ CREATE TABLE IF NOT EXISTS `pers_personnes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
+-- Structure de la table `subscribers`
+--
+CREATE TABLE IF NOT EXISTS `subscribers` (
+                                        `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+                                        `endpoint` varchar(255),
+                                        `auth` varchar(255),
+                                        `p26DH` varchar(255),
+                                         PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+--
 -- Contenu de la table `pers_personnes`
 --
 
