@@ -1,0 +1,32 @@
+ <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head> 
+
+<script>
+
+
+window.onbeforeunload = function () {
+	var timestamp = "buite";
+	var action = "issou";
+	var idMusique = "test";
+    $.ajax({
+		  // chargement du fichier externe monfichier-ajax.php 
+		  url      : "http://localhost/Lecteur2.0/public/log.php",
+		  // Passage des données au fichier externe (ici le nom cliqué)  
+		  data     : 'time=' + timestamp + '&action=' + action+'&idMusique=' + idMusique,
+		  type : 'POST',
+		  cache    : false,
+		  dataType : "html",
+		  error    : function(request, error) { // Info Debuggage si erreur         
+					   console.log("Erreur !!! ");
+					 },
+		  success  : function(data) {  
+					   // Informe l'utilisateur que l'opération est terminé et renvoie le résultat
+					   console.log("oui");
+						 }       
+	});
+	//return "";
+};
+
+
+</script>

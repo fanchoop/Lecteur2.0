@@ -729,6 +729,10 @@ Player.prototype.play_pause = function () {
             this.sound.play();
             playButton.classList.remove("play");
             playButton.classList.add("pause");
+            // Log en base de données
+            sendData(currentMusic.id,"PLAY");
+            
+            
         }
         //If a Sound is already set
         else {
@@ -738,12 +742,15 @@ Player.prototype.play_pause = function () {
                     this.sound.resume();
                     playButton.classList.remove("play");
                     playButton.classList.add("pause");
+                    //LOg en base de données
+                    sendData(currentMusic.id,"PLAY");
 
                 }//If it's played
                 else {
                     this.sound.pause();
                     playButton.classList.remove("pause");
                     playButton.classList.add("play");
+                    sendData(currentMusic.id,"PAUSE");
                 }
             }
         }
