@@ -1,8 +1,11 @@
+<?php
+
+echo '
 <div class="audioplayer">
     <div class="player">
         <div class="visuel"></div>
         <div class="infos">
-            <div class="artiste">Nom de l'artiste</div>
+            <div class="artiste">Nom de l\'artiste</div>
             <div class="titre">Nom du morceau</div>
         </div>
         <div class="waveform"></div>
@@ -28,3 +31,9 @@
         </div>
     </div>
 </div>
+<br>
+<button id="push-subscription-button" disabled> Activation des nofifs </button><br>
+<button id="send-push-button"> Envoi d\'une notification</button><br>
+<br>
+';
+?>

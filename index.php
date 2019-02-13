@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include_once "src/models/HtmlDocument.php";
 
+include_once "src/models/HtmlDocument.php";
 use src\models\HtmlDocument;
 
 !empty($_GET['page']) ? $page = $_GET['page'] : $page = "player";
@@ -22,4 +22,6 @@ $html->addFooter("<script src=\"public/javascripts/spectre.js\"></script>", Html
 $html->addFooter("<script src=\"public/javascripts/Music.js\"></script>", HtmlDocument::LAST);
 $html->addFooter("<script src=\"public/javascripts/Playlist.js\"></script>", HtmlDocument::LAST);
 $html->addFooter("<script src=\"public/javascripts/Player.js\"></script>", HtmlDocument::LAST);
+$html->addFooter("<script src=\"serviceWorker.js\"></script>", HtmlDocument::LAST);
+$html->addFooter("<script src=\"public/javascripts/notification.js\"></script>", HtmlDocument::LAST);
 $html->render();

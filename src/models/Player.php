@@ -43,7 +43,7 @@ class Player
         echo $this->html;
         echo "</article>";
         $script = " var player".$this->id." = new Player(document.querySelector('#player".$this->id." .audioplayer'));";
-        var_dump($this->tracks);
+        // var_dump($this->tracks);
 
         foreach ($this->tracks as $track){
             $script .= $track;
