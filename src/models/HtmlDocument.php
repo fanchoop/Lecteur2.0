@@ -33,10 +33,7 @@ class HtmlDocument
         $this->mainFilePath = $fileName;
         $this->headers = [];
         $this->footers = [];
-        $this->script = ["var sP = new SuperPlayer(document.querySelector('div.audioplayer-mini'));
-                            sP.addMusicObject(music1);
-                            sP.addMusicObject(music1);
-                            sP.addMusicObject(music1);"];
+        $this->script = ["\nvar sP = new SuperPlayer(document.querySelector('div.audioplayer-mini'));\nsP.addMusicObject(music1);\nsP.addMusicObject(music1);\nsP.addMusicObject(music1);"];
         $this->mainContent = null;
         $this->bodyContent = null;
 
@@ -54,27 +51,27 @@ class HtmlDocument
 
     public function render()
     {
-        echo "<!DOCTYPE html>";
-        echo "<html lang=\"fr\">";
-        echo "  <head>";
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"fr\">\n";
+        echo "  <head>\n";
         foreach ($this->headers as $header){
             echo $header;
         }
-        echo "  </head>";
-        echo "  <body>";
+        echo "  </head>\n";
+        echo "  <body>\n";
         $this->parseMain();
         echo $this->mainContent;
-        echo "       <div class=\"audioplayer-mini\"></div>";
+        echo "       <div class=\"audioplayer-mini\"></div>\n";
         foreach ($this->footers as $footer){
             echo $footer;
         }
-        echo "       <script>";
+        echo "<script>\n";
         foreach ($this->script as $lineScript){
             echo $lineScript;
         }
-        echo "       </script>";
-        echo "   </body>";
-        echo "</html>";
+        echo "</script>\n";
+        echo "</body>\n";
+        echo "</html>\n";
     }
 
     public function addHeader(string $html, int $position)

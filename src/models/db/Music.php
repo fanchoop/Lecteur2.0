@@ -7,6 +7,9 @@ use PDO;
 
 include_once "src/models/db/Entity.php";
 include_once "src/models/db/DAO.php";
+include_once "src/models/db/Album.php";
+include_once "src/models/db/Artist.php";
+include_once "src/models/db/Style.php";
 
 class Music extends Entity {
 
@@ -37,7 +40,9 @@ class Music extends Entity {
     }
 
     public function convertJson(){
-        return json_encode($this->values);
+        $json = $this->values['id'].",'".Album::find($this->values['id_album'])->values['titre']."','".Artist::find($this->values['id_album'])->values['nom']."','".$this->values['chemin_pochette']."','".$this->values['chemin_mp3'].",".$this->values['duree']."','".$this->values['libelle']."',".json_encode($this->values['liste_points']).",".$this->values['nb_ecoutes'].",0,0,0,'".Style::find($this->values['id_style'])->values['libelle']."','".$this->values['date_insertion']."'";
+
+        return $json;
     }
 
     /**
