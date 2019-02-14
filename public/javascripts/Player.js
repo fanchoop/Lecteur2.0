@@ -49,11 +49,9 @@ function Player(domElement) {
         }
 
         let currentMusic = this.playlist.getCurrentMusic();
-
         if (soundManager.getSoundById(currentMusic.title + "-" + currentMusic.artistName) !== undefined) {
             this.sound = soundManager.getSoundById(currentMusic.title + "-" + currentMusic.artistName);
             this.sound.setVolume(this.volume);
-
         } else {
             this.sound = soundManager.createSound({
                 id: currentMusic['title'] + "-" + currentMusic['artistName'], // Id arbitraire
@@ -62,13 +60,21 @@ function Player(domElement) {
                 volume: this.volume,
                 onfinish: this.next.bind(this)
             });
+            console.log( currentMusic);
+            // //To be used by SuperPlayer
+            // let superPlayer = document.querySelector("div.audioplayer-mini");
+            // if (typeof superPlayer !== "undefined") {
+            //     this.sound.coverPath = currentMusic['coverPath'];
+            //     this.sound.title = currentMusic['title'];
+            //     this.sound.artistName = currentMusic['artistName'];
+            //     this.sound.duration = currentMusic['duration'];
+            // }
 
         }
 
         if (this.sound.muted) {
             this.mute();
         }
-
         this.sound.play();
         this.sound.pause();
         this.repaint();
@@ -116,7 +122,6 @@ function Player(domElement) {
                 }
         }
     };
-
 
     /**
      * Will colorize the current point of playing of the hovered point
@@ -298,6 +303,7 @@ function Player(domElement) {
      * @namespace private
      */
     this.drawMusicTime = function () {
+
         if (this.sound != null) {
             let currentTime = this.domElement.querySelector(".en-cours");
             if (!currentTime.classList.contains("spectrumHoverTime"))
@@ -659,21 +665,24 @@ Player.prototype.addComment = function () {
  * @namespace Player
  */
 Player.prototype.share = function () {
-    var modal = this.domElement.querySelector('.modal');
-    var close = this.domElement.querySelector(".modal .close");
-    var inputShare = this.domElement.querySelector(".modal .modal-body input[type=text].share-input-text");
-    var btnCopy = this.domElement.querySelector(".modal .modal-footer");
+    var modal = document.querySelector('.modal');
+    var close = document.querySelector(".modal .close");
+    var inputShare = document.querySelector(".modal .share-body input[type=text].share-input-text");
+    var btnCopy = document.querySelector(".modal .copy-button");
     modal.style.display = "block";
 
     // Close the modal with the close button
     close.onclick = function () {
         modal.style.display = "none";
+        inputShare.value = "";
     };
 
     // Close the modal by clicking outside it
     window.onclick = function (event) {
         if (event.target === modal) {
             modal.style.display = "none";
+            inputShare.value = "";
+            event.stopPropagation();
         }
     };
 
@@ -684,6 +693,7 @@ Player.prototype.share = function () {
     };
 
     let currentMusic = this.playlist.getCurrentMusic();
+
     inputShare.value = ('<iframe src="http://localhost:3000/music?idMusic=' + currentMusic.id + '" width="100%" height="230" frameborder="no" scrolling="no"></iframe>');
 };
 
@@ -694,7 +704,6 @@ Player.prototype.share = function () {
  */
 Player.prototype.goTo = function (newPosition) {
     if (this.sound != null) {
-
         let percentile = (newPosition / this.domElement.querySelector(".waveform .sprectrumContainer").childElementCount);
         let newTime = percentile * ( this.playlist.getCurrentMusic().duration * 1000 );
         this.currentTime = newTime / 1000;
@@ -714,7 +723,37 @@ Player.prototype.goTo = function (newPosition) {
  */
 Player.prototype.play_pause = function () {
     let currentMusic = this.playlist.getCurrentMusic();
-
+    //CHECK if a superPlayer is on the page
+    // let superPlayer = document.querySelector("div.audioplayer-mini");
+    // if (typeof superPlayer !== "undefined") {
+    //     //getThe instance of the superPlayer
+    //     superPlayer = superPlayer.superPlayer;
+    //     //chek if is only one music or a playlist
+    //     if (this.playlist.musicList.length == 1) {
+    //         //Do for one music
+    //         if (superPlayer.isAPlaylist == true) {
+    //             superPlayer.playlist = new Playlist(superPlayer);
+    //             superPlayer.isAPlaylist = false;
+    //         }
+    //         let soundIsUsed = false;
+    //         for (var i = 0; i < superPlayer.playlist.musicList.length; i++) {
+    //             if (superPlayer.playlist.musicList[i] == this.sound) {
+    //                 soundIsUsed = true
+    //             }
+    //         }
+    //         if (!soundIsUsed) {
+    //             superPlayer.addMusicByInstance(this.sound);
+    //         }
+    //
+    //     }else if (this.playlist.musicList.length > 1) {
+    //         //Do for a playlist
+    //         superPlayer.playlist = this.playlist;
+    //         superPlayer.repaint();
+    //         superPlayer.isAPlaylist = true;
+    //     }else{
+    //         console.error("No Music on this Player");
+    //     }
+    // }
     //If not undefined
     if (currentMusic != null) {
         let playButton = this.domElement.querySelector(".play-pause");
@@ -729,10 +768,6 @@ Player.prototype.play_pause = function () {
             this.sound.play();
             playButton.classList.remove("play");
             playButton.classList.add("pause");
-            // Log en base de données
-            sendData(currentMusic.id,"PLAY");
-            
-            
         }
         //If a Sound is already set
         else {
@@ -742,15 +777,12 @@ Player.prototype.play_pause = function () {
                     this.sound.resume();
                     playButton.classList.remove("play");
                     playButton.classList.add("pause");
-                    //LOg en base de données
-                    sendData(currentMusic.id,"PLAY");
 
                 }//If it's played
                 else {
                     this.sound.pause();
                     playButton.classList.remove("pause");
                     playButton.classList.add("play");
-                    sendData(currentMusic.id,"PAUSE");
                 }
             }
         }

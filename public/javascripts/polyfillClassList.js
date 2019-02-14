@@ -20,7 +20,6 @@ if (
 	|| document.createElementNS
 	&& !("classList" in document.createElementNS("http://www.w3.org/2000/svg","g"))
 ) {
-console.log("ClassList is Not OK !");
 (function (view) {
 
 "use strict";
@@ -192,9 +191,6 @@ if (objCtr.defineProperty) {
 }
 
 }(self));
-
-}else{
-    console.log("ClassList is OK !");
 
 }
 

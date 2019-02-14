@@ -29,8 +29,8 @@ class Player
     }
 
     public function addTrack(Music $music){
-        $script = "var music = new Music".$music->getId()." (".$music->convertJson().");";
-        $script .= "player".$this->id.".addMusicObject("."Music".$music->getId().");";
+        $script = "var music".$music->getId()." = new Music (".$music->convertJson().");";
+        $script .= "player".$this->id.".addMusicObject("."music".$music->getId().");";
         array_push($this->tracks,  $script);
     }
 
@@ -43,8 +43,6 @@ class Player
         echo $this->html;
         echo "</article>";
         $script = " var player".$this->id." = new Player(document.querySelector('#player".$this->id." .audioplayer'));";
-        // var_dump($this->tracks);
-
         foreach ($this->tracks as $track){
             $script .= $track;
         }

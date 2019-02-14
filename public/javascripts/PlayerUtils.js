@@ -245,4 +245,3 @@ PlayerUtils.prototype.escapeHtml = function (unsafe) {
 };
 
 var PlayerUtils = new PlayerUtils();
-

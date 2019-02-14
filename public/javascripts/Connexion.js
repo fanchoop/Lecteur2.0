@@ -169,7 +169,7 @@ Connexion.prototype.removeLike = function (idMusic, callback) {
 /**
  * Will add 1 to the number of addView of the music with the given id and execute the callback
  * @param idMusic {int} - Id of the current targeted
- * @param callback {function} - function which be call after the request
+ * @param callback {function} - function which be call after the requestget
  */
 Connexion.prototype.addNumberOfView = function (idMusic, callback) {
     this.requestPut("http://localhost:3000/music/maj/views/" + idMusic, null, callback);

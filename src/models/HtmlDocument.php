@@ -33,7 +33,10 @@ class HtmlDocument
         $this->mainFilePath = $fileName;
         $this->headers = [];
         $this->footers = [];
-        $this->script = [];
+        $this->script = ["var sP = new SuperPlayer(document.querySelector('div.audioplayer-mini'));
+                            sP.addMusicObject(music1);
+                            sP.addMusicObject(music1);
+                            sP.addMusicObject(music1);"];
         $this->mainContent = null;
         $this->bodyContent = null;
 
@@ -61,15 +64,16 @@ class HtmlDocument
         echo "  <body>";
         $this->parseMain();
         echo $this->mainContent;
+        echo "       <div class=\"audioplayer-mini\"></div>";
         foreach ($this->footers as $footer){
             echo $footer;
         }
-        echo "<script>";
+        echo "       <script>";
         foreach ($this->script as $lineScript){
             echo $lineScript;
         }
-        echo "</script>";
-        echo "  </body>";
+        echo "       </script>";
+        echo "   </body>";
         echo "</html>";
     }
 
