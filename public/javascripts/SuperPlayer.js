@@ -138,7 +138,7 @@ function SuperPlayer(domElement) {
         }.bind(this));
 
         this.domElement.querySelector(".audioplayer-mini .like-button").addEventListener("click", this.like.bind(this));
-        this.domElement.querySelector(".audioplayer-mini .share").addEventListener("click", this.share.bind(this));
+        this.domElement.querySelector(".audioplayer-mini .share .share-button").addEventListener("click", this.share.bind(this));
 
         // this.domElement.querySelector(".audioplayer-mini .controls2 .volume input[type=range].volume-input-range").addEventListener("input", this.targetVolume.bind(this));
         //Use for IE
@@ -150,8 +150,7 @@ function SuperPlayer(domElement) {
             this.domElement.querySelector(".audioplayer-mini .controls2 .volume .volume-button").addEventListener("click", this.volumeMouseOutCompact.bind(this));
         } else {
             this.domElement.querySelector(".audioplayer-mini .controls2 .volume .volume-button").addEventListener("click", this.mute.bind(this));
-            this.domElement.querySelector(".audioplayer-mini .controls2 .volume").addEventListener("mouseover", this.volumeMouseOver.bind(this));
-            this.domElement.querySelector(".audioplayer-mini .controls2 .volume").addEventListener("mouseout", this.volumeMouseOut.bind(this));
+            this.domElement.querySelector(".audioplayer-mini .controls2 .volume .volume-button").addEventListener("mouseover", this.volumeMouseOver.bind(this));
         }
     }.bind(this);
 
@@ -170,7 +169,13 @@ function SuperPlayer(domElement) {
      * @namespace private
      */
     this.volumeMouseOver = function () {
-        this.domElement.querySelector(".audioplayer-mini .controls2 .volume").classList.add("is-active");
+        let state = "is-active";
+        if (this.domElement.querySelector(".audioplayer-mini .controls2 .volume .volume-button").classList.contains(state)) {
+            this.domElement.querySelector(".audioplayer-mini .controls2 .volume .volume-button").classList.remove(state);
+        }else {
+            this.domElement.querySelector(".audioplayer-mini .controls2 .volume .volume-button").classList.add(state);
+        }
+
 
     };
 
@@ -190,14 +195,6 @@ function SuperPlayer(domElement) {
 
             }, 200)
         }
-    };
-
-    /**
-     * Will hide the pop-up volume
-     * @namespace private
-     */
-    this.volumeMouseOut = function () {
-        this.domElement.querySelector(".audioplayer-mini .controls2 .volume").classList.remove("is-active");
     };
 
     /**
@@ -323,11 +320,11 @@ function SuperPlayer(domElement) {
         let currentMusic = this.playlist.getCurrentMusic();
 
         if (PlayerUtils.getCookie("song-" + currentMusic.id + "-alreadyLike") !== "") {
-            this.domElement.querySelector(".like-button").classList.add("ilikeit");
+            this.domElement.querySelector(".like-button").classList.add("is-active");
 
 
         } else {
-            this.domElement.querySelector(".like-button").classList.remove("ilikeit");
+            this.domElement.querySelector(".like-button").classList.remove("is-active");
         }
     };
 
@@ -419,7 +416,7 @@ SuperPlayer.prototype.like = function () {
 
     if (PlayerUtils.getCookie("song-" + currentMusic.id + "-alreadyLike") === "") {
         Connexion.addLike(currentMusic.id, console.log);
-        this.domElement.querySelector(".like-button").classList.add("ilikeit");
+        this.domElement.querySelector(".like-button").classList.add("is-active");
 
 
         let likeNumber = this.domElement.querySelector(".like-button");
@@ -429,7 +426,7 @@ SuperPlayer.prototype.like = function () {
         PlayerUtils.setCookie("song-" + currentMusic.id + "-alreadyLike", "true", 99);
     } else {
         Connexion.removeLike(currentMusic.id, console.log);
-        this.domElement.querySelector(".like-button").classList.remove("ilikeit");
+        this.domElement.querySelector(".like-button").classList.remove("is-active");
 
         let likeNumber = this.domElement.querySelector(".like-button");
         likeNumber.innerText = Number(likeNumber.innerText) - 1;
@@ -458,6 +455,10 @@ SuperPlayer.prototype.addComment = function () {
  * @namespace Player
  */
 SuperPlayer.prototype.share = function () {
+    var shareButton = this.domElement.querySelector(".audioplayer-mini .share .share-button");
+    if (shareButton.classList.item(1) == null) {
+        shareButton.classList.add("is-active");
+    }
     var modal = document.querySelector('.modal');
     var close = document.querySelector(".modal .close");
     var inputShare = document.querySelector(".modal .share-body input[type=text].share-input-text");
@@ -466,6 +467,7 @@ SuperPlayer.prototype.share = function () {
 
     // Close the modal with the close button
     close.onclick = function () {
+        shareButton.classList.remove(shareButton.classList.item(1));
         modal.style.display = "none";
         inputShare.value = "";
     };
@@ -473,6 +475,7 @@ SuperPlayer.prototype.share = function () {
     // Close the modal by clicking outside it
     window.onclick = function (event) {
         if (event.target === modal) {
+            shareButton.classList.remove(shareButton.classList.item(1));
             modal.style.display = "none";
             inputShare.value = "";
         }

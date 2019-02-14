@@ -236,6 +236,10 @@ Playlist.prototype.generatePlaylistBlock = function (allMusic) {
             numberBlock.classList.add("numero");
             numberBlock.innerText = index + 1;
 
+
+			let divInfos = document.createElement("div");
+			divInfos.classList.add('infos');
+
             let titleBlock = document.createElement("p");
             titleBlock.classList.add("titre");
             titleBlock.innerText = this.musicList[index].title;
@@ -248,10 +252,20 @@ Playlist.prototype.generatePlaylistBlock = function (allMusic) {
             statsBlock.classList.add("stats");
             statsBlock.innerText = PlayerUtils.secondsToReadableTime(this.musicList[index].duration);
 
+
+			if (this.player.domElement == document.querySelector(".audioplayer-mini")) {
+				divInfos.appendChild(titleBlock);
+				divInfos.appendChild(artistBlock);
+			}
+
             musicBlock.appendChild(coverBlock);
             musicBlock.appendChild(numberBlock);
-            musicBlock.appendChild(titleBlock);
-            musicBlock.appendChild(artistBlock);
+			if (this.player.domElement == document.querySelector(".audioplayer-mini")) {
+				musicBlock.appendChild(divInfos);
+			}else{
+				musicBlock.appendChild(titleBlock);
+				musicBlock.appendChild(artistBlock);
+			}
 			musicBlock.appendChild(statsBlock);
             musicBlock.addEventListener("click", function (e) {
 				if (e.target !== coverBlock) {

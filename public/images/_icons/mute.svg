@@ -1,28 +1,126 @@
-<?xml version="1.0"?>
-<svg width="59.986" height="59.986" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-
- <g class="layer" display="inline">
-  <title>Calque 2</title>
-  <rect fill="#ffffff" height="48.322144" id="svg_18" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="null" transform="rotate(45, 29.9588, 30.014)" width="2.445083" x="28.736251" y="5.852926"/>
-  <rect fill="#ffffff" height="48.322144" id="svg_19" stroke-dasharray="null" stroke-linecap="null" stroke-linejoin="null" stroke-width="null" transform="rotate(-45, 29.9046, 29.9984)" width="2.445083" x="28.682082" y="5.837304"/>
- </g>
- <g class="layer">
-  <title>Layer 1</title>
-  <path d="m42,16.579l0,-6.479c0,-1.127 -0.584,-2.134 -1.563,-2.693c-0.978,-0.561 -2.143,-0.553 -3.115,0.019c-0.063,0.037 -0.121,0.081 -0.174,0.131l-13.242,12.327c-0.149,0.072 -0.313,0.109 -0.479,0.109l-8.324,0c-1.711,0 -3.104,1.393 -3.104,3.104l0,12.793c0,1.711 1.392,3.104 3.104,3.104l4.482,0l22.415,-22.415zm-20.414,20.414l-6.482,0c-0.608,0 -1.104,-0.495 -1.104,-1.104l0,-12.793c0,-0.608 0.495,-1.104 1.104,-1.104l8.324,0c0.551,0 1.095,-0.147 1.572,-0.428c0.063,-0.036 0.122,-0.08 0.176,-0.131l13.244,-12.33c0.465,-0.226 0.868,-0.053 1.025,0.037c0.166,0.097 0.555,0.382 0.555,0.959l0,8.479l-18.414,18.415zm18.414,-15.586l0,27.479c0,0.577 -0.389,0.862 -0.556,0.958c-0.158,0.09 -0.562,0.262 -1.025,0.037l-13.244,-12.33c-0.054,-0.051 -0.113,-0.095 -0.176,-0.131c-0.224,-0.132 -0.466,-0.229 -0.713,-0.3l15.714,-15.713zm-17.586,17.586l1.013,0c0.166,0 0.329,0.037 0.479,0.109l13.242,12.328c0.053,0.05 0.112,0.094 0.174,0.131c0.492,0.289 1.033,0.434 1.574,0.434c0.529,0 1.058,-0.138 1.541,-0.415c0.979,-0.56 1.563,-1.567 1.563,-2.693l0,-29.48l-19.586,19.586z" fill="#ffffff" id="svg_1"/>
-  <g id="svg_2"/>
-  <g id="svg_3"/>
-  <g id="svg_4"/>
-  <g id="svg_5"/>
-  <g id="svg_6"/>
-  <g id="svg_7"/>
-  <g id="svg_8"/>
-  <g id="svg_9"/>
-  <g id="svg_10"/>
-  <g id="svg_11"/>
-  <g id="svg_12"/>
-  <g id="svg_13"/>
-  <g id="svg_14"/>
-  <g id="svg_15"/>
-  <g id="svg_16"/>
- </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   version="1.1"
+   id="svg26"
+   sodipodi:docname="mute.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <metadata
+     id="metadata32">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs30" />
+  <sodipodi:namedview
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     id="namedview28"
+     showgrid="false"
+     inkscape:zoom="7.8666667"
+     inkscape:cx="24.894115"
+     inkscape:cy="22.982398"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg_1" />
+  <g
+     class="layer"
+     id="g24">
+    <title
+       id="title2">Layer 1</title>
+    <g
+       id="svg_1">
+      <path
+         d="M 34.437,7.413 C 35.416,7.973 36,8.979 36,10.106 v 38.788 c 0,1.127 -0.584,2.133 -1.562,2.693 -0.483,0.277 -1.012,0.415 -1.541,0.415 -0.541,0 -1.082,-0.145 -1.574,-0.434 -0.062,-0.037 -0.121,-0.081 -0.174,-0.131 L 17.907,39.109 C 17.757,39.037 17.594,39 17.428,39 H 9.104 C 7.392,39 6,37.607 6,35.897 V 23.104 C 6,21.393 7.392,20 9.104,20 h 8.323 c 0.166,0 0.329,-0.037 0.479,-0.109 L 31.148,7.563 c 0.053,-0.05 0.111,-0.094 0.174,-0.131 0.972,-0.572 2.136,-0.58 3.115,-0.019 z"
+         id="svg_2"
+         style="fill:#ffffff;fill-opacity:1"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="csscscccsssssscccc" />
+      <g
+         transform="matrix(0.56996969,0,0,0.56996969,31.143153,12.346547)"
+         style="display:inline;stroke:#ffffff;stroke-opacity:1"
+         class="layer"
+         display="inline"
+         id="g6">
+        <title
+           id="title2-2">Calque 2</title>
+        <rect
+           style="fill:#ffffff;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1"
+           height="48.322144"
+           id="svg_18-2"
+           stroke-linecap="null"
+           stroke-linejoin="null"
+           stroke-width="null"
+           transform="rotate(45,29.9588,30.014)"
+           width="2.4450829"
+           x="28.736252"
+           y="5.8529258" />
+        <rect
+           style="fill:#ffffff;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1"
+           height="48.322144"
+           id="svg_19-4"
+           stroke-linecap="null"
+           stroke-linejoin="null"
+           stroke-width="null"
+           transform="rotate(-45,29.9046,29.9984)"
+           width="2.4450829"
+           x="28.682081"
+           y="5.8373041" />
+      </g>
+    </g>
+    <g
+       id="svg_7" />
+    <g
+       id="svg_8" />
+    <g
+       id="svg_9" />
+    <g
+       id="svg_10" />
+    <g
+       id="svg_11" />
+    <g
+       id="svg_12" />
+    <g
+       id="svg_13" />
+    <g
+       id="svg_14" />
+    <g
+       id="svg_15" />
+    <g
+       id="svg_16" />
+    <g
+       id="svg_17" />
+    <g
+       id="svg_18" />
+    <g
+       id="svg_19" />
+    <g
+       id="svg_20" />
+    <g
+       id="svg_21" />
+  </g>
 </svg>

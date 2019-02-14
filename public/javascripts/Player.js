@@ -60,7 +60,6 @@ function Player(domElement) {
                 volume: this.volume,
                 onfinish: this.next.bind(this)
             });
-            console.log( currentMusic);
             // //To be used by SuperPlayer
             // let superPlayer = document.querySelector("div.audioplayer-mini");
             // if (typeof superPlayer !== "undefined") {
@@ -75,6 +74,7 @@ function Player(domElement) {
         if (this.sound.muted) {
             this.mute();
         }
+
         this.sound.play();
         this.sound.pause();
         this.repaint();
@@ -92,7 +92,6 @@ function Player(domElement) {
 
         let waveform = this.domElement.querySelectorAll(".waveform .sprectrumContainer");
         let barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
-
         let bar_up;
         let bar_bottom;
 
@@ -130,27 +129,33 @@ function Player(domElement) {
      */
 
     this.colorWaveToHoverPos = function (pos) {
-        let waveform = this.domElement.querySelectorAll(".waveform .sprectrumContainer");
-        let waveformUp = waveform[0];
-        let waveformDown = waveform[1];
-        let barPosition;
-        if (this.sound == null) {
-            barPosition = 0;
-        } else {
-            barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
-        }
-        if (barPosition <= pos) {
-            for (let position = barPosition + 1; position <= pos; position++) {
-                waveformUp.childNodes[position].classList.add("hover-front");
-                waveformDown.childNodes[position].classList.add("hover-front");
+        let players = document.querySelectorAll("article[id*=player]");
+        let currentPlayer = this.domElement.player;
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+                // players[i].querySelector(".audioplayer").player.clearColorWave();
+                let waveform = players[i].querySelectorAll(".waveform .sprectrumContainer");
+                let waveformUp = waveform[0];
+                let waveformDown = waveform[1];
+                let barPosition;
+                if (this.sound == null) {
+                    barPosition = 0;
+                } else {
+                    barPosition = Math.ceil(this.sound.position / ( this.playlist.getCurrentMusic().duration * 1000 ) * waveform[0].childElementCount);
+                }
+                if (barPosition <= pos) {
+                    for (let position = barPosition + 1; position <= pos; position++) {
+                        waveformUp.childNodes[position].classList.add("hover-front");
+                        waveformDown.childNodes[position].classList.add("hover-front");
+                    }
+                } else {
+                    for (let position = pos; position <= barPosition; position++) {
+                        waveformUp.childNodes[position].classList.add("hover-back");
+                        waveformDown.childNodes[position].classList.add("hover-back");
+                    }
+                }
             }
-        } else {
-            for (let position = pos; position <= barPosition; position++) {
-                waveformUp.childNodes[position].classList.add("hover-back");
-                waveformDown.childNodes[position].classList.add("hover-back");
-            }
         }
-
     };
 
     /**
@@ -227,11 +232,17 @@ function Player(domElement) {
             var query = ".audioplayer .player .waveform .bar-up[data_position='" + barPosition + "']";
             var target = this.domElement.querySelector(query);
             if (target !== null) {
-                if (target.attributes.hasOwnProperty("data_position")) {
-                    this.clearColorHoverWave();
-                    this.clearHoverTime();
-                    this.colorWaveToHoverPos(Number(target.attributes.data_position.value));
-                    this.drawHoverTime(Number(target.attributes.data_position.value))
+                let players = document.querySelectorAll("article[id*=player]");
+                let currentPlayer = this.domElement.player;
+                for (var i = 0; i < players.length; i++) {
+                    if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+                        if (target.attributes.hasOwnProperty("data_position")) {
+                            players[i].querySelector(".audioplayer").player.clearColorHoverWave();
+                            players[i].querySelector(".audioplayer").player.clearHoverTime();
+                            players[i].querySelector(".audioplayer").player.colorWaveToHoverPos(Number(target.attributes.data_position.value));
+                            players[i].querySelector(".audioplayer").player.drawHoverTime(Number(target.attributes.data_position.value))
+                        }
+                    }
                 }
             }
         }.bind(this));
@@ -244,7 +255,7 @@ function Player(domElement) {
             var query = ".audioplayer .player .waveform .bar-up[data_position='" + barPosition + "']";
             var target = this.domElement.querySelector(query);
             if (target !== null) {
-                this.clearColorWave();
+
                 if (target.attributes.hasOwnProperty("data_position")){
                     this.goTo(Number(target.attributes.data_position.value));
                 }
@@ -253,8 +264,14 @@ function Player(domElement) {
 
         waveformElement.addEventListener("mouseleave", function(e){
             if (e.target == e.currentTarget){
-                this.clearColorHoverWave();
-                this.clearHoverTime();
+                let players = document.querySelectorAll("article[id*=player]");
+                let currentPlayer = this.domElement.player;
+                for (var i = 0; i < players.length; i++) {
+                    if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+                        players[i].querySelector(".audioplayer").player.clearColorHoverWave();
+                        players[i].querySelector(".audioplayer").player.clearHoverTime();
+                    }
+                }
             }
         }.bind(this));
     };
@@ -303,13 +320,19 @@ function Player(domElement) {
      * @namespace private
      */
     this.drawMusicTime = function () {
-
         if (this.sound != null) {
-            let currentTime = this.domElement.querySelector(".en-cours");
-            if (!currentTime.classList.contains("spectrumHoverTime"))
-                currentTime.innerText = PlayerUtils.milliSecondsToReadableTime(this.sound.position);
+            let players = document.querySelectorAll("article[id*=player]");
+            let currentPlayer = this.domElement.player;
+            for (var i = 0; i < players.length; i++) {
+                if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+                    let currentTime = players[i].querySelector(".en-cours");
+                    if (!currentTime.classList.contains("spectrumHoverTime")){
+                        currentTime.innerText = PlayerUtils.milliSecondsToReadableTime(this.sound.position);
+                    }
+                    players[i].querySelector(".audioplayer").player.colorWaveToCurrentPos();
+                }
+            }
 
-            this.colorWaveToCurrentPos();
         }
     };
 
@@ -541,11 +564,11 @@ function Player(domElement) {
         let currentMusic = this.playlist.getCurrentMusic();
 
         if (PlayerUtils.getCookie("song-" + currentMusic.id + "-alreadyLike") !== "") {
-            this.domElement.querySelector(".like").classList.add("ilikeit");
+            this.domElement.querySelector(".like").classList.add("is-active");
 
 
         } else {
-            this.domElement.querySelector(".like").classList.remove("ilikeit");
+            this.domElement.querySelector(".like").classList.remove("is-active");
         }
     };
 
@@ -560,25 +583,34 @@ function Player(domElement) {
 Player.prototype.setVolume = function (newVolume) {
     this.volume = newVolume;
     if (this.sound !== null) {
+        let players = document.querySelectorAll("article[id*=player]");
+        let currentPlayer = this.domElement.player;
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+                players[i].querySelector(".audioplayer").player.sound.setVolume(newVolume);
+                let volume = players[i].querySelector(".audioplayer .controls .volume .volume_button");
+                players[i].querySelector(".audioplayer .controls .volume .volume-input-range").value = newVolume;
+                players[i].querySelector(".audioplayer .controls .volume .volume-input-range").style.backgroundSize = newVolume + '% 100%';
+                if (newVolume === 0) {
+                    if (volume.classList.item(1) !== null) {
+                        volume.classList.replace(volume.classList.item(1), "volume-off");
+                    }
+                }else if (newVolume>0 && newVolume<33){
+                    if (volume.classList.item(1) !== null) {
+                        volume.classList.replace(volume.classList.item(1), "volume-on");
+                    }
+                }else if(newVolume>33 && newVolume<66){
+                    if (volume.classList.item(1) !== null) {
+                        volume.classList.replace(volume.classList.item(1), "volume-moyen2");
+                    }
+                }else if(newVolume>66){
+                    if (volume.classList.item(1) !== null) {
+                        volume.classList.replace(volume.classList.item(1), "volume-moyen3");
+                    }
+                }
 
-        this.sound.setVolume(newVolume);
-        let volume = this.domElement.querySelector(".controls .volume .volume_button");
 
-        if (newVolume === 0) {
-            if (volume.classList.item(1) !== null) {
-                volume.classList.replace(volume.classList.item(1), "volume-off");
-            }
-        }else if (newVolume>0 && newVolume<33){
-            if (volume.classList.item(1) !== null) {
-                volume.classList.replace(volume.classList.item(1), "volume-on");
-            }
-        }else if(newVolume>33 && newVolume<66){
-            if (volume.classList.item(1) !== null) {
-                volume.classList.replace(volume.classList.item(1), "volume-moyen2");
-            }
-        }else if(newVolume>66){
-            if (volume.classList.item(1) !== null) {
-                volume.classList.replace(volume.classList.item(1), "volume-moyen3");
+
             }
         }
     }
@@ -704,15 +736,23 @@ Player.prototype.share = function () {
  */
 Player.prototype.goTo = function (newPosition) {
     if (this.sound != null) {
-        let percentile = (newPosition / this.domElement.querySelector(".waveform .sprectrumContainer").childElementCount);
-        let newTime = percentile * ( this.playlist.getCurrentMusic().duration * 1000 );
-        this.currentTime = newTime / 1000;
-        this.sound.setPosition(newTime);
-        this.clearColorWave();
-        this.colorWaveToCurrentPos();
-        if (this.sound.paused)
-            this.play_pause();
+        let players = document.querySelectorAll("article[id*=player]");
+        let currentPlayer = this.domElement.player;
+        for (var i = 0; i < players.length; i++) {
+            if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+                if (players[i].querySelector(".audioplayer").player.sound != null) {
+                    let percentile = (newPosition / players[i].querySelector(".waveform .sprectrumContainer").childElementCount);
+                    let newTime = percentile * ( players[i].querySelector(".audioplayer").player.playlist.getCurrentMusic().duration * 1000 );
+                    players[i].querySelector(".audioplayer").player.currentTime = newTime / 1000;
+                    players[i].querySelector(".audioplayer").player.sound.setPosition(newTime);
+                    players[i].querySelector(".audioplayer").player.clearColorWave();
+                    players[i].querySelector(".audioplayer").player.colorWaveToCurrentPos();
+                    if (players[i].querySelector(".audioplayer").player.sound.paused)
+                    players[i].querySelector(".audioplayer").player.play_pause();
 
+                }
+            }
+        }
     }
 };
 
@@ -723,6 +763,21 @@ Player.prototype.goTo = function (newPosition) {
  */
 Player.prototype.play_pause = function () {
     let currentMusic = this.playlist.getCurrentMusic();
+    let players = document.querySelectorAll("article[id*=player]");
+    let currentPlayer = this.domElement.player;
+    for (var i = 0; i < players.length; i++) {
+        if (players[i].querySelector(".audioplayer").player.sound.id == currentPlayer.sound.id) {
+            if (players[i].querySelector(".audioplayer") !== this.domElement) {
+                let playButton = players[i].querySelector(".audioplayer").querySelector(".play-pause");
+                let soundState = "play";
+                if (playButton.classList.item(1) == soundState) {
+                        playButton.classList.replace(playButton.classList.item(1), "pause");
+                }else {
+                    playButton.classList.replace(playButton.classList.item(1), "play");
+                }
+            }
+        }
+    }
     //CHECK if a superPlayer is on the page
     // let superPlayer = document.querySelector("div.audioplayer-mini");
     // if (typeof superPlayer !== "undefined") {
@@ -772,7 +827,19 @@ Player.prototype.play_pause = function () {
         //If a Sound is already set
         else {
             //If it loaded and played or paused
+            console.log(this.sound.playState);
             if (this.sound.playState) {
+                if (this.sound.paused) {
+                    this.sound.resume();
+                    playButton.classList.replace("play", "pause");
+
+                }//If it's played
+                else {
+                    this.sound.pause();
+                    playButton.classList.replace("pause", "play");
+                }
+            }else{
+                this.loadMusic();
                 if (this.sound.paused) {
                     this.sound.resume();
                     playButton.classList.remove("play");
@@ -786,6 +853,7 @@ Player.prototype.play_pause = function () {
                 }
             }
         }
+
         if (this.playerIsMute()) {
             this.sound.mute();
         } else {

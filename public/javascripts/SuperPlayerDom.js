@@ -184,10 +184,33 @@ function SuperPlayerDom(domElement) {
         divControls2.classList.add('controls2');
 
         var repeatButton = document.createElement('button');
-        repeatButton.classList.add('repeat');
+        repeatButton.classList.add('repeat-button');
+        repeatButton.addEventListener("click", function(e){
+            let state = "is-active";
+            if (e.currentTarget.classList.item(1) == null) {
+                e.currentTarget.classList.add(state);
+                console.log("aze");
+                if (e.currentTarget.nextSibling.classList.item(1) !== null) {
+                    e.currentTarget.nextSibling.classList.remove(state);
+                }
+            }else{
+                e.currentTarget.classList.remove(state);
+            }
+        });
         // repeatButton.style.visibility = "hidden";
         var randomButton = document.createElement('button');
-        randomButton.classList.add('random');
+        randomButton.classList.add('random-button');
+        randomButton.addEventListener("click", function(e){
+            let state = "is-active";
+            if (e.currentTarget.classList.item(1) == null) {
+                e.currentTarget.classList.add(state);
+                if (e.currentTarget.previousSibling.classList.item(1) !== null) {
+                    e.currentTarget.previousSibling.classList.remove(state);
+                }
+            }else{
+                e.currentTarget.classList.remove(state);
+            }
+        });
         // randomButton.style.visibility = "hidden";
         var spanVolume = document.createElement('span');
         spanVolume.classList.add('volume');
@@ -241,6 +264,13 @@ function SuperPlayerDom(domElement) {
         menuButton.classList.add('menu-button');
         menuButton.addEventListener("click", function (e) {
             var menuPannel = document.querySelector('.audioplayer-mini .menu-pannel');
+            let cTarget = e.currentTarget;
+            let state = 'is-active';
+            if (cTarget.classList.item(1) == null) {
+                cTarget.classList.add(state);
+            }else{
+                cTarget.classList.remove(state)
+            }
             if (menuPannel.classList.contains("menu-visible")) {
                 menuPannel.classList.remove("menu-visible");
                 menuPannel.classList.add("menu-hidden");
@@ -260,10 +290,34 @@ function SuperPlayerDom(domElement) {
         divMenuPanel.classList.add('menu-off');
 
         var repeatButton = document.createElement('button');
-        repeatButton.classList.add('repeat');
+        repeatButton.classList.add('repeat-button');
+        repeatButton.addEventListener("click", function(e){
+            let state = "is-active";
+            if (e.currentTarget.classList.item(1) == null) {
+                e.currentTarget.classList.add(state);
+                console.log("aze");
+                if (e.currentTarget.nextSibling.classList.item(1) !== null) {
+                    e.currentTarget.nextSibling.classList.remove(state);
+                }
+            }else{
+                e.currentTarget.classList.remove(state);
+            }
+        });
         // repeatButton.style.visibility = "hidden";
         var randomButton = document.createElement('button');
-        randomButton.classList.add('random');
+        randomButton.classList.add('random-button');
+        randomButton.addEventListener("click", function(e){
+            let state = "is-active";
+            if (e.currentTarget.classList.item(1) == null) {
+                e.currentTarget.classList.add(state);
+                console.log("aze");
+                if (e.currentTarget.previousSibling.classList.item(1) !== null) {
+                    e.currentTarget.previousSibling.classList.remove(state);
+                }
+            }else{
+                e.currentTarget.classList.remove(state);
+            }
+        });
         // randomButton.style.visibility = "hidden";
         var volumeButton = document.createElement('button');
         volumeButton.classList.add('volume-button');
@@ -293,6 +347,13 @@ function SuperPlayerDom(domElement) {
         playlistButton.classList.add('playlist-button');
         playlistButton.addEventListener('click', function(e){
             var playlistPannel = document.querySelector('.audioplayer-mini .playlist-pannel');
+            let cTarget = e.currentTarget;
+            let state = 'is-active';
+            if (cTarget.classList.item(1) == null) {
+                cTarget.classList.add(state);
+            }else{
+                cTarget.classList.remove(state)
+            }
 
             if (playlistPannel.classList.contains("playlist-visible")) {
                 playlistPannel.classList.remove("playlist-visible");
